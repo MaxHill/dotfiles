@@ -1,0 +1,12 @@
+windows:
+  - name: ewos-vertical
+    root: ~/code/ewosfishbookweb
+    layout: even-vertical
+    panes:
+      - commands: 
+        - kp 4200
+        - y start
+      - commands:
+          - code .
+          - clear
+        focus: true

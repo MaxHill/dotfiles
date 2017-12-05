@@ -1,0 +1,71 @@
+{
+  "workbench.colorTheme": "Material Theme",
+  "workbench.iconTheme": "file-icons",
+  // Settings
+  "editor.fontSize": 16,
+  "editor.fontFamily": "Fira code, Menlo, Monaco, 'Courier New', monospace",
+  "editor.renderWhitespace": "all",
+  "editor.rulers": [
+    80
+  ],
+  "editor.lineHeight": 33,
+  "editor.renderIndentGuides": true,
+  "files.trimTrailingWhitespace": true,
+  "window.zoomLevel": 0,
+  "workbench.activityBar.visible": false,
+  "workbench.statusBar.visible": true,
+  "editor.minimap.enabled": false,
+  "editor.renderControlCharacters": false,
+  "workbench.sideBar.location": "right",
+  "workbench.editor.showTabs": false,
+  "editor.fontLigatures": true,
+  "editor.tabCompletion": true,
+  // Vim
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "j",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    }
+  ],
+  "vim.otherModesKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<leader>",
+        "d"
+      ],
+      "after": [
+        "d",
+        "d"
+      ]
+    }
+  ],
+  "vim.leader": ",",
+  "vim.disableAnnoyingNeovimMessage": true,
+  // Lint
+  "editor.formatOnSave": true,
+  "eslint.autoFixOnSave": true,
+  "tslint.autoFixOnSave": true,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "es5",
+  "html.format.wrapAttributes": "force",
+  "eslint.options": {
+    "extensions": [
+      ".js",
+      ".vue"
+    ]
+  },
+  "materialTheme.cache.workbench.settings": {
+    "themeColours": "Palenight"
+  },
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.panel.location": "right"
+}

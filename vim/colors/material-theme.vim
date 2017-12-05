@@ -1,0 +1,1 @@
+../bundle/vim-material-theme/colors/material-theme.vim

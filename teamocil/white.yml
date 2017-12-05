@@ -1,0 +1,9 @@
+windows:
+  - name: white-vertical
+    root: ~/code/white
+    layout: even-vertical
+    panes:
+      - y start
+      - commands:
+          - clear
+        focus: true

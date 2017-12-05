@@ -1,0 +1,12 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+#	name = Max Hill
+#	email = max.hill@hiq.se
+[user]
+	name = Max Hill
+	email = max.hill@hiq.se
+[core]
+	editor = /usr/bin/vim
+[push]
+	default = current
