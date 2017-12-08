@@ -9,7 +9,7 @@ ln -s ${BASEDIR}/vim/ ~/.vim
 
 # zsh
 ln -s ${BASEDIR}/zshrc ~/.zshrc
-ln -s ${BASEDIR}/aliases.sh ~/aliases.sh
+ln -s ${BASEDIR}/aliases.sh ~/.aliases.sh
 
 # git
 ln -s ${BASEDIR}/gitconfig ~/.gitconfig
