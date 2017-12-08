@@ -67,5 +67,5 @@
     "themeColours": "Palenight"
   },
   "workbench.startupEditor": "newUntitledFile",
-  "workbench.panel.location": "right"
+  "workbench.panel.location": "bottom"
 }
