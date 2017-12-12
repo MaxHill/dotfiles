@@ -1,0 +1,9 @@
+windows:
+  - name: wedding 
+    root: ~/code/wedding
+    layout: even-horizontal 
+    panes:
+      - y start
+      - commands:
+          - kp 8080 && clear
+        focus: true

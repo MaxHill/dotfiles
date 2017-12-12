@@ -8,7 +8,10 @@ else
 endif
 
 Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic' " Old
+Plugin 'vim-syntastic/syntastic'
+Plugin 'mtscout6/syntastic-local-eslint.vim'
+Plugin 'sekel/vim-vue-syntastic'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -39,7 +42,7 @@ filetype off      " required
 filetype plugin on
 syntax on
 set background=dark
-colorscheme wildcherry
+colorscheme material-theme
 
 "-----------------------------VIM SETTINGS-----------------------------"
 let mapleader=","                       " Set , as the leader key
@@ -151,11 +154,20 @@ let g:airline#extensions#tabline#enabled = 0
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_loc_list_height = 5
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-
+let g:syntastic_check_on_wq = 1
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_error_symbol = '❌'
+let g:syntastic_style_error_symbol = '⁉️'
+let g:syntastic_warning_symbol = '⚠️'
+let g:syntastic_style_warning_symbol = '💩'
+highlight link SyntasticErrorSign SignColumn
+highlight link SyntasticWarningSign SignColumn
+highlight link SyntasticStyleErrorSign SignColumn
+highlight link SyntasticStyleWarningSign SignColumn
 
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ," attribute name ", "trimming empty \<", "inserting implicit ", "unescaped \&" , "lacks \"action", "lacks value", "lacks \"src", "is not recognized!", "discarding unexpected", "replacing obsolete "]
 
@@ -163,6 +175,17 @@ let g:syntastic_sass_checkers=["sasslint"]
 let g:syntastic_scss_checkers=["sasslint"]
 
 let g:syntastic_typescript_checkers=["tslint"]
+
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_vue_checkers = ['eslint']
+let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
+if matchstr(local_eslint, "^\/\\w") == ''
+    let local_eslint = getcwd() . "/" . local_eslint
+endif
+if executable(local_eslint)
+    let g:syntastic_javascript_eslint_exec = local_eslint
+    let g:syntastic_vue_eslint_exec = local_eslint
+  endif
 
 " Typescript
 autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
