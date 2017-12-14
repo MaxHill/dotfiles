@@ -51,7 +51,8 @@ alias lsl="ls -l"
 alias lsal="ls -al"
 
 # Safety
-# alias rm="trash" # http://hasseg.org/trash/
+alias rm="trash" # http://hasseg.org/trash/
+alias !rm="rm"
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #  Functions
