@@ -114,6 +114,9 @@ augroup autosourcing
     autocmd BufWritePost .vimrc source %
 augroup END
 
+" Autowrap git commit messages
+au FileType gitcommit set tw=62
+
 " Fix syntax not being set 
 autocmd BufNewFile,BufRead *.vue set ft=vue
 autocmd BufNewFile,BufRead *.scss set ft=scss

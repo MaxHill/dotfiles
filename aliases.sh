@@ -6,7 +6,8 @@
 alias g='git'
 alias ga='git add'
 alias gai='git add -p' # Interactive chunked add
-alias gaa='git add --all'
+#alias gaa='git add --all'
+alias gaa='gai'
 alias gc='git commit -m'
 alias Gc='git commit'
 alias gac='gaa && gc'
