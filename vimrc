@@ -83,6 +83,7 @@ set colorcolumn=80
   " highlight cursorline ctermbg=283 guibg=#283952
 " set list                                " Show whitespace characters
 " set listchars=tab:▸\ ,eol:¬
+
 "-----------------------------MAPPINGS-----------------------------"
 "Add simple highlight removal. [,space]
 nmap <Leader><space> :nohlsearch<cr>
