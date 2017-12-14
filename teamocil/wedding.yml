@@ -1,8 +1,9 @@
 windows:
   - name: wedding 
     root: ~/code/wedding
-    layout: even-horizontal 
+    layout: main-horizontal
     panes:
+      - y test:watch
       - y start
       - commands:
           - kp 8080 && clear
