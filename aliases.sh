@@ -11,9 +11,11 @@ alias gaa='gai'
 alias gc='git commit -m'
 alias Gc='git commit'
 alias gac='gaa && gc'
-alias gp='git push'
+alias gpu='git pull --rebase && git push'
+alias gp='gpr'
 alias gpr='git pull --rebase'
 alias gcm='git checkout master'
+alias gcd='git checkout develop'
 alias gco='git checkout'
 alias gm='git merge'
 alias glg='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
@@ -22,6 +24,7 @@ alias gst='git status'
 alias gas='functionApplyStashByName'
 alias gf='git flow'
 alias gff='git flow feature'
+alias gfff='git flow feature finish -r --no-ff'
 alias gfh='git flow hotfix'
 alias gfr='git flow release'
 alias nah='git reset HEAD --hard && git clean -df'
@@ -50,9 +53,11 @@ alias kp='functionKillPort'
 alias lsl="ls -l"
 alias lsal="ls -al"
 
-# Safety
+# Overrides 
 alias rm="trash" # http://hasseg.org/trash/
 alias !rm="rm"
+alias mkdir="mkdir -p"
+alias !mkdir="mkdir -p"
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #  Functions

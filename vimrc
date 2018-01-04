@@ -4,7 +4,7 @@ if has("win32")
     call vundle#begin('%USERPROFILE%/vimfiles/bundle')
 else
     set rtp+=~/.vim/bundle/Vundle.vim
-    call vundle#begin()
+    call vundle#begin() 
 endif
 
 Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
@@ -42,7 +42,6 @@ filetype off      " required
 filetype plugin on
 syntax on
 set background=dark
-colorscheme material-theme
 
 "-----------------------------VIM SETTINGS-----------------------------"
 let mapleader=","                       " Set , as the leader key
@@ -77,21 +76,15 @@ set mouse=a
 set laststatus=2
 set cursorline
 set colorcolumn=80
-" highlight ColorColumn ctermbg=0 guibg=darkgray
-" Cobalt 2
-  " highlight ColorColumn ctermbg=283 guibg=#283952
-  " highlight cursorline ctermbg=283 guibg=#283952
-" set list                                " Show whitespace characters
-" set listchars=tab:▸\ ,eol:¬
+set complete+=kspell                    " Autocomplete with dictionary words when spell check is on
+set list listchars=tab:»·,trail:·,nbsp:·
 
 "-----------------------------MAPPINGS-----------------------------"
-"Add simple highlight removal. [,space]
+" Add simple highlight removal. [,space]
 nmap <Leader><space> :nohlsearch<cr>
-"Sort selected alphabeticaly
+" Sort selected alphabeticaly
 noremap <Leader>s :sort<cr>
-"map <D-§> :NERDTreeToggle<CR> "Does not work unfortunatly
 map <C-n> :NERDTreeToggle<CR>
-"nnoremap <C-§> :NERDTreeToggle<CR>
 map <D-r> :CtrlPBufTag<CR>
 nmap <D-p> :CtrlP<cr>
 map ,ev :tabedit ~/.vimrc
@@ -115,21 +108,19 @@ augroup autosourcing
     autocmd BufWritePost .vimrc source %
 augroup END
 
-" Autowrap git commit messages
+" Spellcheck based on file
+au BufNewFile,BufRead gitcommit set spell
+au BufNewFile,BufRead COMMIT_EDITMSG set spell
+au BufNewFile,BufRead *.md set spell
+
+" Auto wrap text
 au FileType gitcommit set tw=62
+au BufRead,BufNewFile gitcommit setlocal textwidth=62
+au BufRead,BufNewFile *.md setlocal textwidth=80
 
 " Fix syntax not being set 
 autocmd BufNewFile,BufRead *.vue set ft=vue
 autocmd BufNewFile,BufRead *.scss set ft=scss
-
-function! IPhpInsertUse()
-    call PhpInsertUse()
-    call feedkeys('a',  'n')
-endfunction
-
-autocmd FileType php inoremap <Leader>n <Esc>:call IPhpInsertUse()<CR>
-autocmd FileType php noremap <Leader>n :call PhpInsertUse()<CR>
-
 
 "-----------------------------Commands-----------------------------"
 command! -nargs=1 Gv execute "!npm run generate:view" string(<q-args>)
@@ -146,8 +137,7 @@ set wildignore+=*/tmp/*,*/node_modules/*,*/cache/*,*.so,*.swp,*.zip
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore = ['tmp', '.yardoc', 'pkg']
 let g:NERDTreeWinPos = "right"
-" Don't use fancy arrows (for bash on windows)
-" let g:NERDTreeDirArrows=0
+" let g:NERDTreeDirArrows=0 " Don't use fancy arrows (for bash on windows)
 
 " Airline
 let g:airline_theme='sol'
@@ -213,4 +203,5 @@ let g:ycm_filetype_blacklist = { 'html': 1, 'css': 1 }
 if has("gui_macvim")
     macmenu &File.Print key=<nop>
     " set transparency=5
+    colorscheme material-theme
 endif
