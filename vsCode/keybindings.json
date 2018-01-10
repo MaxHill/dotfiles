@@ -5,22 +5,22 @@
     "command": "workbench.action.toggleSidebarVisibility"
   },
   {
-    "key": "a",
+    "key": "ctrl+a",
     "command": "explorer.newFile",
     "when": "explorerViewletFocus"
   },
   {
-    "key": "d",
+    "key": "ctrl+d",
     "command": "deleteFile",
     "when": "explorerViewletFocus"
   },
   {
-    "key": "c",
+    "key": "ctrl+c",
     "command": "filesExplorer.copy",
     "when": "explorerViewletFocus"
   },
   {
-    "key": "p",
+    "key": "ctrl+p",
     "command": "filesExplorer.paste",
     "when": "explorerViewletFocus"
   },

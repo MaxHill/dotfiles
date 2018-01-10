@@ -20,7 +20,7 @@ Plugin 'mattn/emmet-vim'
 Plugin 'StanAngeloff/php.vim'
 Plugin 'posva/vim-vue'
 Plugin 'jdkanani/vim-material-theme'
-Plugin 'Townk/vim-autoclose'
+Plugin 'jiangmiao/auto-pairs'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'digitaltoad/vim-pug'
@@ -32,6 +32,7 @@ Plugin 'dkprice/vim-easygrep'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'prettier/vim-prettier'
 Plugin 'mileszs/ack.vim'
+
 
 call vundle#end() " All of your Plugins must be added before the following line
 filetype plugin indent on    " Required by vundle
@@ -75,9 +76,13 @@ set autowrite                           " Save on buffer switch
 set mouse=a
 set laststatus=2
 set cursorline
-set colorcolumn=80
+set colorcolumn=81                      " Highlight to column to see 80 char mark
 set complete+=kspell                    " Autocomplete with dictionary words when spell check is on
 set list listchars=tab:»·,trail:·,nbsp:·
+set timeoutlen=1000 ttimeoutlen=0       " Remove timout for escape
+
+" let &colorcolumn=join(range(81,999),",")      " Highlight everything after 80 chars
+highlight ColorColumn ctermbg=246 guibg=#2c2d27 " Set the color of the 80 char mark
 
 "-----------------------------MAPPINGS-----------------------------"
 " Add simple highlight removal. [,space]
@@ -187,9 +192,6 @@ autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
 " Emmet
 let g:user_emmet_expandabbr_key='<Tab>'
 imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
-
-" Autoclose
-let g:AutoClosePumvisible = {"ENTER": "", "ESC": ""}
 
 " Prettier
 " none|es5|all
