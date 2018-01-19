@@ -32,6 +32,7 @@ Plugin 'dkprice/vim-easygrep'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'prettier/vim-prettier'
 Plugin 'mileszs/ack.vim'
+Plugin 'pangloss/vim-javascript'
 
 
 call vundle#end() " All of your Plugins must be added before the following line
@@ -79,7 +80,6 @@ set cursorline
 set colorcolumn=81                      " Highlight to column to see 80 char mark
 set complete+=kspell                    " Autocomplete with dictionary words when spell check is on
 set list listchars=tab:»·,trail:·,nbsp:·
-set timeoutlen=1000 ttimeoutlen=0       " Remove timout for escape
 
 " let &colorcolumn=join(range(81,999),",")      " Highlight everything after 80 chars
 highlight ColorColumn ctermbg=246 guibg=#2c2d27 " Set the color of the 80 char mark

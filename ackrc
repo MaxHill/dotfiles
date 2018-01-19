@@ -84,6 +84,7 @@
 
 # Node modules created by npm
 --ignore-directory=is:node_modules
+--ignore-directory=is:.cache
 
 # CMake cache
 # http://www.cmake.org/

@@ -7,7 +7,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="wild-cherry"
+ZSH_THEME="" # Using pure theme look for "# Pure theme" further down in the file
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -55,6 +55,10 @@ plugins=(git)
 plugins=(min)
 
 source $ZSH/oh-my-zsh.sh
+
+# Pure theme
+autoload -U promptinit; promptinit
+prompt pure
 
 # User configuration
 
