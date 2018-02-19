@@ -4,7 +4,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'vim-syntastic/syntastic'
 Plug 'mtscout6/syntastic-local-eslint.vim'
 Plug 'sekel/vim-vue-syntastic'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -25,7 +25,10 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'prettier/vim-prettier'
 Plug 'mileszs/ack.vim'
 Plug 'pangloss/vim-javascript'
-
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'Shougo/vimproc.vim', { 'do': 'make -f make_mac.mak' }
+Plug 'neomake/neomake'
 
 call plug#end() " All of your Plugins must be added before the following line
 filetype plugin indent on    " Required by vundle
@@ -89,7 +92,7 @@ nmap <Leader><space> :nohlsearch<cr>
 noremap <Leader>s :sort<cr>
 map <C-n> :NERDTreeToggle<CR>
 map <D-r> :CtrlPBufTag<CR>
-nmap <D-p> :CtrlP<cr>
+nmap <C-p> :CtrlPMRU<cr>
 map ,ev :tabedit ~/.config/nvim/init.vim
 map ,t :T
 
@@ -102,6 +105,12 @@ inoremap <up>    <nop>
 inoremap <down>  <nop>
 inoremap <left>  <nop>
 inoremap <right> <nop>
+
+" Navigate splits with ctrl + hjkl
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
 
 nnoremap <silent> <C-S> :<C-u>Update<CR>
 "-------------Auto-Commands--------------"
@@ -146,6 +155,29 @@ let g:NERDTreeWinPos = "right"
 let g:airline_theme='sol'
 let g:airline#extensions#tabline#enabled = 0
 
+" Neomake
+" When writing a buffer.
+call neomake#configure#automake('w')
+" When writing a buffer, and on normal mode changes (after 750ms).
+call neomake#configure#automake('nw', 0)
+" When reading a buffer (after 1s), and when writing.
+call neomake#configure#automake('rw', 0)
+
+" Shows warning and error counts in vim-airline
+let g:airline#extensions#neomake#enabled = 1
+
+" Preseve cursor position when quickfix window is open
+let g:neomake_open_list = 2
+let g:neomake_typescript_enabled_makers = ['tslint']
+" Css Linting
+let g:neomake_css_enabled_makers = ['sass-lint']
+let g:neomake_sass_enabled_makers = ['sass-lint']
+let g:neomake_scss_enabled_makers = ['sass-lint']
+" HTML Linting
+let g:neomake_html_enabled_makers = ['htmlhint']
+
+" Lint as you type
+autocmd InsertChange,TextChanged * update | Neomake
 
 " Syntastic
 set statusline+=%#warningmsg#
@@ -166,12 +198,14 @@ highlight link SyntasticWarningSign SpellBad
 highlight link SyntasticStyleErrorSign SpellCap
 highlight link SyntasticStyleWarningSign SepllCap
 
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ," attribute name ", "trimming empty \<", "inserting implicit ", "unescaped \&" , "lacks \"action", "lacks value", "lacks \"src", "is not recognized!", "discarding unexpected", "replacing obsolete "]
+let g:syntastic_html_tidy_ignore_errors=["plain text isn't allowed in <head> elements"," proprietary attribute " ," attribute name ", "trimming empty \<", "inserting implicit ", "unescaped \&" , "lacks \"action", "lacks value", "lacks \"src", "is not recognized!", "discarding unexpected", "replacing obsolete "]
 
 let g:syntastic_sass_checkers=["sasslint"]
 let g:syntastic_scss_checkers=["sasslint"]
 
-let g:syntastic_typescript_checkers=["tslint"]
+let g:tsuquyomi_disable_quickfix = 1
+" let g:syntastic_typescript_checkers=["tslint"]
+let g:syntastic_typescript_checkers=[""]
 
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_vue_checkers = ['eslint']

@@ -33,5 +33,13 @@
     "key": "enter",
     "command": "-renameFile",
     "when": "explorerViewletVisible && filesExplorerFocus"
-  }
+  },
+  {
+    "key": "ctrl+p",
+    "command": "workbench.action.quickOpen"
+  },
+  {
+    "key": "shift+ctrl+p",
+    "command": "workbench.action.showCommands"
+  },
 ]
