@@ -20,7 +20,6 @@ Plug 'tpope/vim-surround'
 Plug 'wincent/terminus'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'gcorne/vim-sass-lint'
-Plug 'dkprice/vim-easygrep'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'prettier/vim-prettier'
 Plug 'mileszs/ack.vim'
@@ -92,7 +91,7 @@ nmap <Leader><space> :nohlsearch<cr>
 noremap <Leader>s :sort<cr>
 map <C-n> :NERDTreeToggle<CR>
 map <D-r> :CtrlPBufTag<CR>
-nmap <C-p> :CtrlPMRU<cr>
+nmap <C-p> :CtrlPMRUFiles<cr>
 map ,ev :tabedit ~/.config/nvim/init.vim
 map ,t :T
 
@@ -144,6 +143,7 @@ command! T execute "!npm --no-color run unit"
 "-----------------------------PLUGIN SETTINGS-----------------------------"
 " CTRLP
 set wildignore+=*/tmp/*,*/node_modules/*,*/cache/*,*.so,*.swp,*.zip
+let g:ctrlp_cmd = 'CtrlPMRU'
 
 " NERDTree
 let NERDTreeHighlightCursorline=1
