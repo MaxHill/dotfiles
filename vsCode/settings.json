@@ -10,6 +10,7 @@
   ],
   "editor.lineHeight": 33,
   "editor.renderIndentGuides": true,
+  "window.restoreWindows": "none",
   "files.trimTrailingWhitespace": true,
   "window.zoomLevel": 0,
   "workbench.activityBar.visible": false,

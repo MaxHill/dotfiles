@@ -117,3 +117,9 @@ export PATH="$PATH:$HOME/.rvm/bin:$HOME/.composer/vendor/bin"
 
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+###-tns-completion-start-###
+if [ -f /Users/max/.tnsrc ]; then 
+    source /Users/max/.tnsrc 
+fi
+###-tns-completion-end-###
