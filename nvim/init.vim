@@ -22,12 +22,13 @@ Plug 'pangloss/vim-javascript'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Quramy/tsuquyomi'
 Plug 'Shougo/vimproc.vim', { 'do': 'make -f make_mac.mak' }
-Plug 'neomake/neomake'
 Plug 'Quramy/vim-js-pretty-template'
 Plug 'rainglow/vim'
 Plug 'octref/RootIgnore'
 Plug 'jdkanani/vim-material-theme'
 Plug 'jackiehluo/vim-material'
+Plug 'mxw/vim-jsx'
+Plug 'w0rp/ale'
 
 call plug#end() " All of your Plugins must be added before the following line
 filetype plugin indent on    " Required by vundle
@@ -167,29 +168,12 @@ let NERDTreeRespectWildIgnore=1
 let g:airline_theme='sol'
 let g:airline#extensions#tabline#enabled = 0
 
-" Neomake
-" When writing a buffer.
-call neomake#configure#automake('w')
-" When writing a buffer, and on normal mode changes (after 750ms).
-call neomake#configure#automake('nw', 0)
-" When reading a buffer (after 1s), and when writing.
-call neomake#configure#automake('rw', 0)
-
-" Shows warning and error counts in vim-airline
-let g:airline#extensions#neomake#enabled = 1
-
-" Preseve cursor position when quickfix window is open
-let g:neomake_open_list = 2
-let g:neomake_typescript_enabled_makers = ['tslint']
-" Css Linting
-let g:neomake_css_enabled_makers = ['sass-lint']
-let g:neomake_sass_enabled_makers = ['sass-lint']
-let g:neomake_scss_enabled_makers = ['sass-lint']
-" HTML Linting
-let g:neomake_html_enabled_makers = ['htmlhint']
-
-" Lint as you type
-autocmd InsertChange,TextChanged * update | Neomake
+" Ale
+let g:ale_sign_column_always = 0
+let g:ale_sign_error = '●' " Less aggressive than the default '>>'
+let g:ale_sign_warning = '.'
+let g:ale_lint_on_enter = 1 " Run ale when opening file 
+let g:airline#extensions#ale#enabled = 1 " Show errors in statusbar
 
 " Typescript
 autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
@@ -200,9 +184,18 @@ let g:tsuquyomi_single_quote_import=1
 " Emmet
 let g:user_emmet_expandabbr_key='<Tab>'
 imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+"let g:user_emmet_leader_key='<Tab>'
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
 
 " Youcompleteme
 let g:ycm_filetype_blacklist = { 'html': 1, 'css': 1 }
+
+" Vim-javascript
+let g:javascript_plugin_jsdoc = 1
 
 " Vim-js-pretty-template
 autocmd FileType typescript JsPreTmpl html
