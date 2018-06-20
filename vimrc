@@ -1,41 +1,53 @@
-"-----------------------------PLUGINS-----------------------------"
-if has("win32")
-    set rtp+=%HOME%/vimfiles/bundle/Vundle.vim
-    call vundle#begin('%USERPROFILE%/vimfiles/bundle')
-else
-    set rtp+=~/.vim/bundle/Vundle.vim
-    call vundle#begin() 
+kk"-----------------------------PLUGINS-----------------------------"
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
-" Plugin 'scrooloose/syntastic' " Old
-Plugin 'vim-syntastic/syntastic'
-Plugin 'mtscout6/syntastic-local-eslint.vim'
-Plugin 'sekel/vim-vue-syntastic'
-Plugin 'kien/ctrlp.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'scrooloose/nerdtree'
-Plugin 'mattn/emmet-vim'
-Plugin 'StanAngeloff/php.vim'
-Plugin 'posva/vim-vue'
-Plugin 'jdkanani/vim-material-theme'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'digitaltoad/vim-pug'
-Plugin 'tpope/vim-surround'
-Plugin 'wincent/terminus'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'gcorne/vim-sass-lint'
-Plugin 'dkprice/vim-easygrep'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'prettier/vim-prettier'
-Plugin 'mileszs/ack.vim'
-Plugin 'pangloss/vim-javascript'
+call plug#begin('~/.vim/plugged')
 
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'wincent/terminus'
+Plug 'christoomey/vim-tmux-navigator'
 
-call vundle#end() " All of your Plugins must be added before the following line
+" Colors
+" Plug 'vim-airline/vim-airline-themes'
+" Plug 'sonph/onehalf', {'rtp': 'vim/'}
+" Plug 'altercation/vim-colors-solarized'
+Plug 'dracula/vim', { 'as': 'dracula' }
+
+" Global editing
+Plug 'mattn/emmet-vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-surround'
+Plug 'editorconfig/editorconfig-vim'
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --js-completer' }
+Plug 'mileszs/ack.vim'
+Plug 'octref/RootIgnore'
+Plug 'w0rp/ale'
+
+" Typescript
+Plug 'leafgarland/typescript-vim'
+" Plug 'Quramy/tsuquyomi'
+
+" Javascript
+Plug 'pangloss/vim-javascript'
+Plug 'Quramy/vim-js-pretty-template'
+Plug 'mxw/vim-jsx'
+Plug 'heavenshell/vim-jsdoc'
+Plug 'othree/jsdoc-syntax.vim'
+
+" Vue
+Plug 'posva/vim-vue'
+
+" Css
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'gcorne/vim-sass-lint'
+
+call plug#end() " All of your Plugins must be added before the following line
 filetype plugin indent on    " Required by vundle
 
 "-----------------------------GENERAL SETTINGS-----------------------------"
@@ -43,11 +55,16 @@ set nocompatible   " Disable vi-compatibility
 filetype off      " required
 filetype plugin on
 syntax on
+"set t_Co=256
 set background=dark
+
+let g:dracula_italic = 0
+colorscheme dracula
+highlight Normal ctermbg=None
+let g:airline_theme='dracula'
 
 "-----------------------------VIM SETTINGS-----------------------------"
 let mapleader=","                       " Set , as the leader key
-autocmd BufWritePre *.php :%s/\s\+$//e  " Auto-remove trailing spaces
 set hlsearch
 set incsearch
 set guifont=Fira\ Code:h15
@@ -80,8 +97,10 @@ set cursorline
 set colorcolumn=81                      " Highlight to column to see 80 char mark
 set complete+=kspell                    " Autocomplete with dictionary words when spell check is on
 set list listchars=tab:»·,trail:·,nbsp:·
+set directory=$HOME/.vim/swapfiles//    " Keep swap files out of current directory
 
 " let &colorcolumn=join(range(81,999),",")      " Highlight everything after 80 chars
+" let &colorcolumn=join(range(81,81),",")      " Highlight the 80 chars mark
 highlight ColorColumn ctermbg=246 guibg=#2c2d27 " Set the color of the 80 char mark
 
 "-----------------------------MAPPINGS-----------------------------"
@@ -104,6 +123,12 @@ inoremap <up>    <nop>
 inoremap <down>  <nop>
 inoremap <left>  <nop>
 inoremap <right> <nop>
+
+" Navigate splits with ctrl + hjkl
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
 
 nnoremap <silent> <C-S> :<C-u>Update<CR>
 "-------------Auto-Commands--------------"
@@ -137,73 +162,76 @@ command! T execute "!npm --no-color run unit"
 "-----------------------------PLUGIN SETTINGS-----------------------------"
 " CTRLP
 set wildignore+=*/tmp/*,*/node_modules/*,*/cache/*,*.so,*.swp,*.zip
+let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_mruf_relative = 1
+let g:ctrlp_show_hidden = 1
+
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 " NERDTree
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore = ['tmp', '.yardoc', 'pkg']
 let g:NERDTreeWinPos = "right"
-" let g:NERDTreeDirArrows=0 " Don't use fancy arrows (for bash on windows)
+let NERDTreeQuitOnOpen = 1
+let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let NERDTreeRespectWildIgnore=1
+let NERDTreeShowHidden=1
 
 " Airline
-let g:airline_theme='sol'
 let g:airline#extensions#tabline#enabled = 0
 
 
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_loc_list_height = 5
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_error_symbol = '❌'
-let g:syntastic_style_error_symbol = '⁉️'
-let g:syntastic_warning_symbol = '⚠️'
-let g:syntastic_style_warning_symbol = '💩'
-highlight link SyntasticErrorSign SignColumn
-highlight link SyntasticWarningSign SignColumn
-highlight link SyntasticStyleErrorSign SignColumn
-highlight link SyntasticStyleWarningSign SignColumn
+" Ale
+let g:ale_sign_column_always = 0
+let g:ale_sign_error = '●' " Less aggressive than the default '>>'
+let g:ale_sign_warning = '▲'
+let g:ale_lint_on_enter = 1 " Run ale when opening file 
+let g:airline#extensions#ale#enabled = 1 " Show errors in statusbar
 
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ," attribute name ", "trimming empty \<", "inserting implicit ", "unescaped \&" , "lacks \"action", "lacks value", "lacks \"src", "is not recognized!", "discarding unexpected", "replacing obsolete "]
-
-let g:syntastic_sass_checkers=["sasslint"]
-let g:syntastic_scss_checkers=["sasslint"]
-
-let g:syntastic_typescript_checkers=["tslint"]
-
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_vue_checkers = ['eslint']
-let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
-if matchstr(local_eslint, "^\/\\w") == ''
-    let local_eslint = getcwd() . "/" . local_eslint
-endif
-if executable(local_eslint)
-    let g:syntastic_javascript_eslint_exec = local_eslint
-    let g:syntastic_vue_eslint_exec = local_eslint
-  endif
+call ale#linter#Define('sass', {
+\   'name': 'sasslint',
+\   'executable': 'sass-lint',
+\   'command': 'sass-lint -v -q -f compact %t',
+\   'callback': 'ale#handlers#css#HandleCSSLintFormat',
+\})
 
 " Typescript
 autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
 
+" Tsuquyomi
+let g:tsuquyomi_single_quote_import=1
+
 " Emmet
 let g:user_emmet_expandabbr_key='<Tab>'
 imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+"let g:user_emmet_leader_key='<Tab>'
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
 
-" Prettier
-" none|es5|all
-let g:prettier#config#trailing_comma = 'es5'
-" print spaces between brackets
-let g:prettier#config#bracket_spacing = 'true' 
 
 " Youcompleteme
 let g:ycm_filetype_blacklist = { 'html': 1, 'css': 1 }
 
+" Vim-javascript
+let g:javascript_plugin_jsdoc = 1
+
+" Vim-js-pretty-template
+autocmd FileType typescript JsPreTmpl html
+autocmd FileType typescript syn clear foldBraces
+
 if has("gui_macvim")
-    macmenu &File.Print key=<nop>
-    " set transparency=5
-    colorscheme material-theme
+  macmenu &File.Print key=<nop>
+  " set transparency=5
 endif

@@ -53,6 +53,7 @@ ZSH_THEME="" # Using pure theme look for "# Pure theme" further down in the file
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 plugins=(min)
+plugins=(zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -78,6 +79,8 @@ fi
 # if [[ ! $TERM =~ screen ]]; then
 #   exec tmux
 # fi
+# Set tmux screen
+export TERM="xterm-256color"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -98,28 +101,12 @@ source ~/.aliases.sh
 # FUN
 # cowsay $(curl -s 'http://api.icndb.com/jokes/random' | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["value"]["joke"]')
 
-# PushBullet
-export PB_ACCESS_TOKEN=o.DnH8hxzItdLGHJ2IOVqLcGrZRpd4T5DE
-
-# ASP.NET
-export ASPNETCORE_ENVIRONMENT=Development
-
 # NVM & Node
 # Run following to install nvm (mac)
 #$ brew update && brew upgrade
 #$ brew install nvm
 export NVM_DIR=~/.nvm
-export DO_KEY=13c0e941141c2b49be17d9d31abaefb1f608d579e1ac3bd865922458324ab869
 source $(brew --prefix nvm)/nvm.sh
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin:$HOME/.composer/vendor/bin"
-
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-###-tns-completion-start-###
-if [ -f /Users/max/.tnsrc ]; then 
-    source /Users/max/.tnsrc 
-fi
-###-tns-completion-end-###
+# JAVA
+export JAVA_HOME=`/usr/libexec/java_home`

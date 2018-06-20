@@ -1,14 +1,14 @@
 {
-  "workbench.colorTheme": "Material Theme",
+  "workbench.colorTheme": "Dracula",
   "workbench.iconTheme": "file-icons",
   // Settings
-  "editor.fontSize": 16,
+  "editor.fontSize": 14,
   "editor.fontFamily": "Fira code, Menlo, Monaco, 'Courier New', monospace",
   "editor.renderWhitespace": "all",
   "editor.rulers": [
     80
   ],
-  "editor.lineHeight": 33,
+  "editor.lineHeight": 28,
   "editor.renderIndentGuides": true,
   "window.restoreWindows": "none",
   "files.trimTrailingWhitespace": true,
@@ -50,23 +50,27 @@
     }
   ],
   "vim.leader": ",",
-  "vim.disableAnnoyingNeovimMessage": true,
   // Lint
-  "editor.formatOnSave": true,
+  "eslint.validate": [
+    {
+      "language": "vue",
+      "autoFix": true
+    },
+    {
+      "language": "javascript",
+      "autoFix": true
+    },
+    {
+      "language": "javascriptreact",
+      "autoFix": true
+    },
+  ],
   "eslint.autoFixOnSave": true,
+  "editor.formatOnSave": true,
   "tslint.autoFixOnSave": true,
-  "prettier.singleQuote": true,
-  "prettier.trailingComma": "es5",
   "html.format.wrapAttributes": "force",
-  "eslint.options": {
-    "extensions": [
-      ".js",
-      ".vue"
-    ]
-  },
-  "materialTheme.cache.workbench.settings": {
-    "themeColours": "Palenight"
-  },
+  "sasslint.enable": true,
+  "sasslint.run": "onType",
+  "sasslint.packageManager": "yarn",
   "workbench.startupEditor": "newUntitledFile",
-  "workbench.panel.location": "bottom"
 }

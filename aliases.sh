@@ -11,7 +11,7 @@ alias gaa='gai'
 alias gc='git commit -m'
 alias Gc='git commit'
 alias gac='gaa && gc'
-alias gpu='git pull --rebase && git push'
+alias gpu='git push'
 alias gp='gpr'
 alias gpr='git pull --rebase'
 alias gcm='git checkout master'
@@ -45,9 +45,12 @@ alias candidates="echo 'ssh root@138.68.167.113' && ssh root@138.68.167.113"
 # Helpers
 alias aliases='vim ~/.aliases.sh'
 alias dotfiles='cd ~/dotfiles'
+alias code='cd ~/code'
+alias vscode='functionVsCode'
 alias zSource='source ~/.zshrc && echo "ZSH updated!"'
 alias hosts='sudo vim /etc/hosts'
 alias kp='functionKillPort'
+alias firefox='/Applications/Firefox\ Developer\ Edition.app/Contents/MacOS/firefox --start-debugger-server'
 
 # Navigate
 alias lsl="ls -l"
@@ -103,6 +106,15 @@ function functionKillPort() {
   kill $(lsof -t -i:$1)
 }
 
+function functionVsCode () {
+    if [[ $# = 0 ]]
+    then
+        open -a "Visual Studio Code"
+    else
+        [[ $1 = /* ]] && F="$1" || F="$PWD/${1#./}"
+        open -a "Visual Studio Code" --args "$F"
+    fi
+}
 
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

@@ -6,9 +6,7 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ln -s ${BASEDIR}/vimrc ~/.vimrc
 ln -s ${BASEDIR}/gvimrc ~/.gvimrc
 ln -s ${BASEDIR}/vim/ ~/.vim
-
-# Neovim
-ln -s ${BASEDIR}/nvim ~/.config/nvim
+mkdir ~/.vim/swapfiles
 
 # Zsh
 ln -s ${BASEDIR}/zshrc ~/.zshrc
@@ -19,7 +17,7 @@ ln -s ${BASEDIR}/gitconfig ~/.gitconfig
 
 # Tmux
 ln -s ${BASEDIR}/tmux.conf ~/.tmux.conf
-ln -s ${BASEDIR}/teamocil/ ~/.teamocil
+# ln -s ${BASEDIR}/teamocil/ ~/.teamocil
 
 # VsCode
 ln -s ${BASEDIR}/vsCode/settings.json ~/Library/Application\ Support/Code/User/settings.json
