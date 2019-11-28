@@ -9,6 +9,9 @@ export ZSH=$HOME/.oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="" # Using pure theme look for "# Pure theme" further down in the file
 
+# Start tmux if installed
+ZSH_TMUX_AUTOSTART=true
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -51,9 +54,7 @@ ZSH_THEME="" # Using pure theme look for "# Pure theme" further down in the file
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-plugins=(min)
-plugins=(zsh-syntax-highlighting)
+plugins=(git min tmux zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -75,10 +76,6 @@ else
   export EDITOR='mvim'
 fi
 
-# Start tmux if installed
-# if [[ ! $TERM =~ screen ]]; then
-#   exec tmux
-# fi
 # Set tmux screen
 export TERM="xterm-256color"
 
@@ -93,6 +90,8 @@ export TERM="xterm-256color"
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
+#
+
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -110,3 +109,23 @@ source $(brew --prefix nvm)/nvm.sh
 
 # JAVA
 export JAVA_HOME=`/usr/libexec/java_home`
+
+# Dotnet
+export DOTNET_HOME="/usr/local/share/dotnet/dotnet"
+export PATH="$DOTNET_HOME/bin:$PATH"
+
+# Pyenv
+eval "$(pyenv init -)"
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/maxhi/.nvm/versions/node/v10.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/maxhi/.nvm/versions/node/v10.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/maxhi/.nvm/versions/node/v10.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/maxhi/.nvm/versions/node/v10.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/maxhi/.nvm/versions/node/v10.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/maxhi/.nvm/versions/node/v10.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh
+
+# Connect to Docker machine
+#eval "$(docker-machine env default)"

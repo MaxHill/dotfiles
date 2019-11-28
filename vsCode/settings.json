@@ -4,9 +4,7 @@
   "editor.fontSize": 14,
   "editor.fontFamily": "Fira code, Menlo, Monaco, 'Courier New', monospace",
   "editor.renderWhitespace": "all",
-  "editor.rulers": [
-    80
-  ],
+  "editor.rulers": [80],
   "editor.lineHeight": 28,
   "editor.renderIndentGuides": true,
   "window.restoreWindows": "none",
@@ -17,10 +15,15 @@
   "editor.minimap.enabled": false,
   "editor.renderControlCharacters": false,
   "workbench.sideBar.location": "right",
-  "workbench.editor.showTabs": false,
   "editor.fontLigatures": true,
   "editor.tabCompletion": true,
   "emmet.triggerExpansionOnTab": true,
+  "workbench.startupEditor": "newUntitledFile",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "breadcrumbs.enabled": false,
+  "vim.sneak": true,
+  "vim.sneakUseIgnorecaseAndSmartcase": true,
   // Vim
   "vim.easymotion": true,
   "vim.incsearch": true,
@@ -28,25 +31,8 @@
   "vim.hlsearch": true,
   "vim.insertModeKeyBindings": [
     {
-      "before": [
-        "j",
-        "j"
-      ],
-      "after": [
-        "<Esc>"
-      ]
-    }
-  ],
-  "vim.otherModesKeyBindingsNonRecursive": [
-    {
-      "before": [
-        "<leader>",
-        "d"
-      ],
-      "after": [
-        "d",
-        "d"
-      ]
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
     }
   ],
   "vim.leader": ",",
@@ -63,22 +49,11 @@
     {
       "language": "javascriptreact",
       "autoFix": true
-    },
+    }
   ],
-  "eslint.autoFixOnSave": true,
-  "editor.formatOnSave": true,
-  "tslint.autoFixOnSave": true,
-  "html.format.wrapAttributes": "force",
-  "sasslint.enable": true,
-  "sasslint.run": "onType",
-  "sasslint.packageManager": "yarn",
-  "workbench.startupEditor": "newUntitledFile",
   "explorer.confirmDelete": false,
-  "vetur.format.defaultFormatter": {
-    "html": "prettier",
-    "css": "prettier",
-    "scss": "prettier",
-    "less": "prettier",
-    "stylus": "stylus-supremacy"
-  }
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "eslint.autoFixOnSave": true,
+  "vetur.validation.template": false,
 }

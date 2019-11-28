@@ -36,6 +36,7 @@ alias dc="docker-compose"
 
 # NPM
 alias nr="npm run"
+alias run="npm run"
 alias y="yarn"
 
 # SSH
@@ -46,11 +47,12 @@ alias candidates="echo 'ssh root@138.68.167.113' && ssh root@138.68.167.113"
 alias aliases='vim ~/.aliases.sh'
 alias dotfiles='cd ~/dotfiles'
 alias code='cd ~/code'
-alias vscode='functionVsCode'
+alias vscode='functionOpenVsCodeInsiders'
 alias zSource='source ~/.zshrc && echo "ZSH updated!"'
 alias hosts='sudo vim /etc/hosts'
 alias kp='functionKillPort'
 alias firefox='/Applications/Firefox\ Developer\ Edition.app/Contents/MacOS/firefox --start-debugger-server'
+alias lan='functionGetLan'
 
 # Navigate
 alias lsl="ls -l"
@@ -101,6 +103,17 @@ function functionOpenVsCode() {
   fi
 }
 
+# Open VsCode Insider from terminal
+function functionOpenVsCodeInsiders() {
+  if [[ $# = 0 ]]
+  then
+      open -a "Visual Studio Code - Insiders"
+  else
+      [[ $1 = /* ]] && F="$1" || F="$PWD/${1#./}"
+      open -a "Visual Studio Code - Insiders" --args "$F"
+  fi
+}
+
 # Kill what's running on specific port
 function functionKillPort() {
   kill $(lsof -t -i:$1)
@@ -114,6 +127,14 @@ function functionVsCode () {
         [[ $1 = /* ]] && F="$1" || F="$PWD/${1#./}"
         open -a "Visual Studio Code" --args "$F"
     fi
+}
+
+function functionGetLan() {
+  PORT=$1
+  IP=$(ipconfig getifaddr en0)
+  URL="http://${IP}:${PORT}"
+  echo "${URL}" | pbcopy
+  echo "${URL}"
 }
 
 
