@@ -46,7 +46,6 @@ alias candidates="echo 'ssh root@138.68.167.113' && ssh root@138.68.167.113"
 # Helpers
 alias aliases='vim ~/.aliases.sh'
 alias dotfiles='cd ~/dotfiles'
-alias code='cd ~/code'
 alias vscode='functionOpenVsCodeInsiders'
 alias zSource='source ~/.zshrc && echo "ZSH updated!"'
 alias hosts='sudo vim /etc/hosts'

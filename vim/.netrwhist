@@ -1,4 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/Users/maxhi/code/trafikkontoret/web-client/Dockerfile'
 let g:netrw_dirhist_2='/Users/maxhi/code/trafikkontoret/web-client/docker'
+let g:netrw_dirhist_3='/Users/maxhi/.ssh'
+let g:netrw_dirhist_4='/Users/maxhi'
+let g:netrw_dirhist_5='/Users/maxhi/.ssh'
