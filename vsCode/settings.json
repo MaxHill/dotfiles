@@ -35,7 +35,17 @@
       "after": ["<Esc>"]
     }
   ],
-  "vim.leader": ",",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+    "before": ["<leader>", "<leader>"],
+    "commands": [":nohl"]
+    },
+    {
+    "before": ["<leader>", "w"],
+    "commands": [":w"]
+    }
+  ],
+  "vim.leader": "<space>",
   // Lint
   "eslint.validate": [
     {
@@ -58,5 +68,6 @@
   "vetur.validation.template": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "editor.tabSize": 2
 }
