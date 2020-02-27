@@ -2,10 +2,10 @@
 [user]
 # Please adapt and uncomment the following lines:
 #	name = Max Hill
-#	email = max.hill@hiq.se
+#	email = max@hilloco.se
 [user]
 	name = Max Hill
-	email = max.hill@hiq.se
+	email = max@hilloco.se
 [core]
 	editor = /usr/bin/vim
 [push]
@@ -14,3 +14,8 @@
 	autosetuprebase = always
 [pull]
 	rebase = true
+
+# Include custom .gitconfig if in work folder
+[includeIf "gitdir:~/code/work/"]
+    path = ~/code/work/.gitconfig
+

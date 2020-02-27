@@ -30,6 +30,11 @@ alias gfr='git flow release'
 alias nah='git reset HEAD --hard && git clean -df'
 alias nope='functionDeleteCurrentBranch'
 
+# Polestar generator
+alias boil="functionBoilerplate"
+alias boil--upgrade="yarn global upgrade @polestar/generator-boilerplate"
+alias invoke="sls invoke local -f example-request-response --data '{ "input":[1,2]}'"
+
 # Docker
 alias d="docker"
 alias dc="docker-compose"
@@ -68,6 +73,31 @@ alias !mkdir="mkdir -p"
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # All these are aliased above. Use the alias instead of the functions.
 # You don't have to care about the functions if you don't want
+
+## Boilerplate
+function functionBoilerplate() {
+  TYPE=$1
+  FOLDER=$2
+
+  # Create folder
+  mkdir -p ${FOLDER}
+  cd ${FOLDER}
+
+  # Run command
+  if [ "client" = ${TYPE} ]; then
+    yo @polestar/vs-alpha-frontend
+  elif [ "api" = ${TYPE} ]; then
+    yo @polestar/boilerplate:api
+  else
+    yo @polestar/boilerplate:sls-node
+  fi
+  
+  # Cleanup
+  cd ..
+  echo "Created ${FOLDER}"
+  echo "cd ${FOLDER}"
+  echo "And start working."
+}
 
 ## Git
 # Apply named stash

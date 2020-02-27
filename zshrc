@@ -54,7 +54,12 @@ ZSH_TMUX_AUTOSTART=true
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git min tmux zsh-syntax-highlighting)
+plugins=(
+  git 
+  min 
+  tmux 
+  zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -108,14 +113,14 @@ export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
 # JAVA
-export JAVA_HOME=`/usr/libexec/java_home`
+# export JAVA_HOME=`/usr/libexec/java_home`
 
 # Dotnet
 export DOTNET_HOME="/usr/local/share/dotnet/dotnet"
 export PATH="$DOTNET_HOME/bin:$PATH"
 
 # Pyenv
-eval "$(pyenv init -)"
+# eval "$(pyenv init -)"
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
