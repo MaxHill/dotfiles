@@ -19,6 +19,7 @@ alias gcd='git checkout develop'
 alias gco='git checkout'
 alias gm='git merge'
 alias glg='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
+alias branches='git for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes'
 alias gnb='git checkout master && git checkout -b'
 alias gst='git status'
 alias gas='functionApplyStashByName'
@@ -29,6 +30,7 @@ alias gfh='git flow hotfix'
 alias gfr='git flow release'
 alias nah='git reset HEAD --hard && git clean -df'
 alias nope='functionDeleteCurrentBranch'
+alias clean='git branch -d $(git branch --merged=master | grep -v master) && git fetch --prune'
 
 # Polestar generator
 alias boil="functionBoilerplate"

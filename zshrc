@@ -59,7 +59,9 @@ plugins=(
   min 
   tmux 
   zsh-syntax-highlighting
+  zsh-autosuggestions
 )
+
 
 source $ZSH/oh-my-zsh.sh
 
