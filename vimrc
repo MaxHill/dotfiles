@@ -1,4 +1,4 @@
-kk"-----------------------------PLUGINS-----------------------------"
+"-----------------------------PLUGINS-----------------------------"
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -14,38 +14,12 @@ Plug 'wincent/terminus'
 Plug 'christoomey/vim-tmux-navigator'
 
 " Colors
-" Plug 'vim-airline/vim-airline-themes'
-" Plug 'sonph/onehalf', {'rtp': 'vim/'}
-" Plug 'altercation/vim-colors-solarized'
 Plug 'dracula/vim', { 'as': 'dracula' }
 
 " Global editing
-Plug 'mattn/emmet-vim'
-Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'editorconfig/editorconfig-vim'
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --js-completer' }
-Plug 'mileszs/ack.vim'
-Plug 'octref/RootIgnore'
-Plug 'w0rp/ale'
 
-" Typescript
-Plug 'leafgarland/typescript-vim'
-" Plug 'Quramy/tsuquyomi'
-
-" Javascript
-Plug 'pangloss/vim-javascript'
-Plug 'Quramy/vim-js-pretty-template'
-Plug 'mxw/vim-jsx'
-Plug 'heavenshell/vim-jsdoc'
-Plug 'othree/jsdoc-syntax.vim'
-
-" Vue
-Plug 'posva/vim-vue'
-
-" Css
-Plug 'cakebaker/scss-syntax.vim'
-Plug 'gcorne/vim-sass-lint'
 
 call plug#end() " All of your Plugins must be added before the following line
 filetype plugin indent on    " Required by vundle
@@ -148,10 +122,6 @@ au FileType gitcommit set tw=62
 au BufRead,BufNewFile gitcommit setlocal textwidth=62
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
-" Fix syntax not being set 
-autocmd BufNewFile,BufRead *.vue set ft=vue
-autocmd BufNewFile,BufRead *.scss set ft=scss
-
 "-----------------------------Commands-----------------------------"
 command! -nargs=1 Gv execute "!npm run generate:view" string(<q-args>)
 command! -nargs=1 Gc execute "!npm run generate:component" string(<q-args>)
@@ -188,48 +158,6 @@ let NERDTreeShowHidden=1
 
 " Airline
 let g:airline#extensions#tabline#enabled = 0
-
-
-" Ale
-let g:ale_sign_column_always = 0
-let g:ale_sign_error = '●' " Less aggressive than the default '>>'
-let g:ale_sign_warning = '▲'
-let g:ale_lint_on_enter = 1 " Run ale when opening file 
-let g:airline#extensions#ale#enabled = 1 " Show errors in statusbar
-
-call ale#linter#Define('sass', {
-\   'name': 'sasslint',
-\   'executable': 'sass-lint',
-\   'command': 'sass-lint -v -q -f compact %t',
-\   'callback': 'ale#handlers#css#HandleCSSLintFormat',
-\})
-
-" Typescript
-autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
-
-" Tsuquyomi
-let g:tsuquyomi_single_quote_import=1
-
-" Emmet
-let g:user_emmet_expandabbr_key='<Tab>'
-imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
-"let g:user_emmet_leader_key='<Tab>'
-let g:user_emmet_settings = {
-  \  'javascript.jsx' : {
-    \      'extends' : 'jsx',
-    \  },
-  \}
-
-
-" Youcompleteme
-let g:ycm_filetype_blacklist = { 'html': 1, 'css': 1 }
-
-" Vim-javascript
-let g:javascript_plugin_jsdoc = 1
-
-" Vim-js-pretty-template
-autocmd FileType typescript JsPreTmpl html
-autocmd FileType typescript syn clear foldBraces
 
 if has("gui_macvim")
   macmenu &File.Print key=<nop>

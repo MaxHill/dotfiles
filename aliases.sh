@@ -39,7 +39,7 @@ alias invoke="sls invoke local -f example-request-response --data '{ "input":[1,
 
 # Docker
 alias d="docker"
-alias dc="docker-compose"
+alias dc="docker compose"
 
 # NPM
 alias nr="npm run"
@@ -59,6 +59,12 @@ alias hosts='sudo vim /etc/hosts'
 alias kp='functionKillPort'
 alias firefox='/Applications/Firefox\ Developer\ Edition.app/Contents/MacOS/firefox --start-debugger-server'
 alias lan='functionGetLan'
+alias caws="vim ~/.aws/credentials"
+alias n='note new'
+alias no='note open'
+alias nm='note meeting-note --folder "Polestar/meetings"'
+
+alias notes='cd ~/Dropbox/Notes'
 
 # Navigate
 alias lsl="ls -l"

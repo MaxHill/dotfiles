@@ -1,0 +1,1 @@
+export const baseDir = '/Users/maxhill/Dropbox/Notes/';

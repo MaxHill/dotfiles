@@ -1,22 +1,20 @@
 {
-  "workbench.colorTheme": "Popping and Locking Black Theme",
-  // Settings
   "editor.fontSize": 14,
   "editor.fontFamily": "Fira code, Menlo, Monaco, 'Courier New', monospace",
   "editor.renderWhitespace": "all",
-  "editor.rulers": [80],
+  "editor.rulers": [
+    80
+  ],
   "editor.lineHeight": 28,
   "editor.renderIndentGuides": true,
   "window.restoreWindows": "none",
   "files.trimTrailingWhitespace": true,
-  "window.zoomLevel": 0,
   "workbench.activityBar.visible": false,
   "workbench.statusBar.visible": true,
   "editor.minimap.enabled": false,
   "editor.renderControlCharacters": false,
-  "workbench.sideBar.location": "right",
   "editor.fontLigatures": true,
-  "editor.tabCompletion": true,
+  "editor.tabCompletion": "on",
   "emmet.triggerExpansionOnTab": true,
   "workbench.startupEditor": "newUntitledFile",
   "javascript.updateImportsOnFileMove.enabled": "always",
@@ -31,43 +29,92 @@
   "vim.hlsearch": true,
   "vim.insertModeKeyBindings": [
     {
-      "before": ["j", "j"],
-      "after": ["<Esc>"]
+      "before": [
+        "j",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
     }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-    "before": ["<leader>", "<leader>"],
-    "commands": [":nohl"]
+      "before": [
+        "<leader>",
+        "<leader>"
+      ],
+      "commands": [
+        ":nohl"
+      ]
     },
     {
-    "before": ["<leader>", "w"],
-    "commands": [":w"]
+      "before": [
+        "<leader>",
+        "w"
+      ],
+      "commands": [
+        ":w"
+      ]
     }
   ],
   "vim.leader": "<space>",
   // Lint
   "eslint.validate": [
-    {
-      "language": "vue",
-      "autoFix": true
-    },
-    {
-      "language": "javascript",
-      "autoFix": true
-    },
-    {
-      "language": "javascriptreact",
-      "autoFix": true
-    }
+    "vue",
+    "html",
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact"
   ],
   "explorer.confirmDelete": false,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "eslint.autoFixOnSave": true,
-  "vetur.validation.template": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.fixAll.tslint": true,
+    "source.fixAll.stylelint": true
   },
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "workbench.colorTheme": "Box UK Light (rainglow)",
+  "aws.profile": "profile:default",
+  "yaml.customTags": [
+    "!Equals sequence",
+    "!FindInMap sequence",
+    "!GetAtt",
+    "!GetAZs",
+    "!ImportValue",
+    "!Join sequence",
+    "!Ref",
+    "!Select sequence",
+    "!Split sequence",
+    "!Sub",
+    "!And",
+    "!And sequence",
+    "!If",
+    "!If sequence",
+    "!Not",
+    "!Not sequence",
+    "!Equals",
+    "!Or",
+    "!Or sequence",
+    "!FindInMap",
+    "!Base64",
+    "!Join",
+    "!Cidr",
+    "!Sub sequence",
+    "!ImportValue sequence",
+    "!Select",
+    "!Split"
+  ],
+  "yaml.schemas": {},
+  "workbench.editor.untitled.hint": "hidden",
+  "json.schemas": [],
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "security.workspace.trust.untrustedFiles": "open",
+  "window.zoomLevel": -1,
+  "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim"
 }
