@@ -1,0 +1,11 @@
+require("user.plugins")
+require("user.options")
+require("user.keymaps")
+require("user.cmp")
+require("user.lsp")
+require("user.treesitter")
+require("user.autopairs")
+require("user.comment")
+require("user.nvim-tree")
+
+vim.cmd("colorscheme nord")

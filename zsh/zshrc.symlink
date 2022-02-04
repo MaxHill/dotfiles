@@ -1,0 +1,44 @@
+# Needs to be above tmux
+export TERM="xterm-256color"
+
+
+# Exported variables
+export XDG_CONFIG_HOME="$HOME/.config"
+export DOTFILES="$HOME/dotfiles"
+
+# User configuration
+
+# Init fnm (fast node manager)
+eval "$(fnm env --use-on-cd --version-file-strategy "recursive")"
+
+# Setup aliases
+source ~/dotfiles/zsh/aliases.sh
+
+
+# Tmux
+# ------------------
+
+# Start tmux if installed
+# Keep this at the bottom
+if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
+  if [ "$TMUX" = "" ]; then tmux; fi
+fi
+
+# Install tmux plugins
+~/.config/tmux/plugins/tpm/bin/install_plugins
+
+
+# ZSH Plugins
+# ------------------
+
+# Pure prompt
+autoload -U promptinit; promptinit
+prompt pure
+export PURE_PROMPT_SYMBOL=""
+
+# Auto suggestion for terminal
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+bindkey '	' autosuggest-accept # User tab key to autocomplete
+
+# Syntax highlighting for terminal
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

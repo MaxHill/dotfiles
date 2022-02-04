@@ -1,0 +1,6 @@
+config/nvim/autoload/plug.vim
+config/nvim/plugged
+config/tmux/plugins
+notes-cli/node-modules
+notes-cli/.idea
+Brewfile.lock.json
