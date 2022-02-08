@@ -38,7 +38,7 @@ export PURE_PROMPT_SYMBOL=""
 
 # Auto suggestion for terminal
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-bindkey '	' autosuggest-accept # User tab key to autocomplete
+# bindkey '	' autosuggest-accept # User tab key to autocomplete
 
 # Syntax highlighting for terminal
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
