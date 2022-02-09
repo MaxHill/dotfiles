@@ -23,18 +23,11 @@ alias branches='git for-each-ref --sort=-committerdate --format=\"%(color:blue)%
 alias gnb='git checkout master && git checkout -b'
 alias gst='git status'
 alias gas='functionApplyStashByName'
-alias gf='git flow'
-alias gff='git flow feature'
-alias gfff='git flow feature finish -r --no-ff'
-alias gfh='git flow hotfix'
-alias gfr='git flow release'
 alias nah='git reset HEAD --hard && git clean -df'
 alias nope='functionDeleteCurrentBranch'
 alias clean='git branch -d $(git branch --merged=master | grep -v master) && git fetch --prune'
 
-# Polestar generator
-alias boil="functionBoilerplate"
-alias boil--upgrade="yarn global upgrade @polestar/generator-boilerplate"
+# AWS
 alias invoke="sls invoke local -f example-request-response --data '{ "input":[1,2]}'"
 
 # Docker
@@ -42,8 +35,6 @@ alias d="docker"
 alias dc="docker compose"
 
 # NPM
-alias nr="npm run"
-alias run="npm run"
 alias y="yarn"
 
 # Vim
@@ -51,7 +42,6 @@ alias vim="nvim"
 
 # SSH
 alias copySsh='pbcopy < ~/.ssh/id_rsa.pub'
-alias candidates="echo 'ssh root@138.68.167.113' && ssh root@138.68.167.113"
 
 # Helpers
 alias aliases='vim ~/.aliases.sh'
@@ -73,6 +63,8 @@ alias notes='cd ~/Dropbox/Notes'
 # Navigate
 alias lsl="ls -l"
 alias lsal="ls -al"
+cdls() { cd "$@" && ls; } # Automatically ls when cd
+alias cd="cdls"
 
 # Overrides 
 alias rm="trash" # http://hasseg.org/trash/
