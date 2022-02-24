@@ -48,6 +48,7 @@ cmd([[Plug 'neovim/nvim-lspconfig']]) -- enable LSP
 cmd([[Plug 'williamboman/nvim-lsp-installer']]) -- simple to use language server installer
 cmd([[Plug 'williamboman/nvim-lsp-installer']]) -- simple to use language server installer
 cmd([[Plug 'jose-elias-alvarez/null-ls.nvim']]) -- for formatters and linters
+cmd([[Plug 'jose-elias-alvarez/nvim-lsp-ts-utils']]) -- Utils for typescript
 
 -- Treesitter
 cmd([[Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}]]) -- enable LSP

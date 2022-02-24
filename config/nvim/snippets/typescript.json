@@ -1,0 +1,65 @@
+{
+  "it": {
+    "prefix": ["it"],
+    "body": [
+      "it('$1', () => {", 
+      " $0",
+      "});"],
+    "description": "A test"
+  },
+  "describe": {
+    "prefix": ["describe"],
+    "body": [
+      "describe('$1', () => {", 
+      " $0",
+      "});"],
+    "description": "A test suite"
+  },
+  "test": {
+    "prefix": ["test"],
+    "body": [
+      "describe('$1', () => {", 
+      " it('$2', () => {", 
+      "   $0",
+      " });",
+      "});"],
+    "description": "A test-file"
+  },
+  "Functional component": {
+    "prefix": ["fc"],
+    "body": [
+      "import { FunctionalComponent } from 'preact';",
+      "",
+      "type ${TM_FILENAME_BASE}Props = {",
+      " $1",
+      "};",
+      "",
+      "const ${TM_FILENAME_BASE}: FunctionalComponent<${TM_FILENAME_BASE}Props> = () => {",
+      " ",
+      " return ${0:null};",
+      "};",
+      "",
+      "export default ${TM_FILENAME_BASE};"
+    ],
+    "description": "A functional component"
+  },
+  "Higher order component": {
+    "prefix": ["hoc"],
+    "body": [
+      "import { FunctionalComponent } from 'preact';",
+      "",
+      "const ${TM_FILENAME_BASE} = <T,>(Component: FunctionalComponent<T>) => {",
+      " const $1: FunctionalComponent<T> = (props) => {",
+      "   $0",
+      "   // Return original component",
+      "   return <Component {...props} />;",
+      " };",
+      "",
+      " return $1;",
+      "};",
+      "",
+      "export default ${TM_FILENAME_BASE};"
+    ],
+    "description": "A highter order component"
+  }
+}

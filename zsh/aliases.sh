@@ -44,7 +44,7 @@ alias vim="nvim"
 alias copySsh='pbcopy < ~/.ssh/id_rsa.pub'
 
 # Helpers
-alias aliases='vim ~/.aliases.sh'
+alias aliases='nvim ~/dotfiles/zsh/aliases.sh'
 alias dotfiles='cd ~/dotfiles'
 alias vscode='functionOpenVsCodeInsiders'
 alias zR='exec zsh && echo "ZSH updated!"'
@@ -53,16 +53,16 @@ alias kp='functionKillPort'
 alias firefox='/Applications/Firefox\ Developer\ Edition.app/Contents/MacOS/firefox --start-debugger-server'
 alias lan='functionGetLan'
 alias caws="vim ~/.aws/credentials"
-alias n='note new'
-alias no='note open'
-alias nm='note meeting-note --folder "Polestar/meetings"'
+alias n='note new | xargs nvim'
+alias no='note open | xargs nvim'
+alias nm='note meeting-note --folder "Polestar/meetings" | xargs nvim'
 alias cat='bat'
-
 alias notes='cd ~/Dropbox/Notes'
+alias code='cd ~/code'
 
 # Navigate
-alias lsl="ls -l"
-alias lsal="ls -al"
+alias ls="ls -lhG"
+alias lsal="ls -lhAG"
 cdls() { cd "$@" && ls; } # Automatically ls when cd
 alias cd="cdls"
 

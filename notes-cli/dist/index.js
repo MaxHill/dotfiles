@@ -33982,11 +33982,11 @@ var require_screen_manager = __commonJS({
         this.clean(this.extraLinesUnderPrompt);
         const promptLine = lastLine(content);
         const rawPromptLine = stripAnsi(promptLine);
-        let prompt = rawPromptLine;
+        let prompt2 = rawPromptLine;
         if (this.rl.line.length) {
-          prompt = prompt.slice(0, -this.rl.line.length);
+          prompt2 = prompt2.slice(0, -this.rl.line.length);
         }
-        this.rl.setPrompt(prompt);
+        this.rl.setPrompt(prompt2);
         const cursorPos = this.rl._getCursorPos();
         const width = this.normalizedCliWidth();
         content = this.forceLineReturn(content, width);
@@ -40611,7 +40611,7 @@ var require_iso2022 = __commonJS({
 // node_modules/chardet/index.js
 var require_chardet = __commonJS({
   "node_modules/chardet/index.js"(exports, module2) {
-    var fs3 = require("fs");
+    var fs2 = require("fs");
     var utf8 = require_utf8();
     var unicode = require_unicode();
     var mbcs = require_mbcs();
@@ -40685,29 +40685,29 @@ var require_chardet = __commonJS({
       var fd;
       var handler = function(err, buffer) {
         if (fd) {
-          fs3.closeSync(fd);
+          fs2.closeSync(fd);
         }
         if (err)
           return cb(err, null);
         cb(null, self2.detect(buffer, opts));
       };
       if (opts && opts.sampleSize) {
-        fd = fs3.openSync(filepath, "r"), sample = Buffer.allocUnsafe(opts.sampleSize);
-        fs3.read(fd, sample, 0, opts.sampleSize, null, function(err) {
+        fd = fs2.openSync(filepath, "r"), sample = Buffer.allocUnsafe(opts.sampleSize);
+        fs2.read(fd, sample, 0, opts.sampleSize, null, function(err) {
           handler(err, sample);
         });
         return;
       }
-      fs3.readFile(filepath, handler);
+      fs2.readFile(filepath, handler);
     };
     module2.exports.detectFileSync = function(filepath, opts) {
       if (opts && opts.sampleSize) {
-        var fd = fs3.openSync(filepath, "r"), sample2 = Buffer.allocUnsafe(opts.sampleSize);
-        fs3.readSync(fd, sample2, 0, opts.sampleSize);
-        fs3.closeSync(fd);
+        var fd = fs2.openSync(filepath, "r"), sample2 = Buffer.allocUnsafe(opts.sampleSize);
+        fs2.readSync(fd, sample2, 0, opts.sampleSize);
+        fs2.closeSync(fd);
         return self2.detect(sample2, opts);
       }
-      return self2.detect(fs3.readFileSync(filepath), opts);
+      return self2.detect(fs2.readFileSync(filepath), opts);
     };
     module2.exports.detectAll = function(buffer, opts) {
       if (typeof opts !== "object") {
@@ -44137,7 +44137,7 @@ var require_os_tmpdir = __commonJS({
 // node_modules/tmp/lib/tmp.js
 var require_tmp = __commonJS({
   "node_modules/tmp/lib/tmp.js"(exports, module2) {
-    var fs3 = require("fs");
+    var fs2 = require("fs");
     var path2 = require("path");
     var crypto = require("crypto");
     var osTmpDir = require_os_tmpdir();
@@ -44201,7 +44201,7 @@ var require_tmp = __commonJS({
         return cb(new Error("Invalid template provided"));
       (function _getUniqueName() {
         const name = _generateTmpName(opts);
-        fs3.stat(name, function(err) {
+        fs2.stat(name, function(err) {
           if (!err) {
             if (tries-- > 0)
               return _getUniqueName();
@@ -44220,7 +44220,7 @@ var require_tmp = __commonJS({
       do {
         const name = _generateTmpName(opts);
         try {
-          fs3.statSync(name);
+          fs2.statSync(name);
         } catch (e) {
           return name;
         }
@@ -44233,14 +44233,14 @@ var require_tmp = __commonJS({
       tmpName(opts, function _tmpNameCreated(err, name) {
         if (err)
           return cb(err);
-        fs3.open(name, CREATE_FLAGS, opts.mode || FILE_MODE, function _fileCreated(err2, fd) {
+        fs2.open(name, CREATE_FLAGS, opts.mode || FILE_MODE, function _fileCreated(err2, fd) {
           if (err2)
             return cb(err2);
           if (opts.discardDescriptor) {
-            return fs3.close(fd, function _discardCallback(err3) {
+            return fs2.close(fd, function _discardCallback(err3) {
               if (err3) {
                 try {
-                  fs3.unlinkSync(name);
+                  fs2.unlinkSync(name);
                 } catch (e) {
                   if (!isENOENT(e)) {
                     err3 = e;
@@ -44263,9 +44263,9 @@ var require_tmp = __commonJS({
       opts.postfix = opts.postfix || ".tmp";
       const discardOrDetachDescriptor = opts.discardDescriptor || opts.detachDescriptor;
       const name = tmpNameSync(opts);
-      var fd = fs3.openSync(name, CREATE_FLAGS, opts.mode || FILE_MODE);
+      var fd = fs2.openSync(name, CREATE_FLAGS, opts.mode || FILE_MODE);
       if (opts.discardDescriptor) {
-        fs3.closeSync(fd);
+        fs2.closeSync(fd);
         fd = void 0;
       }
       return {
@@ -44277,9 +44277,9 @@ var require_tmp = __commonJS({
     function _rmdirRecursiveSync(root) {
       const dirs = [root];
       do {
-        var dir2 = dirs.pop(), deferred = false, files = fs3.readdirSync(dir2);
+        var dir2 = dirs.pop(), deferred = false, files = fs2.readdirSync(dir2);
         for (var i = 0, length = files.length; i < length; i++) {
-          var file2 = path2.join(dir2, files[i]), stat = fs3.lstatSync(file2);
+          var file2 = path2.join(dir2, files[i]), stat = fs2.lstatSync(file2);
           if (stat.isDirectory()) {
             if (!deferred) {
               deferred = true;
@@ -44287,11 +44287,11 @@ var require_tmp = __commonJS({
             }
             dirs.push(file2);
           } else {
-            fs3.unlinkSync(file2);
+            fs2.unlinkSync(file2);
           }
         }
         if (!deferred) {
-          fs3.rmdirSync(dir2);
+          fs2.rmdirSync(dir2);
         }
       } while (dirs.length !== 0);
     }
@@ -44300,7 +44300,7 @@ var require_tmp = __commonJS({
       tmpName(opts, function _tmpNameCreated(err, name) {
         if (err)
           return cb(err);
-        fs3.mkdir(name, opts.mode || DIR_MODE, function _dirCreated(err2) {
+        fs2.mkdir(name, opts.mode || DIR_MODE, function _dirCreated(err2) {
           if (err2)
             return cb(err2);
           cb(null, name, _prepareTmpDirRemoveCallback(name, opts));
@@ -44310,7 +44310,7 @@ var require_tmp = __commonJS({
     function dirSync(options) {
       var args = _parseArguments(options), opts = args[0];
       const name = tmpNameSync(opts);
-      fs3.mkdirSync(name, opts.mode || DIR_MODE);
+      fs2.mkdirSync(name, opts.mode || DIR_MODE);
       return {
         name,
         removeCallback: _prepareTmpDirRemoveCallback(name, opts)
@@ -44320,7 +44320,7 @@ var require_tmp = __commonJS({
       const removeCallback = _prepareRemoveCallback(function _removeCallback(fdPath) {
         try {
           if (0 <= fdPath[0]) {
-            fs3.closeSync(fdPath[0]);
+            fs2.closeSync(fdPath[0]);
           }
         } catch (e) {
           if (!isEBADF(e) && !isENOENT(e)) {
@@ -44328,7 +44328,7 @@ var require_tmp = __commonJS({
           }
         }
         try {
-          fs3.unlinkSync(fdPath[1]);
+          fs2.unlinkSync(fdPath[1]);
         } catch (e) {
           if (!isENOENT(e)) {
             throw e;
@@ -44341,7 +44341,7 @@ var require_tmp = __commonJS({
       return removeCallback;
     }
     function _prepareTmpDirRemoveCallback(name, opts) {
-      const removeFunction = opts.unsafeCleanup ? _rmdirRecursiveSync : fs3.rmdirSync.bind(fs3);
+      const removeFunction = opts.unsafeCleanup ? _rmdirRecursiveSync : fs2.rmdirSync.bind(fs2);
       const removeCallback = _prepareRemoveCallback(removeFunction, name);
       if (!opts.keep) {
         _removeObjects.unshift(removeCallback);
@@ -44863,8 +44863,8 @@ var require_inquirer = __commonJS({
         return promise;
       };
       promptModule.prompts = {};
-      promptModule.registerPrompt = function(name, prompt) {
-        promptModule.prompts[name] = prompt;
+      promptModule.registerPrompt = function(name, prompt2) {
+        promptModule.prompts[name] = prompt2;
         return this;
       };
       promptModule.restoreDefaultPrompts = function() {
@@ -44882,8 +44882,8 @@ var require_inquirer = __commonJS({
       return promptModule;
     };
     inquirer2.prompt = inquirer2.createPromptModule();
-    inquirer2.registerPrompt = function(name, prompt) {
-      inquirer2.prompt.registerPrompt(name, prompt);
+    inquirer2.registerPrompt = function(name, prompt2) {
+      inquirer2.prompt.registerPrompt(name, prompt2);
     };
     inquirer2.restoreDefaultPrompts = function() {
       inquirer2.prompt.restoreDefaultPrompts();
@@ -45385,7 +45385,7 @@ var require_command = __commonJS({
     var EventEmitter = require("events").EventEmitter;
     var childProcess = require("child_process");
     var path2 = require("path");
-    var fs3 = require("fs");
+    var fs2 = require("fs");
     var { Argument, humanReadableArgName } = require_argument();
     var { CommanderError } = require_error();
     var { Help } = require_help();
@@ -45822,7 +45822,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
         }
         let baseDir2;
         try {
-          const resolvedLink = fs3.realpathSync(scriptPath);
+          const resolvedLink = fs2.realpathSync(scriptPath);
           baseDir2 = path2.dirname(resolvedLink);
         } catch (e) {
           baseDir2 = ".";
@@ -45832,11 +45832,11 @@ Expecting one of '${allowedValues.join("', '")}'`);
           bin = subcommand._executableFile;
         }
         const localBin = path2.join(baseDir2, bin);
-        if (fs3.existsSync(localBin)) {
+        if (fs2.existsSync(localBin)) {
           bin = localBin;
         } else {
           sourceExt.forEach((ext) => {
-            if (fs3.existsSync(`${localBin}${ext}`)) {
+            if (fs2.existsSync(`${localBin}${ext}`)) {
               bin = `${localBin}${ext}`;
             }
           });
@@ -46867,9 +46867,15 @@ var runCommand = (cmd, args = [], childProcess = cp) => {
 };
 
 // meetings.ts
+var prompt = import_inquirer.default.createPromptModule({ output: process.stderr });
 var getListOfMeetings = () => {
   const bulletIndicator = "3b95a551-26f9-4bc0-bfbc-33b1ecb8155f";
-  const result = runCommand("icalBuddy", ["-b", bulletIndicator, "-ea", "eventsNow"]);
+  const result = runCommand("icalBuddy", [
+    "-b",
+    bulletIndicator,
+    "-ea",
+    "eventsNow"
+  ]);
   const toObject = (meeting) => meeting.trim().split(rNewLine).reduce(lineToObjectReducer, []).reduce((result2, obj) => ({ ...result2, ...obj }), {});
   return result.split(bulletIndicator).filter((i) => i.length).map(toObject);
 };
@@ -46900,13 +46906,15 @@ ${key}: ${meeting[key]}`)
   ].join("\n");
 };
 var createMeetingFilename = (meeting) => `${(0, import_date_fns.format)(new Date(), "yyyy-MM-dd")}${"-" + meeting.time || ""}-${meeting.title.split(" ").filter((c) => c !== "-").join("-")}.md`;
-var pickSelectedMeeting = async (meetings) => await import_inquirer.default.prompt([{
-  type: "list",
-  name: "meeting",
-  message: "For which meeting?",
-  choices: meetings.map((m) => m.title)
-}]).catch(console.error);
-var createMeetingTitle = async () => await import_inquirer.default.prompt([
+var pickSelectedMeeting = async (meetings) => await prompt([
+  {
+    type: "listbaseDir",
+    name: "meeting",
+    message: "For which meeting?",
+    choices: meetings.map((m) => m.title)
+  }
+]).catch(console.error);
+var createMeetingTitle = async () => await prompt([
   {
     type: "input",
     name: "title",
@@ -46953,16 +46961,17 @@ var level2Parse = (acc, line) => {
 
 // note.ts
 var fs = __toESM(require("fs"));
-
-// config.ts
-var baseDir = "/Users/maxhill/Dropbox/Notes/";
-
-// note.ts
-var createNoteFromPath = (filePath, content = "") => ({ content, ...splitFileAndPath(filePath) });
-var addMdToFilename = (note) => ({ ...note, fileName: addMdExtension(note.fileName) });
+var createNoteFromPath = (filePath, content = "") => ({
+  content,
+  ...splitFileAndPath(filePath)
+});
+var addMdToFilename = (note) => ({
+  ...note,
+  fileName: addMdExtension(note.fileName)
+});
 var openNote = (note) => {
   const filePath = note.path + note.fileName;
-  runCommand("mvim", [filePath, "--cmd", `cd ${baseDir}`]);
+  console.log(filePath);
   process.exit(0);
 };
 var splitFileAndPath = (filePath) => {
@@ -46986,11 +46995,15 @@ var createFile = (note) => {
   return note;
 };
 
+// config.ts
+var baseDir = "/Users/maxhill/Dropbox/Notes/";
+
 // index.ts
-var fs2 = require("fs");
-var cp2 = require("child_process");
 var { program } = require_commander();
-var createMeetingNote = async ({ folder, content = "" }) => {
+var createMeetingNote = async ({
+  folder,
+  content = ""
+}) => {
   const meetings = getListOfMeetings();
   const meeting = await selectMeeting(meetings);
   newNote(baseDir + addTrailingSlash(folder) + createMeetingFilename(meeting), createMeetingHeader(meeting, content));

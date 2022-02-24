@@ -25,8 +25,7 @@
 	process = git-lfs filter-process
 	required = true
 
+
 # This next lines include Netlify's Git Credential Helper configuration in your Git configuration.
 [include]
   path = /Users/maxhill/Library/Preferences/netlify/helper/git-config
-[credential]
-	helper = osxkeychain

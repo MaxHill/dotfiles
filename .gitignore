@@ -4,3 +4,6 @@ config/tmux/plugins
 notes-cli/node-modules
 notes-cli/.idea
 Brewfile.lock.json
+
+# Local Netlify folder
+.netlify

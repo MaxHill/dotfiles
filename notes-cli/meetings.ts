@@ -1,15 +1,28 @@
-import {format} from "date-fns";
-import inquirer from 'inquirer';
-import {runCommand} from "./utils";
+import { format } from 'date-fns'
+import inquirer from 'inquirer'
+import { runCommand } from './utils'
+
+const prompt = inquirer.createPromptModule({ output: process.stderr }) // To not have prompt output part of stdout that could be piped to other programs
 
 export const getListOfMeetings = () => {
-    const bulletIndicator = '3b95a551-26f9-4bc0-bfbc-33b1ecb8155f';
-    const result = runCommand('icalBuddy', ['-b', bulletIndicator, '-ea', 'eventsNow'])
-    const toObject = (meeting) => meeting.trim().split(rNewLine)
-        .reduce(lineToObjectReducer, [])
-        .reduce((result, obj) => ({...result, ...obj}), {});
+  const bulletIndicator = '3b95a551-26f9-4bc0-bfbc-33b1ecb8155f'
+  const result = runCommand('icalBuddy', [
+    '-b',
+    bulletIndicator,
+    '-ea',
+    'eventsNow',
+  ])
+  const toObject = (meeting) =>
+    meeting
+      .trim()
+      .split(rNewLine)
+      .reduce(lineToObjectReducer, [])
+      .reduce((result, obj) => ({ ...result, ...obj }), {})
 
-    return result.split(bulletIndicator).filter(i => i.length).map(toObject);
+  return result
+    .split(bulletIndicator)
+    .filter((i) => i.length)
+    .map(toObject)
 }
 
 /**
@@ -17,59 +30,68 @@ export const getListOfMeetings = () => {
  * @param meetings
  */
 export const selectMeeting = async (meetings) => {
-    if (meetings.length > 1) {
-        const {meeting} = await pickSelectedMeeting(meetings);
-        return meetings.filter(m => m.title === meeting)[0]
-    } else if (meetings.length < 1) {
-        const {title} = await createMeetingTitle();
-        const d = new Date();
-        return {
-            title,
-            time: format(d, 'hh:mm'),
-        }
-    } else {
-        return meetings[0]
+  if (meetings.length > 1) {
+    const { meeting } = await pickSelectedMeeting(meetings)
+    return meetings.filter((m) => m.title === meeting)[0]
+  } else if (meetings.length < 1) {
+    const { title } = await createMeetingTitle()
+    const d = new Date()
+    return {
+      title,
+      time: format(d, 'hh:mm'),
     }
+  } else {
+    return meetings[0]
+  }
 }
 
 export const createMeetingHeader = (meeting, content) => {
-    return [
-        '---',
-        ...Object.keys(meeting)
-            .filter(key => key !== 'notes')
-            .map(key => `${key}: ${meeting[key]}`),
-        '---',
-        content,
-        ...Object.keys(meeting)
-            .filter(key => key == 'notes')
-            .map(key => `\n---\n${key}: ${meeting[key]}`),
-    ].join('\n');
+  return [
+    '---',
+    ...Object.keys(meeting)
+      .filter((key) => key !== 'notes')
+      .map((key) => `${key}: ${meeting[key]}`),
+    '---',
+    content,
+    ...Object.keys(meeting)
+      .filter((key) => key == 'notes')
+      .map((key) => `\n---\n${key}: ${meeting[key]}`),
+  ].join('\n')
 }
 
-export const createMeetingFilename = (meeting) => `${format(new Date(), 'yyyy-MM-dd')}${'-' + meeting.time || ''}-${meeting.title.split(' ').filter(c => c !== '-').join('-')}.md`;
+export const createMeetingFilename = (meeting) =>
+  `${format(new Date(), 'yyyy-MM-dd')}${
+    '-' + meeting.time || ''
+  }-${meeting.title
+    .split(' ')
+    .filter((c) => c !== '-')
+    .join('-')}.md`
 
-const pickSelectedMeeting = async (meetings) => await inquirer
-    .prompt([{
-        type: 'listbaseDir
-        name: 'meeting',
-        message: 'For which meeting?',
-        choices: meetings.map(m => m.title),
-    }]).catch(console.error);
-
-const createMeetingTitle = async () => await inquirer
-    .prompt([{
-        type: 'input',
-        name: 'title',
-        message: 'Meeting title?',
-        validate(value) {
-            const valid = !isNaN(value.length);
-            return valid || 'Please enter a meeting title';
-        },
+const pickSelectedMeeting = async (meetings) =>
+  await prompt([
+    {
+      type: 'listbaseDir',
+      name: 'meeting',
+      message: 'For which meeting?',
+      choices: meetings.map((m) => m.title),
     },
-    ]).catch(console.error);
+  ]).catch(console.error)
 
-const rNewLine = /\r?\n/;
-const indentationAmount = (str) => str.replace(/^(\s*).*$/, "$1").length
+const createMeetingTitle = async () =>
+  await prompt([
+    {
+      type: 'input',
+      name: 'title',
+      message: 'Meeting title?',
+      validate(value) {
+        const valid = !isNaN(value.length)
+        return valid || 'Please enter a meeting title'
+      },
+    },
+  ]).catch(console.error)
+
+const rNewLine = /\r?\n/
+const indentationAmount = (str) => str.replace(/^(\s*).*$/, '$1').length
 
 /**
  * Parse line to array of objects
@@ -77,14 +99,14 @@ const indentationAmount = (str) => str.replace(/^(\s*).*$/, "$1").length
  * @param line
  */
 const lineToObjectReducer = (acc, line) => {
-    const indentation = indentationAmount(line)
-    const level = indentation / 4;
+  const indentation = indentationAmount(line)
+  const level = indentation / 4
 
-    if (level === 0) return [...acc, {title: line}]
-    if (level === 1) return [...acc, level1Parse(line)];
-    if (level > 1) return level2Parse(acc, line);
+  if (level === 0) return [...acc, { title: line }]
+  if (level === 1) return [...acc, level1Parse(line)]
+  if (level > 1) return level2Parse(acc, line)
 
-    return acc;
+  return acc
 }
 
 /**
@@ -92,18 +114,19 @@ const lineToObjectReducer = (acc, line) => {
  * @param line
  */
 const level1Parse = (line) => {
-    const matchKeyVal = /^([a-zA-Z]+):(.+)/g;
-    const matchTime = /^([0-9]+:[0-9]+).-.([0-9]+:[0-9]+)/g;
+  const matchKeyVal = /^([a-zA-Z]+):(.+)/g
+  const matchTime = /^([0-9]+:[0-9]+).-.([0-9]+:[0-9]+)/g
 
-    const [, key, val] = matchKeyVal.exec(line.trim()) || [];
-    if (key && val) return {[key]: val};
+  const [, key, val] = matchKeyVal.exec(line.trim()) || []
+  if (key && val) return { [key]: val }
 
-    const [, start, end] = matchTime.exec(line.trim()) || [];
-    if (start && end) return {
-        time: `${start}-${end}`,
+  const [, start, end] = matchTime.exec(line.trim()) || []
+  if (start && end)
+    return {
+      time: `${start}-${end}`,
     }
 
-    return {};
+  return {}
 }
 
 /**
@@ -112,11 +135,11 @@ const level1Parse = (line) => {
  * @param line
  */
 const level2Parse = (acc, line) => {
-    let newAcc = JSON.parse(JSON.stringify(acc));
-    const i = newAcc.length - 1;
-    const key = Object.keys(newAcc[i])[0];
+  let newAcc = JSON.parse(JSON.stringify(acc))
+  const i = newAcc.length - 1
+  const key = Object.keys(newAcc[i])[0]
 
-    newAcc[i][key] += '\n' + line;
+  newAcc[i][key] += '\n' + line
 
-    return newAcc;
+  return newAcc
 }

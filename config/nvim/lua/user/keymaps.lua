@@ -36,6 +36,7 @@ vim.g.maplocalleader = ","
 
 -- Normal mode
 -- --------------------------
+normal("<Leader>r", ":source $MYVIMRC<CR>")
 normal("<Leader><space>", ":nohlsearch<cr>")
 normal("<c-j> ", "<c-w>j")
 normal("<c-k>", "<c-w>k")
@@ -45,12 +46,13 @@ normal("<c-l>", "<c-w>l")
 -- telescope
 normal(
 	"<c-p>",
-	"<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>"
+	"<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false, hidden = true }))<cr>"
 )
 normal("<leader>g", "<cmd>lua require('telescope.builtin').live_grep()<cr>")
 
 -- Nvim-tree
 normal("<c-n>", ":NvimTreeToggle<cr>")
+normal("<leader>r", ":NvimTreeRefresh<cr>")
 
 -- All modes
 -- --------------------------
@@ -76,6 +78,8 @@ M.lsp_keymaps = function(bufnr)
 	normalBuf(bufnr, "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>')
 	normalBuf(bufnr, "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>")
 	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
+
+	normalBuf(bufnr, "<leader>i", ":TSLspImportAll<CR>")
 end
 
 -- CMP

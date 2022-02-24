@@ -1,6 +1,7 @@
 local M = {}
 
 local lsp_keymaps = require("user.keymaps").lsp_keymaps
+local ts_utils = require("nvim-lsp-ts-utils")
 
 -- TODO: backfill this to template
 M.setup = function()
@@ -72,6 +73,8 @@ end
 M.on_attach = function(client, bufnr)
 	if client.name == "tsserver" then -- Prefer using specified formatterf from null-ls
 		client.resolved_capabilities.document_formatting = false
+		ts_utils.setup({})
+		ts_utils.setup_client(client)
 	end
 	lsp_keymaps(bufnr)
 	lsp_highlight_document(client)
