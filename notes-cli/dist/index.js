@@ -46908,7 +46908,7 @@ ${key}: ${meeting[key]}`)
 var createMeetingFilename = (meeting) => `${(0, import_date_fns.format)(new Date(), "yyyy-MM-dd")}${"-" + meeting.time || ""}-${meeting.title.split(" ").filter((c) => c !== "-").join("-")}.md`;
 var pickSelectedMeeting = async (meetings) => await prompt([
   {
-    type: "listbaseDir",
+    type: "list",
     name: "meeting",
     message: "For which meeting?",
     choices: meetings.map((m) => m.title)

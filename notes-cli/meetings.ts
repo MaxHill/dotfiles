@@ -70,7 +70,7 @@ export const createMeetingFilename = (meeting) =>
 const pickSelectedMeeting = async (meetings) =>
   await prompt([
     {
-      type: 'listbaseDir',
+      type: 'list',
       name: 'meeting',
       message: 'For which meeting?',
       choices: meetings.map((m) => m.title),
