@@ -8,6 +8,7 @@ if OS.mac?
     # Applications
     cask "alacritty"
     cask "firefox-developer-edition"
+    cask "raycast"
 
     # Fonts
     cask "font-fira-code-nerd-font"
