@@ -38,6 +38,7 @@ vim.g.maplocalleader = ","
 -- --------------------------
 normal("<Leader>r", ":source $MYVIMRC<CR>")
 normal("<Leader><space>", ":nohlsearch<cr>")
+normal("<Leader>b", ":e#<CR>") -- Go back to previous file
 normal("<c-j> ", "<c-w>j")
 normal("<c-k>", "<c-w>k")
 normal("<c-h>", "<c-w>h")
