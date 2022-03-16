@@ -20,7 +20,7 @@ source ~/dotfiles/zsh/aliases.sh
 # Start tmux if installed
 # Keep this at the bottom
 if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
-  if [ "$TMUX" = "" ]; then tmux; fi
+  if [ "$TMUX" = "" ]; then tmux attach || tmux new; fi
 fi
 
 # Install tmux plugins
