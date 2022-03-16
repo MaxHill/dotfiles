@@ -61,5 +61,14 @@
       "export default ${TM_FILENAME_BASE};"
     ],
     "description": "A highter order component"
+  },
+  "Docblock": {
+    "prefix": ["/**"],
+    "body": [
+      "/**",
+      " * $0",
+      " */"
+    ]
   }
+
 }
