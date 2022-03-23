@@ -39,10 +39,10 @@ vim.g.maplocalleader = ","
 normal("<Leader>r", ":source $MYVIMRC<CR>")
 normal("<Leader><space>", ":nohlsearch<cr>")
 normal("<Leader>b", ":e#<CR>") -- Go back to previous file
-normal("<c-j> ", "<c-w>j")
-normal("<c-k>", "<c-w>k")
-normal("<c-h>", "<c-w>h")
-normal("<c-l>", "<c-w>l")
+normal("<c-j> ", ":TmuxNavigateDown")
+normal("<c-k>", ":TmuxNavigateUp")
+normal("<c-h>", ":TmuxNavigateLeft")
+normal("<c-l>", ":TmuxNavigateRight")
 
 -- telescope
 normal(
@@ -69,7 +69,7 @@ M.lsp_keymaps = function(bufnr)
 	normalBuf(bufnr, "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
 	normalBuf(bufnr, "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
 	normalBuf(bufnr, "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-	normalBuf(bufnr, "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+	normalBuf(bufnr, "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 	normalBuf(bufnr, "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
 	normalBuf(bufnr, "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")

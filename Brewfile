@@ -21,6 +21,7 @@ tap "homebrew/bundle"
 tap "homebrew/core"
 
 # packages
+brew "ical-buddy" # output calendar events in terminal
 brew "bat" # better cat
 brew "git" # Git version control (latest version)
 brew "grep" # grep (latest)
