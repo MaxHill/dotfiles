@@ -135,11 +135,11 @@ const level1Parse = (line) => {
  * @param line
  */
 const level2Parse = (acc, line) => {
-  let newAcc = JSON.parse(JSON.stringify(acc))
-  const i = newAcc.length - 1
-  const key = Object.keys(newAcc[i])[0]
+  let newAcc = JSON.parse(JSON.stringify(acc)) // clone array
+  const i = newAcc.length - 1 // Find last index
+  const key = Object.keys(newAcc[i])[0] // Find the first (and only key of the object)
 
-  newAcc[i][key] += '\n' + line
+  newAcc[i][key] += '\n' + line // Add new line to the string
 
   return newAcc
 }

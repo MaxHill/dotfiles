@@ -27,8 +27,13 @@ fi
 ~/.config/tmux/plugins/tpm/bin/install_plugins >> /dev/null
 
 
+# ZSH options
+# ------------------
+set -o AUTO_CD
+
 # ZSH Plugins
 # ------------------
+
 
 # Pure prompt
 autoload -U promptinit; promptinit
@@ -37,7 +42,7 @@ export PURE_PROMPT_SYMBOL=""
 
 # Auto suggestion for terminal
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-# bindkey '	' autosuggest-accept # User tab key to autocomplete
+bindkey '^ ' autosuggest-accept
 
 # Syntax highlighting for terminal
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -45,3 +50,9 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 # The next line updates PATH for Netlify's Git Credential Helper.
 test -f '/Users/maxhill/Library/Preferences/netlify/helper/path.zsh.inc' && source '/Users/maxhill/Library/Preferences/netlify/helper/path.zsh.inc'
+
+# Add .NET Core SDK tools
+export PATH="$PATH:/Users/maxhill/.dotnet/tools"
+
+# Use cUrl from homebrew
+export PATH="/usr/local/opt/curl/bin:$PATH"

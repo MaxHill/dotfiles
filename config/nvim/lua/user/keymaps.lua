@@ -62,6 +62,8 @@ all("<down>", "<Nop>")
 all("<left>", "<Nop>")
 all("<right>", "<Nop>")
 
+vim.cmd([[command Exec set splitright | vnew | set filetype=sh | read !sh #]])
+
 -- LSP
 
 M.lsp_keymaps = function(bufnr)
