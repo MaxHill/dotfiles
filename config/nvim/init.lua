@@ -22,16 +22,10 @@ vim.cmd("highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0")
 vim.cmd("highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0")
 vim.cmd("highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4")
 
--- Inside an init.vim file
-function _G.ReloadConfig()
-	for name, _ in pairs(package.loaded) do
-		if name:match("^cnull") then
-			package.loaded[name] = nil
-		end
-	end
-
-	dofile(vim.env.MYVIMRC)
-end
-
-vim.cmd("command! ReloadConfig lua ReloadConfig()")
-vim.cmd("autocmd! BufWritePost ~/.config/nvim/*/*.lua lua ReloadConfig()")
+-- Give a little bit of focus to the active window
+vim.cmd("augroup BgHighlight  \
+  autocmd! \
+    autocmd WinEnter * set colorcolumn=80 \
+    autocmd WinLeave * set colorcolumn=0 \
+  augroup END \
+")

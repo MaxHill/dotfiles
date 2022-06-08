@@ -69,6 +69,9 @@ nvim_tree.setup({
 		ignore = true,
 		timeout = 500,
 	},
+	actions = {
+		quit_on_open = true,
+	},
 	view = {
 		width = 30,
 		height = 30,

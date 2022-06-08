@@ -1,4 +1,5 @@
 local o = vim.opt
+local g = vim.g
 
 o.hlsearch = true
 o.incsearch = true
@@ -29,3 +30,4 @@ o.swapfile = false -- Create swapfile
 o.termguicolors = true -- Better color support in most terminals
 o.clipboard = "unnamedplus" -- Use system clipboard
 o.winhighlight = "NormalNC:MyNormalWin" -- Make popups background the same as background
+g.nvim_tree_quit_on_open = 1 -- Close file sidebar when file is opened
