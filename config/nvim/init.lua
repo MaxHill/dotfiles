@@ -29,3 +29,5 @@ vim.cmd("augroup BgHighlight  \
     autocmd WinLeave * set colorcolumn=0 \
   augroup END \
 ")
+
+vim.cmd("highlight Normal ctermfg=145 ctermbg=none guifg=#ABB2BF guibg=none")

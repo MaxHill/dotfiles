@@ -56,5 +56,3 @@ export PATH="$PATH:/Users/maxhill/.dotnet/tools"
 
 # Use cUrl from homebrew
 export PATH="/usr/local/opt/curl/bin:$PATH"
-
-[ -f "/Users/maxhill/.ghcup/env" ] && source "/Users/maxhill/.ghcup/env" # ghcup-env
