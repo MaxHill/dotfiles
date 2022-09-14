@@ -41,7 +41,7 @@ alias y="yarn"
 alias vim="nvim"
 
 # SSH
-alias copySsh='pbcopy < ~/.ssh/id_rsa.pub'
+alias copySsh='pbcopy < ~/.ssh/id_ed25519.pub'
 
 # Helpers
 alias aliases='nvim ~/dotfiles/zsh/aliases.sh'

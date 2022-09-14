@@ -1,6 +1,7 @@
 if OS.mac?
     # taps
     tap "homebrew/cask"
+    tap "homebrew/cask-versions"
     tap "homebrew/cask-fonts"
     tap "isen-ng/dotnet-sdk-versions" # For dotnet
 
@@ -39,6 +40,8 @@ brew "wget" # internet file retriever
 brew "fnm" # Fast Node version manager
 brew "jq" # Json formatter
 brew "curl" # Later curl version
+brew "awscli"
+brew "fzf" # Commandline fuzzy finder
 
 # Zsh and plugins
 brew "zsh" # zsh (latest)

@@ -30,4 +30,4 @@
 [include]
   path = /Users/maxhill/Library/Preferences/netlify/helper/git-config
 [credential]
-	helper = store
+	helper = osxkeychain

@@ -36,6 +36,7 @@ set -o AUTO_CD
 
 
 # Pure prompt
+fpath+=("$(brew --prefix)/share/zsh/site-functions")
 autoload -U promptinit; promptinit
 prompt pure
 export PURE_PROMPT_SYMBOL=""

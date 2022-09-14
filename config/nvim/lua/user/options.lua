@@ -6,6 +6,7 @@ o.incsearch = true
 o.linespace = 17
 o.showmode = true -- Always show what mode we're currently editing in
 o.wrap = false -- Don't wrap lines
+
 o.tabstop = 2 -- A tab is two spaces
 o.softtabstop = 2 -- When hitting <BS>, pretend like a tab is removed, even if spaces
 o.smarttab = true
@@ -28,6 +29,8 @@ o.colorcolumn = "81" -- Highlight to column to see 80 char mark
 o.complete:prepend({ "kspell" }) -- Autocomplete with dictionary words when spell check is on
 o.swapfile = false -- Create swapfile
 o.termguicolors = true -- Better color support in most terminals
-o.clipboard = "unnamedplus" -- Use system clipboard
+o.clipboard = "unnamed" -- Use system clipboard
 o.winhighlight = "NormalNC:MyNormalWin" -- Make popups background the same as background
 g.nvim_tree_quit_on_open = 1 -- Close file sidebar when file is opened
+o.number = true -- Show line number on current line
+o.relativenumber = true -- Use hybrid line numbers
