@@ -1,5 +1,7 @@
 # Installation
-Run the install.sh bash scrip to setup the environment.
+1. Setup ssh with 1password
+2. Pull this repo down to ~/dotfiles
+3. Run the install.sh bash scrip to setup the environment.
 
 # Updates
 The install script is none-desctructive and can be run multiple times.

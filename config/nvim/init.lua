@@ -4,10 +4,12 @@ require("user.keymaps")
 require("user.cmp")
 require("user.lsp")
 require("user.treesitter")
+require("user.treesitter-context")
 require("user.autopairs")
 require("user.comment")
-require("user.nvim-tree")
+--require("user.nvim-tree")
 require("user.telescope")
+require("user.harpoon")
 -- require("user.snippets")
 
 -- Colorscheme

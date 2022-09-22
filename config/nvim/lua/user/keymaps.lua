@@ -34,8 +34,8 @@ end
 
 --Remap , as leader key
 keymap("", ",", "<Nop>", opts)
-vim.g.mapleader = ","
-vim.g.maplocalleader = ","
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Normal mode
 -- --------------------------
@@ -46,6 +46,7 @@ normal("<c-j> ", ":TmuxNavigateDown")
 normal("<c-k>", ":TmuxNavigateUp")
 normal("<c-h>", ":TmuxNavigateLeft")
 normal("<c-l>", ":TmuxNavigateRight")
+normal("<Leader>e", ":! sh %<CR>")
 
 -- telescope
 normal(
@@ -53,6 +54,15 @@ normal(
   "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false, hidden = true }))<cr>"
 )
 normal("<leader>g", "<cmd>lua require('telescope.builtin').live_grep()<cr>")
+
+-- Harpoon
+normal("<leader>a", ':lua require("harpoon.mark").add_file()<CR>')
+normal("<leader>e", ':lua require("harpoon.ui").toggle_quick_menu()<CR>')
+
+normal("<leader>h", ':lua require("harpoon.ui").nav_file(1)<CR>')
+normal("<leader>j", ':lua require("harpoon.ui").nav_file(2)<CR>')
+normal("<leader>k", ':lua require("harpoon.ui").nav_file(3)<CR>')
+normal("<leader>l", ':lua require("harpoon.ui").nav_file(4)<CR>')
 
 -- Nvim-tree
 normal("<c-n>", ":NvimTreeToggle<cr>")
@@ -79,7 +89,7 @@ M.lsp_keymaps = function(bufnr)
   normalBuf(bufnr, "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
   normalBuf(bufnr, "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
   -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-  normalBuf(bufnr, "<leader>k", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>')
+  normalBuf(bufnr, "<leader>f", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>') -- Was <leader>k before, replaced by harpoon
   normalBuf(bufnr, "<leader>d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>')
   normalBuf(bufnr, "gl", '<cmd>lua vim.diagnostic.open_float({ border = "rounded" })<CR>')
   normalBuf(bufnr, "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>")
