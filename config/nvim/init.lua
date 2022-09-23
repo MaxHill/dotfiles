@@ -33,3 +33,4 @@ vim.cmd("augroup BgHighlight  \
 ")
 
 vim.cmd("highlight Normal ctermfg=145 ctermbg=none guifg=#ABB2BF guibg=none")
+

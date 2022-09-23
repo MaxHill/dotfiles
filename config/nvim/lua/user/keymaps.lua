@@ -33,7 +33,7 @@ local function normalBuf(bufnr, k, c)
 end
 
 --Remap , as leader key
-keymap("", ",", "<Nop>", opts)
+keymap("", " ", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
