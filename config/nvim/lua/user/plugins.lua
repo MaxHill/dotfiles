@@ -14,7 +14,7 @@ plugBegin("~/.config/nvim/plugged")
 
 cmd([[Plug 'nvim-lua/plenary.nvim']]) -- Useful lua functions used ny lots of plugins
 cmd([[Plug 'nvim-lua/popup.nvim']]) -- An implementation of the Popup API from vim in Neovim
-cmd([[Plug 'windwp/nvim-autopairs']]) -- Automatically pair (), "" end more
+--cmd([[Plug 'windwp/nvim-autopairs']]) -- Automatically pair (), "" end more
 cmd([[Plug 'nvim-telescope/telescope.nvim']]) -- Fuzzy finder
 -- cmd([[Plug 'kyazdani42/nvim-tree.lua']]) -- Tree explorer (replaces nerdtree)
 cmd([[Plug 'kyazdani42/nvim-web-devicons']]) -- Icons for nvim-tree
@@ -24,7 +24,7 @@ cmd([[Plug 'christoomey/vim-tmux-navigator']]) -- Navigate tmux splits seamlessl
 cmd([[Plug 'ThePrimeagen/harpoon']]) -- File navigation
 
 -- easy commenting
-cmd([[Plug 'tpope/vim-commentary']])
+cmd([[Plug 'numToStr/Comment.nvim']]) -- Easier commenting
 
 -- change surronding pairs for example "ex" -> 'ex'
 cmd([[Plug 'tpope/vim-surround']])

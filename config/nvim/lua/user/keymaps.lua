@@ -21,11 +21,11 @@ local function normal(k, c)
 end
 
 local function insert(k, c)
-  keymap("n", k, c, opts)
+  keymap("i", k, c, opts)
 end
 
 local function visual(k, c)
-  keymap("n", k, c, opts)
+  keymap("v", k, c, opts)
 end
 
 local function normalBuf(bufnr, k, c)
@@ -37,6 +37,11 @@ keymap("", " ", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Visual mode
+-- --------------------------
+visual("J", ":m '>+1<CR>gv=gv") -- Move selected up
+visual("K", ":m '<-2<CR>gv=gv") -- Move selected down
+
 -- Normal mode
 -- --------------------------
 normal("<Leader>r", ":source $MYVIMRC<CR>")
@@ -47,6 +52,19 @@ normal("<c-k>", ":TmuxNavigateUp")
 normal("<c-h>", ":TmuxNavigateLeft")
 normal("<c-l>", ":TmuxNavigateRight")
 normal("<Leader>e", ":! sh %<CR>")
+normal("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+
+-- Paste without yank
+keymap("x", "<leader>p", '"_dP', opts)
+normal("<leader>p", '"_dP')
+
+-- Delete without yank
+normal("<leader>d", '"_d')
+visual("<leader>d", '"_d')
+
+-- Copy to system clipboard
+normal("<leader>y", '"+y')
+visual("<leader>y", '"+y')
 
 -- telescope
 normal(
@@ -65,8 +83,8 @@ normal("<leader>k", ':lua require("harpoon.ui").nav_file(3)<CR>')
 normal("<leader>l", ':lua require("harpoon.ui").nav_file(4)<CR>')
 
 -- Nvim-tree
-normal("<c-n>", ":NvimTreeToggle<cr>")
-normal("<leader>r", ":NvimTreeRefresh<cr>")
+normal("<c-n>", ":Lexplore<cr>")
+-- normal("<leader>r", ":NvimTreeRefresh<cr>")
 
 -- All modes
 -- --------------------------
@@ -84,7 +102,7 @@ M.lsp_keymaps = function(bufnr)
   normalBuf(bufnr, "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
   normalBuf(bufnr, "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
   normalBuf(bufnr, "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-  normalBuf(bufnr, "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+  normalBuf(bufnr, "<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
   normalBuf(bufnr, "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
   normalBuf(bufnr, "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
   normalBuf(bufnr, "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")

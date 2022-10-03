@@ -213,6 +213,9 @@ setup_macos() {
         echo "Enable Safari’s debug menu"
         defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
 
+        echo "Disable desktop icons"
+        defaults write com.apple.finder CreateDesktop false
+
         echo "Kill affected applications"
 
         for app in Safari Finder Dock Mail SystemUIServer; do killall "$app" >/dev/null 2>&1; done

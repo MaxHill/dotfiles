@@ -20,6 +20,10 @@ if OS.mac?
     # Dotnet
     cask "dotnet-sdk6-0-200"
 
+    # Wondow manager
+    brew "koekeishiya/formulae/skhd"
+    brew "koekeishiya/formulae/yabai"
+
 elsif OS.linux?
     brew "xclip" # access to clipboard (similar to pbcopy/pbpaste)
 end
@@ -40,8 +44,9 @@ brew "wget" # internet file retriever
 brew "fnm" # Fast Node version manager
 brew "jq" # Json formatter
 brew "curl" # Later curl version
-brew "awscli"
 brew "fzf" # Commandline fuzzy finder
+brew "awscli"
+brew "golang" 
 
 # Zsh and plugins
 brew "zsh" # zsh (latest)

@@ -26,6 +26,10 @@ fi
 # Install tmux plugins
 ~/.config/tmux/plugins/tpm/bin/install_plugins >> /dev/null
 
+# Keymap
+# ------------------
+export PATH=$PATH:$HOME/dotfiles/scripts
+bindkey -s ^f "tmux neww tmux-sessionizer\n"
 
 # ZSH options
 # ------------------
@@ -59,3 +63,5 @@ export PATH="$PATH:/Users/maxhill/.dotnet/tools"
 export PATH="/usr/local/opt/curl/bin:$PATH"
 
 [ -f "/Users/maxhill/.ghcup/env" ] && source "/Users/maxhill/.ghcup/env" # ghcup-env
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
