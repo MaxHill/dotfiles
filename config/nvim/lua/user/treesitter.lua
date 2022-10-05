@@ -12,8 +12,6 @@ configs.setup({
     disable = { "" }, -- list of language that will be disabled
     additional_vim_regex_highlighting = true,
   },
-  indent = { enable = true, disable = { "" } },
-  autopairs = { enable = true },
   autotag = {
     enable = true,
   },

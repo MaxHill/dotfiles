@@ -30,6 +30,6 @@ o.complete:prepend({ "kspell" }) -- Autocomplete with dictionary words when spel
 o.swapfile = false -- Create swapfile
 o.termguicolors = true -- Better color support in most terminals
 o.winhighlight = "NormalNC:MyNormalWin" -- Make popups background the same as background
-g.nvim_tree_quit_on_open = 1 -- Close file sidebar when file is opened
 o.number = true -- Show line number on current line
 o.relativenumber = true -- Use hybrid line numbers
+o.laststatus = 3 -- Use 1 global statusline for all splits

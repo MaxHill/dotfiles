@@ -83,7 +83,7 @@ normal("<leader>k", ':lua require("harpoon.ui").nav_file(3)<CR>')
 normal("<leader>l", ':lua require("harpoon.ui").nav_file(4)<CR>')
 
 -- Nvim-tree
-normal("<c-n>", ":Lexplore<cr>")
+normal("<c-n>", ":Rexplore<cr>")
 -- normal("<leader>r", ":NvimTreeRefresh<cr>")
 
 -- All modes
@@ -102,7 +102,7 @@ M.lsp_keymaps = function(bufnr)
   normalBuf(bufnr, "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
   normalBuf(bufnr, "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
   normalBuf(bufnr, "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-  normalBuf(bufnr, "<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+  -- normalBuf(bufnr, "<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
   normalBuf(bufnr, "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
   normalBuf(bufnr, "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
   normalBuf(bufnr, "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")

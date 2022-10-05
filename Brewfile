@@ -24,6 +24,9 @@ if OS.mac?
     brew "koekeishiya/formulae/skhd"
     brew "koekeishiya/formulae/yabai"
 
+    # Karabiner-elements
+    cask "karabiner-elements"
+
 elsif OS.linux?
     brew "xclip" # access to clipboard (similar to pbcopy/pbpaste)
 end
