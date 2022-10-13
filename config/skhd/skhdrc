@@ -1,16 +1,14 @@
-# TODO https://github.com/koekeishiya/yabai/issues/725
-
 # focus window
-alt - h : yabai -m window --focus west
-alt - j : yabai -m window --focus south
-alt - k : yabai -m window --focus north
-alt - l : yabai -m window --focus east
+lalt - h : yabai -m window --focus west
+lalt - j : yabai -m window --focus south
+lalt - k : yabai -m window --focus north
+lalt - l : yabai -m window --focus east
 
 # swap managed window
-shift + alt - h : yabai -m window --swap west
-shift + alt - j : yabai -m window --swap south
-shift + alt - k : yabai -m window --swap north
-shift + alt - l : yabai -m window --swap east
+shift + lalt - h : yabai -m window --swap west
+shift + lalt - j : yabai -m window --swap south
+shift + lalt - k : yabai -m window --swap north
+shift + lalt - l : yabai -m window --swap east
 
 # move managed window
 # shift + alt + ctrl - h : yabai -m window --warp west
@@ -25,90 +23,168 @@ fn - r : yabai -m space --rotate 90
 fn - f : yabai -m window --toggle zoom-fullscreen
 
 # float / unfloat window and center on screen
-# alt - t : yabai -m window --toggle float;\
-#           yabai -m window --grid 4:4:1:1:2:2
+lalt - t : yabai -m window --toggle float;\
+           yabai -m window --grid 4:4:1:1:2:2
 
 # toggle window split type
-alt - e : yabai -m window --toggle split
+lalt - e : yabai -m window --toggle split
 
 # balance size of windows
-fn + alt - 0 : yabai -m space --balance
+fn + lalt - 0 : yabai -m space --balance
 
 
 
 # increase window size
-shift + alt - w : yabai -m window --resize top:0:-20
-shift + alt - d : yabai -m window --resize left:-20:0
+shift + lalt - w : yabai -m window --resize top:0:-20
+shift + lalt - d : yabai -m window --resize left:-20:0
 
 # decrease window size
-shift + alt - s : yabai -m window --resize bottom:0:-20
-shift + alt - a : yabai -m window --resize top:0:20
+shift + lalt - s : yabai -m window --resize bottom:0:-20
+shift + lalt - a : yabai -m window --resize top:0:20
 
+
+# Be able to write å, ä, ö
+alt - 0x21 : skhd -k "alt - a" # å
+alt - 0x27 : skhd -k "alt - u" && skhd -k "a" # ä
+alt - 0x29 : skhd -k "alt - u" && skhd -k "o" # ö
 
 
 # Layer Up
-rcmd - k : skhd -k "shift + alt - 8" # remap for {
-rcmd - l : skhd -k "shift + alt - 9" # remap for }
 
-rcmd - q : skhd -k "shift - 1"
-rcmd - w : skhd -k "shift - 2"
-rcmd - e : skhd -k "shift - 3"
-rcmd - r : skhd -k "shift - 4"
-rcmd - t : skhd -k "shift - 5"
-rcmd - y : skhd -k "shift - 6"
-rcmd - u : skhd -k "shift - 7"
-rcmd - i : skhd -k "shift - 8"
-rcmd - o : skhd -k "shift - 9"
-rcmd - p : skhd -k "shift - 0"
+# rcmd - k : skhd -k "shift + alt - 8" # remap for {
+# rcmd - l : skhd -k "shift + alt - 9" # remap for }
+# rcmd - q : skhd -k "shift - 1" # !
+# rcmd - w : skhd -k "shift - 2" # "
+# rcmd - e : skhd -k "shift - 3" # #
+# rcmd - r : skhd -k "shift - 4" # €
+# rcmd - t : skhd -k "shift - 5" # %
+# rcmd - y : skhd -k "shift - 6" # &
+# rcmd - u : skhd -k "shift - 7" # /
+# rcmd - i : skhd -k "shift - 8" # (
+# rcmd - o : skhd -k "shift - 9" # )
+# rcmd - p : skhd -k "shift - 0" # =
+# rcmd - å : skhd -k "shift - plus" # ?
 
-# Layer Down
-# lalt - l : skhd -k "shift - 1"
+
+# Switch num and sumbols
+# shift - 1 : skhd -k "1"
+# shift - 3 : skhd -k "2"
+# shift - 3 : skhd -k "3"
+# shift - 4 : skhd -k "4"
+# shift - 5 : skhd -k "5"
+# shift - 6 : skhd -k "6"
+  # shift - 7 : skhd -k "7"
+# shift - 8 : skhd -k "8"
+  # shift - 9 : skhd -k "9"
+# shift - 0 : skhd -k "0"
+
+# 1 : skhd -k "!"
+# 3 : skhd -k "shift - 2"
+# 3 : skhd -k "shift - 3"
+# 4 : skhd -k "shift - 4"
+# 5 : skhd -k "shift - 5"
+# 6 : skhd -k "shift - 6"
+# 7 : skhd -k "shift - 7"
+# 8 : skhd -k "shift - 8"
+# 9 : skhd -k "shift - 9"
+  # 0 : skhd -k "shift - 0"
+
+# # Layer Up v2 - Symbol layer
+# #
+rcmd - q : skhd -k "1" # 1
+rcmd - w : skhd -k "2" # 2
+rcmd - e : skhd -k "3" # 3
+rcmd - r : skhd -k "4" # 4
+rcmd - t : skhd -k "5" # 5
+  #Middle of hands here
+rcmd - y : skhd -k "6" # 6
+rcmd - u : skhd -k "7" # 7
+rcmd - i : skhd -k "8" # 8
+rcmd - o : skhd -k "9" # 9
+rcmd - p : skhd -k "0" # 10 
+
+rcmd - a : skhd -k "shift - 0x18" # +
+rcmd - s : skhd -k "0x21" # [
+rcmd - d : skhd -k "shift - 0x21" # {
+rcmd - f : skhd -k "shift - 9" # (
+rcmd - g : skhd -k "shift - 4" # $
+  #Middle of hands here
+rcmd - h : skhd -k "0x18" # =
+rcmd - j : skhd -k "shift - 0" # )
+rcmd - k : skhd -k "shift - 0x1E" # }
+rcmd - l : skhd -k "0x1E" # ]
+rcmd - 0x29 : skhd -k "shift - 1" # ö -> !
+rcmd - 0x27 : skhd -k "0x1B" # ä -> -
+rcmd + shift - 0x27 : skhd -k "0x1B" # ä -> -
+
+# Swedish below
+# rcmd - a : skhd -k "alt - 4" # $
+# rcmd - s : skhd -k "0x1B" # +
+# rcmd - d : skhd -k "alt - 8" # [
+# rcmd - f : skhd -k "shift + alt - 8" # {
+# rcmd - g : skhd -k "shift - 8" # (
+#   #Middle of hands here
+# rcmd - h : skhd -k "shift - 9" # )
+# rcmd - j : skhd -k "shift + alt - 9" # }
+# rcmd - k : skhd -k "alt - 9" # ]
+# rcmd - l : skhd -k "shift - 0" # =
+# rcmd - 0x29 : skhd -k "shift - 1" # ö -> !
+# rcmd - 0x27 : skhd -k "alt - 7" # ä -> |
+
+# # Still needs remap:
+# # #, @, /, \, &
+# rcmd - z : skhd -k "shift - 2" # "
+# rcmd - x : skhd -k "shift - 7" # /
+# rcmd - c : skhd -k "shift + alt - 7" # \
+# rcmd - v : skhd -k "shift - 3" # #
+# rcmd - b : skhd -k "alt - 2" # @
 
 
 # ##############################################################################################################################
 # Needs scripting addition
+
+# #
+# # move window and focus desktop
+# fn + alt - y : yabai -m window --space 2; yabai -m space --focus 2
+# fn + alt - u : yabai -m window --space 3; yabai -m space --focus 3
+# fn + alt - i : yabai -m window --space 4; yabai -m space --focus 4
+# fn + alt - o : yabai -m window --space 5; yabai -m space --focus 5
 #
-# move window and focus desktop
-fn + alt - y : yabai -m window --space 2; yabai -m space --focus 2
-fn + alt - u : yabai -m window --space 3; yabai -m space --focus 3
-fn + alt - i : yabai -m window --space 4; yabai -m space --focus 4
-fn + alt - o : yabai -m window --space 5; yabai -m space --focus 5
-
-fn + alt - 1 : yabai -m window --space 1; yabai -m space --focus 1
-fn + alt - 2 : yabai -m window --space 2; yabai -m space --focus 2
-fn + alt - 3 : yabai -m window --space 3; yabai -m space --focus 3
-fn + alt - 4 : yabai -m window --space 4; yabai -m space --focus 4
-fn + alt - 5 : yabai -m window --space 5; yabai -m space --focus 5
-fn + alt - 6 : yabai -m window --space 6; yabai -m space --focus 6
-fn + alt - 7 : yabai -m window --space 7; yabai -m space --focus 7
-fn + alt - 8 : yabai -m window --space 8; yabai -m space --focus 8
-fn + alt - 9 : yabai -m window --space 9; yabai -m space --focus 9
-
-# focus desktop
-fn - y : yabai -m space --focus 2
-fn - u : yabai -m space --focus 3
-fn - i : yabai -m space --focus 4
-fn - o : yabai -m space --focus 5
-
-fn - 1 : yabai -m space --focus 1
-fn - 2 : yabai -m space --focus 2
-fn - 3 : yabai -m space --focus 3
-fn - 4 : yabai -m space --focus 4
-fn - 5 : yabai -m space --focus 5
-fn - 6 : yabai -m space --focus 6
-fn - 7 : yabai -m space --focus 7
-fn - 8 : yabai -m space --focus 8
-fn - 9 : yabai -m space --focus 9
-
-# create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
-shift + alt - n : yabai -m space --create && \
-                   index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
-                   yabai -m window --space "${index}" && \
-                   yabai -m space --focus "${index}"
-
-# fast focus desktop
-alt - 0 : yabai -m space --focus recent
-
-# send window to monitor and follow focus
-shift + alt - n : yabai -m window --display next; yabai -m display --focus next
-shift + alt - p : yabai -m window --display previous; yabai -m display --focus previous
+# fn + alt - 1 : yabai -m window --space 1; yabai -m space --focus 1
+# fn + alt - 2 : yabai -m window --space 2; yabai -m space --focus 2
+# fn + alt - 3 : yabai -m window --space 3; yabai -m space --focus 3
+# fn + alt - 4 : yabai -m window --space 4; yabai -m space --focus 4
+# fn + alt - 5 : yabai -m window --space 5; yabai -m space --focus 5
+# fn + alt - 6 : yabai -m window --space 6; yabai -m space --focus 6
+# fn + alt - 7 : yabai -m window --space 7; yabai -m space --focus 7
+# fn + alt - 8 : yabai -m window --space 8; yabai -m space --focus 8
+# fn + alt - 9 : yabai -m window --space 9; yabai -m space --focus 9
+#
+# # focus desktop
+# fn - y : yabai -m space --focus 2
+# fn - u : yabai -m space --focus 3
+# fn - i : yabai -m space --focus 4
+# fn - o : yabai -m space --focus 5
+#
+# fn - 1 : yabai -m space --focus 1
+# fn - 2 : yabai -m space --focus 2
+# fn - 3 : yabai -m space --focus 3
+# fn - 4 : yabai -m space --focus 4
+# fn - 5 : yabai -m space --focus 5
+# fn - 6 : yabai -m space --focus 6
+# fn - 7 : yabai -m space --focus 7
+# fn - 8 : yabai -m space --focus 8
+# fn - 9 : yabai -m space --focus 9
+#
+# # create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
+# shift + alt - n : yabai -m space --create && \
+#                    index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
+#                    yabai -m window --space "${index}" && \
+#                    yabai -m space --focus "${index}"
+#
+# # fast focus desktop
+# alt - 0 : yabai -m space --focus recent
+#
+# # send window to monitor and follow focus
+# shift + alt - n : yabai -m window --display next; yabai -m display --focus next
+# shift + alt - p : yabai -m window --display previous; yabai -m display --focus previous

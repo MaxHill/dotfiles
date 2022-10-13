@@ -10,8 +10,6 @@ if OS.mac?
     # Applications
     cask "alacritty"
     cask "firefox-developer-edition"
-    cask "raycast"
-    cask "rectangle"
 
     # Fonts
     cask "font-fira-code-nerd-font"
@@ -20,12 +18,9 @@ if OS.mac?
     # Dotnet
     cask "dotnet-sdk6-0-200"
 
-    # Wondow manager
+    # Window manager
     brew "koekeishiya/formulae/skhd"
     brew "koekeishiya/formulae/yabai"
-
-    # Karabiner-elements
-    cask "karabiner-elements"
 
 elsif OS.linux?
     brew "xclip" # access to clipboard (similar to pbcopy/pbpaste)
