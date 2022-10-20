@@ -51,7 +51,7 @@ normal("<c-j> ", ":TmuxNavigateDown")
 normal("<c-k>", ":TmuxNavigateUp")
 normal("<c-h>", ":TmuxNavigateLeft")
 normal("<c-l>", ":TmuxNavigateRight")
-normal("<Leader>e", ":! sh %<CR>")
+normal("<Leader>go", ":! sh %<CR>")
 normal("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 
 -- Paste without yank

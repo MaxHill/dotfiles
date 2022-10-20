@@ -17,10 +17,10 @@ shift + lalt - l : yabai -m window --swap east
 # shift + alt + ctrl - l : yabai -m window --warp east
 
 # rotate tree
-fn - r : yabai -m space --rotate 90
+lalt - r : yabai -m space --rotate 90
 
 # toggle window fullscreen zoom
-fn - f : yabai -m window --toggle zoom-fullscreen
+lalt - f : yabai -m window --toggle zoom-fullscreen
 
 # float / unfloat window and center on screen
 lalt - t : yabai -m window --toggle float;\
@@ -30,7 +30,7 @@ lalt - t : yabai -m window --toggle float;\
 lalt - e : yabai -m window --toggle split
 
 # balance size of windows
-fn + lalt - 0 : yabai -m space --balance
+shift + lalt - 0 : yabai -m space --balance
 
 
 
@@ -115,7 +115,10 @@ rcmd - k : skhd -k "shift - 0x1E" # }
 rcmd - l : skhd -k "0x1E" # ]
 rcmd - 0x29 : skhd -k "shift - 1" # ö -> !
 rcmd - 0x27 : skhd -k "0x1B" # ä -> -
-rcmd + shift - 0x27 : skhd -k "0x1B" # ä -> -
+rcmd + shift - 0x27 : skhd -k "shift - 0x1B" # ä -> -
+
+# Missing symbols
+# @, *, &, 
 
 # Swedish below
 # rcmd - a : skhd -k "alt - 4" # $

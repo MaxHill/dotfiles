@@ -19,11 +19,29 @@ font:
     style: Italic
 
 window:
-  opacity: 0.97
+  opacity: 1
   padding:
     x: 5
     y: 5
   decorations: 'none'
+
+
+key_bindings:
+  # https://www.joshmedeski.com/posts/macos-keyboard-shortcuts-for-tmux/
+  # Tmux Select window 1-9
+  - { key: Key1, mods: Command, chars: "\x02\x31" }
+  - { key: Key2, mods: Command, chars: "\x02\x32" }
+  - { key: Key3, mods: Command, chars: "\x02\x33" }
+  - { key: Key4, mods: Command, chars: "\x02\x34" }
+  - { key: Key5, mods: Command, chars: "\x02\x35" }
+  - { key: Key6, mods: Command, chars: "\x02\x36" }
+  - { key: Key7, mods: Command, chars: "\x02\x37" }
+  - { key: Key8, mods: Command, chars: "\x02\x38" }
+  - { key: Key9, mods: Command, chars: "\x02\x39" }
+  # Tmux Create a new window
+  - { key: N, mods: Command, chars: "\x02\x63" }
+  # Tmux Kill the current pane (and window if last pane)
+  - { key: X, mods: Command, chars: "\x02\x78" }
 
 # Nord theme
 colors:
@@ -74,3 +92,4 @@ colors:
     magenta: '#8c738c'
     cyan: '#6d96a5'
     white: '#aeb3bb'
+
