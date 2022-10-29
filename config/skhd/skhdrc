@@ -80,8 +80,6 @@ alt - 0x29 : skhd -k "alt - u" && skhd -k "o" # ö
 
 # 1 : skhd -k "!"
 # 3 : skhd -k "shift - 2"
-# 3 : skhd -k "shift - 3"
-# 4 : skhd -k "shift - 4"
 # 5 : skhd -k "shift - 5"
 # 6 : skhd -k "shift - 6"
 # 7 : skhd -k "shift - 7"
@@ -91,17 +89,26 @@ alt - 0x29 : skhd -k "alt - u" && skhd -k "o" # ö
 
 # # Layer Up v2 - Symbol layer
 # #
-rcmd - q : skhd -k "1" # 1
-rcmd - w : skhd -k "2" # 2
-rcmd - e : skhd -k "3" # 3
-rcmd - r : skhd -k "4" # 4
-rcmd - t : skhd -k "5" # 5
+# rcmd - q : skhd -k "1" # 1
+# rcmd - w : skhd -k "2" # 2
+# rcmd - e : skhd -k "3" # 3
+# rcmd - r : skhd -k "4" # 4
+# rcmd - t : skhd -k "5" # 5
+#   #Middle of hands here
+# rcmd - y : skhd -k "6" # 6
+# rcmd - u : skhd -k "7" # 7
+# rcmd - i : skhd -k "8" # 8
+# rcmd - o : skhd -k "9" # 9
+# rcmd - p : skhd -k "0" # 10 
+
+
+
+rcmd - e : skhd -k "shift - 3" # #
+rcmd - r : skhd -k "shift - 2" # @
   #Middle of hands here
-rcmd - y : skhd -k "6" # 6
-rcmd - u : skhd -k "7" # 7
-rcmd - i : skhd -k "8" # 8
-rcmd - o : skhd -k "9" # 9
-rcmd - p : skhd -k "0" # 10 
+rcmd - u : skhd -k "shift - 7" # &
+rcmd - i : skhd -k "shift - 8" # *
+rcmd - o : skhd -k "shift - 5" # %
 
 rcmd - a : skhd -k "shift - 0x18" # +
 rcmd - s : skhd -k "0x21" # [
@@ -118,7 +125,7 @@ rcmd - 0x27 : skhd -k "0x1B" # ä -> -
 rcmd + shift - 0x27 : skhd -k "shift - 0x1B" # ä -> -
 
 # Missing symbols
-# @, *, &, 
+# @, *, &, #
 
 # Swedish below
 # rcmd - a : skhd -k "alt - 4" # $

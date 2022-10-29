@@ -13,16 +13,27 @@ require("user.harpoon")
 require("user.snippets")
 
 -- Colorscheme
-vim.cmd("colorscheme nord")
-vim.cmd("highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080")
-vim.cmd("highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6")
-vim.cmd("highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6")
-vim.cmd("highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE")
-vim.cmd("highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE")
-vim.cmd("highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE")
-vim.cmd("highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0")
-vim.cmd("highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0")
-vim.cmd("highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4")
+
+-- Load the colorscheme
+vim.g.nord_contrast = false
+vim.g.nord_borders = true
+vim.g.nord_disable_background = false
+vim.g.nord_italic = false
+vim.g.nord_uniform_diff_background = false
+
+-- Load the colorscheme
+require("nord").set()
+
+-- vim.cmd("colorscheme nord")
+-- vim.cmd("highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080")
+-- vim.cmd("highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6")
+-- vim.cmd("highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6")
+-- vim.cmd("highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE")
+-- vim.cmd("highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE")
+-- vim.cmd("highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE")
+-- vim.cmd("highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0")
+-- vim.cmd("highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0")
+-- vim.cmd("highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4")
 
 -- Give a little bit of focus to the active window
 vim.cmd("augroup BgHighlight  \
@@ -39,12 +50,12 @@ local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup("HighlightYank", {})
 autocmd("TextYankPost", {
-  group = yank_group,
-  pattern = "*",
-  callback = function()
-    vim.highlight.on_yank({
-      higroup = "IncSearch",
-      timeout = 70,
-    })
-  end,
+	group = yank_group,
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank({
+			higroup = "IncSearch",
+			timeout = 70,
+		})
+	end,
 })

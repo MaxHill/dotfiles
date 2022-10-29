@@ -30,7 +30,12 @@ cmd([[Plug 'numToStr/Comment.nvim']]) -- Easier commenting
 cmd([[Plug 'tpope/vim-surround']])
 
 -- Colorscheme
-cmd([[Plug 'arcticicestudio/nord-vim']])
+cmd([[Plug 'shaunsingh/nord.nvim']])
+-- cmd([[Plug 'EdenEast/nightfox.nvim' " Vim-Plug]])
+-- cmd([[Plug 'folke/tokyonight.nvim', { 'branch': 'main' }]])
+-- cmd([[Plug 'arcticicestudio/nord-vim']])
+
+-- F#
 cmd([[Plug 'adelarsq/neofsharp.vim']])
 
 -- Completeion
@@ -47,7 +52,6 @@ cmd([[Plug 'rafamadriz/friendly-snippets']]) -- a bunch of snippets to use
 
 -- LSP
 cmd([[Plug 'neovim/nvim-lspconfig']]) -- enable LSP
-cmd([[Plug 'williamboman/nvim-lsp-installer']]) -- simple to use language server installer
 cmd([[Plug 'jose-elias-alvarez/null-ls.nvim']]) -- for formatters and linters
 cmd([[Plug 'jose-elias-alvarez/nvim-lsp-ts-utils']]) -- Utils for typescript
 

@@ -4,15 +4,18 @@ live_config_reload: true
 # Fix for swedish keyboard
 alt_send_esc: false
 
+draw_bold_text_with_bright_colors: false
+
 # Font config
 font:
-  size: 14.0
+  size: 15.0
   normal:
     family: Hack Nerd Font Mono
     style: Regular
   bold:
     family: Hack Nerd Font Mono
-    style: Bold
+    # style: Bold
+    style: Regular # This is needed for the nord colorscheme
 
   italic:
     family: Hack Nerd Font Mono
@@ -43,6 +46,7 @@ key_bindings:
   # Tmux Kill the current pane (and window if last pane)
   - { key: X, mods: Command, chars: "\x02\x78" }
 
+
 # Nord theme
 colors:
   primary:
@@ -62,7 +66,7 @@ colors:
     matches:
       foreground: CellBackground
       background: '#88c0d0'
-    bar:
+    footer_bar:
       background: '#434c5e'
       foreground: '#d8dee9'
   normal:

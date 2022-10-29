@@ -1,0 +1,13 @@
+- name: Bootstrap development environment
+  hosts: localhost
+
+  tasks:
+  - name: Install npm global packages
+    loop:
+      - yalc
+      - npm-merge-driver
+      - diff-so-fancy
+    community.general.npm:
+      name: "{{ item }}"
+      state: present
+      global: true

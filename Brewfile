@@ -44,7 +44,22 @@ brew "jq" # Json formatter
 brew "curl" # Later curl version
 brew "fzf" # Commandline fuzzy finder
 brew "awscli"
-brew "golang" 
+
+# Go
+brew "golang" # Go language and dev env
+brew "gopls" # Language server for go
+
+# Docker
+cask "docker" 
+
+# Lua
+brew "lua-language-server" # Language server for lua
+
+# Rust
+brew "rustup" # Rust language and dev env
+brew "rust-analyzer" # Language server for rust
+tap "cargo-lambda/cargo-lambda"
+brew "cargo-lambda"
 
 # Zsh and plugins
 brew "zsh" # zsh (latest)
@@ -55,3 +70,7 @@ brew "pure" # Prompt to be used
 # Neo-vim
 brew "ripgrep" # Used for telescope fuzzy finder
 brew "stylua" # Formatter for lua
+
+
+
+brew "ansible"
