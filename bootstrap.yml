@@ -1,13 +1,382 @@
 - name: Bootstrap development environment
   hosts: localhost
+  vars:
+    the_user: "{{ ansible_user_id }}"
 
   tasks:
   - name: Install npm global packages
     loop:
-      - yalc
-      - npm-merge-driver
-      - diff-so-fancy
+      - "@astrojs/language-server"
+      - "@tailwindcss/language-server"
+      - "emmet-ls"
+      - "aws-sdk"
+      - "aws-cdk"
     community.general.npm:
       name: "{{ item }}"
       state: present
       global: true
+    tags:
+      - dependencies 
+      - global-npm
+
+  - name: Update Homebrew
+    community.general.homebrew:
+      state: latest
+      update_homebrew: yes
+    tags:
+      - dependencies 
+      - brew
+      - brew-update
+
+  - name: Tap repositories with brew
+    community.general.homebrew_tap:
+      name:
+        - "homebrew/cask"
+        - "homebrew/cask-versions"
+        - "homebrew/cask-fonts"
+        - "isen-ng/dotnet-sdk-versions" # For dotnet
+        - "homebrew/bundle"
+        - "homebrew/core"
+        - "cargo-lambda/cargo-lambda"
+      state: present
+    tags:
+      - dependencies 
+      - brew
+      - brew-tap
+
+  - name: Install packages with brew
+    community.general.homebrew:
+      name:
+        - "trash" # rm, but put in the trash rather than completely delete
+        - "bat" # better cat
+        - "git" # Git version control (latest version)
+        - "grep" # grep (latest)
+        - "neovim" # A better vim
+        - "python" # python (latst)
+        - "tmux" # terminal multiplexer
+        - "tree" # pretty-print directory contents
+        - "wget" # internet file retriever
+        - "fnm" # Fast Node version manager
+        - "jq" # Json formatter
+        - "curl" # Later curl version
+        - "fzf" # Commandline fuzzy finder
+        - "awscli"
+        - "stow" # Manage dotfiles
+
+        # Golang
+        - "golang" # Go language and dev env
+        - "gopls" # Language server for go
+
+        # Lua
+        - "lua-language-server" # Language server for lua
+
+        # Rust
+        - "rustup" # Rust language and dev env
+        - "rust-analyzer" # Language server for rust
+
+        # Zsh 
+        - "zsh" # zsh (latest)
+        - "zsh-syntax-highlighting" # Syntax highlighting for terminal
+        - "zsh-autosuggestions" # Auto suggest for terminal
+        - "pure" # Prompt to be used
+
+        # Neo-vim
+        - "ripgrep" # Used for telescope fuzzy finder
+        - "stylua" # Formatter for lua
+      state: present
+    tags:
+      - dependencies 
+      - brew
+      - brew-install
+
+
+  - name: Install applications with brew
+    community.general.homebrew_cask:
+      name:
+        # Applications
+        - "alacritty"
+        - "firefox-developer-edition"
+        # Fonts
+        - "font-fira-code-nerd-font"
+        - "font-hack-nerd-font"
+        # Dotnet
+        - "dotnet-sdk6-0-200"
+        # Docker
+        - "docker" 
+      state: present
+    when: ansible_distribution == "MacOSX"
+    tags:
+      - dependencies 
+      - brew
+      - brew-cask
+
+  # Setup shell
+  - name: Get zsh path
+    command: which zsh
+    changed_when: false
+    register: zsh_path
+    tags:
+      - settings
+      - shell
+  
+  - name: change user shell to zsh 
+    become: yes
+    user: name={{the_user}} shell={{ zsh_path.stdout }}
+    tags:
+      - settings
+      - shell
+
+  # Setup git
+  - name: Set git credentials helper
+    community.general.git_config:
+      name: credentials.helpers
+      value: osxkeychain
+    when: ansible_distribution == "MacOSX"
+    tags:
+      - settings
+      - git
+
+  - name: Set git credentials helper in Linux
+    community.general.git_config:
+      name: credentials.helpers
+      value: store
+    when: ansible_distribution == "Ubuntu"
+    tags:
+      - settings
+      - git
+
+  #MAC SETTINGS
+  - name: Kill affected applications
+    shell: for app in Safari Finder Dock Mail SystemUIServer; do killall "$app" >/dev/null 2>&1; done
+    changed_when: false
+    tags:
+      - settings
+      - mac
+      - osx
+
+
+  - name: show the ~/Library folder in Finder
+    command: chflags nohidden ~/Library
+    changed_when: false
+    tags:
+      - settings
+      - mac
+      - osx
+
+  - name: "Finder: show all filename extensions"
+    community.general.osx_defaults:
+      domain: NSGlobalDomain
+      key: AppleShowAllExtensions
+      type: bool 
+      value: true
+      state: present
+    when: ansible_distribution == "MacOSX"
+    tags:
+      - settings
+      - mac
+      - osx
+
+  - name: "Finder: show hidden files by default"
+    community.general.osx_defaults:
+      domain: com.apple.Finder 
+      key: AppleShowAllFiles 
+      type: bool 
+      value: false
+      state: present
+    when: ansible_distribution == "MacOSX"
+    tags:
+      - settings
+      - mac
+      - osx
+
+  - name: "Save window: expand save dialog by default"
+    community.general.osx_defaults:
+      domain: NSGlobalDomain 
+      key: NSNavPanelExpandedStateForSaveMode 
+      type: bool
+      value: true
+      state: present
+    when: ansible_distribution == "MacOSX"
+    tags:
+      - settings
+      - mac
+      - osx
+
+  - name: "Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)"
+    community.general.osx_defaults:
+      domain: NSGlobalDomain 
+      key: AppleKeyboardUIMode 
+      type: int
+      value: 3
+      state: present
+    when: ansible_distribution == "MacOSX"
+    tags:
+      - settings
+      - mac
+      - osx
+
+  - name: "Enable subpixel font rendering on non-Apple LCDs"
+    community.general.osx_defaults:
+      domain: NSGlobalDomain 
+      key: AppleFontSmoothing 
+      type: int
+      value: 2
+      state: present
+    when: ansible_distribution == "MacOSX"
+    tags:
+      - settings
+      - mac
+      - osx
+
+  - name: "Use current directory as default search scope in Finder"
+    community.general.osx_defaults:
+      domain: com.apple.finder 
+      key: FXDefaultSearchScope 
+      type: string
+      value: "SCcf"
+      state: present
+    when: ansible_distribution == "MacOSX"
+    tags:
+      - settings
+      - mac
+      - osx
+
+  - name: "Show Path bar in Finder"
+    community.general.osx_defaults:
+      domain: com.apple.finder 
+      key: ShowPathbar 
+      type: bool
+      value: true
+      state: present
+    when: ansible_distribution == "MacOSX"
+    tags:
+      - settings
+      - mac
+      - osx
+
+  - name: "Show Status bar in Finder"
+    community.general.osx_defaults:
+      domain: com.apple.finder 
+      key: ShowStatusBar 
+      type: bool
+      value: true
+      state: present
+    when: ansible_distribution == "MacOSX"
+    tags:
+      - settings
+      - mac
+      - osx
+
+  - name: "Disable press-and-hold for keys in favor of key repeat"
+    community.general.osx_defaults:
+      domain: NSGlobalDomain 
+      key: ApplePressAndHoldEnabled 
+      type: bool
+      value: false
+      state: present
+    when: ansible_distribution == "MacOSX"
+    tags:
+      - settings
+      - mac
+      - osx
+
+  - name: "Set a blazingly fast keyboard repeat rate"
+    community.general.osx_defaults:
+      domain: NSGlobalDomain 
+      key: KeyRepeat
+      type: int
+      value: 1
+      state: present
+    when: ansible_distribution == "MacOSX"
+    tags:
+      - settings
+      - mac
+      - osx
+
+  - name: "Set a shorter Delay until key repeat"
+    community.general.osx_defaults:
+      domain: InitialKeyRepeat
+      key: KeyRepeat
+      type: int
+      value: 15
+      state: present
+    when: ansible_distribution == "MacOSX"
+    tags:
+      - settings
+      - mac
+      - osx
+
+  - name: "Enable Safari’s debug menu"
+    community.general.osx_defaults:
+      domain: com.apple.Safari 
+      key: IncludeInternalDebugMenu
+      type: bool
+      value: true
+      state: present
+    when: ansible_distribution == "MacOSX"
+    tags:
+      - settings
+      - mac
+      - osx
+
+  - name: "Disable desktop icons"
+    community.general.osx_defaults:
+      domain: com.apple.finder 
+      key: CreateDesktop
+      type: string # Weird that this is a string but that's how it should be
+      value: false
+      state: present
+    when: ansible_distribution == "MacOSX"
+    tags:
+      - settings
+      - mac
+      - osx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

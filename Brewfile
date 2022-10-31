@@ -22,6 +22,9 @@ if OS.mac?
     brew "koekeishiya/formulae/skhd"
     brew "koekeishiya/formulae/yabai"
 
+    # Docker
+    cask "docker" 
+
 elsif OS.linux?
     brew "xclip" # access to clipboard (similar to pbcopy/pbpaste)
 end
@@ -49,8 +52,6 @@ brew "awscli"
 brew "golang" # Go language and dev env
 brew "gopls" # Language server for go
 
-# Docker
-cask "docker" 
 
 # Lua
 brew "lua-language-server" # Language server for lua
