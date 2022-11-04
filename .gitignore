@@ -1,5 +1,5 @@
-config/nvim/autoload/plug.vim
-config/nvim/plugged
+configs/nvim/.config/nvim/autoload/plug.vim
+configs/nvim/.config/nvim/plugged
 config/tmux/plugins
 notes-cli/node-modules
 notes-cli/.idea
