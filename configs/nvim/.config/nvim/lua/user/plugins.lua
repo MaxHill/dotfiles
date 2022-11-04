@@ -19,15 +19,11 @@ cmd([[Plug 'nvim-telescope/telescope.nvim']]) -- Fuzzy finder
 -- cmd([[Plug 'kyazdani42/nvim-tree.lua']]) -- Tree explorer (replaces nerdtree)
 cmd([[Plug 'kyazdani42/nvim-web-devicons']]) -- Icons for nvim-tree
 cmd([[Plug 'windwp/nvim-ts-autotag']]) -- Automatically pair HTML elements
-
 cmd([[Plug 'christoomey/vim-tmux-navigator']]) -- Navigate tmux splits seamlessly
 cmd([[Plug 'ThePrimeagen/harpoon']]) -- File navigation
-
--- easy commenting
 cmd([[Plug 'numToStr/Comment.nvim']]) -- Easier commenting
-
--- change surronding pairs for example "ex" -> 'ex'
-cmd([[Plug 'tpope/vim-surround']])
+cmd([[Plug 'tpope/vim-surround']]) -- change surronding pairs for example "ex" -> 'ex'
+cmd([[Plug 'TimUntersberger/neogit']]) -- manage git from within vim
 
 -- Colorscheme
 cmd([[Plug 'shaunsingh/nord.nvim']])

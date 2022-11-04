@@ -11,6 +11,7 @@ require("user.comment")
 require("user.telescope")
 require("user.harpoon")
 require("user.snippets")
+require("user.neogit")
 
 -- Colorscheme
 
