@@ -1,0 +1,13 @@
+- name: Get stow packages
+  shell: ls configs | tr '\n' ' '
+  register: stow_packages
+  changed_when: false
+  tags:
+    - symlinks
+
+- name: Symlink the configs directory dotfiles
+  shell: stow --dir ./configs --target $HOME {{ stow_packages.stdout }} --verbose=2
+  register: result
+  changed_when: 'result.stderr is search("LINK: ")'
+  tags:
+    - symlinks

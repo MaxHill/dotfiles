@@ -109,6 +109,9 @@ rcmd - r : skhd -k "shift - 2" # @
 rcmd - u : skhd -k "shift - 7" # &
 rcmd - i : skhd -k "shift - 8" # *
 rcmd - o : skhd -k "shift - 5" # %
+# -
+rcmd - 0x21 : skhd -k "0x1B" # å -> -
+rcmd - 0x1E : skhd -k "shift - 0x1B" # ¨ -> _
 
 rcmd - a : skhd -k "shift - 0x18" # +
 rcmd - s : skhd -k "0x21" # [
@@ -122,7 +125,7 @@ rcmd - k : skhd -k "shift - 0x1E" # }
 rcmd - l : skhd -k "0x1E" # ]
 rcmd - 0x29 : skhd -k "shift - 1" # ö -> !
 rcmd - 0x27 : skhd -k "0x1B" # ä -> -
-rcmd + shift - 0x27 : skhd -k "shift - 0x1B" # ä -> -
+rcmd + shift - 0x27 : skhd -k "shift - 0x1B" # ä -> _
 
 # Missing symbols
 # @, *, &, #

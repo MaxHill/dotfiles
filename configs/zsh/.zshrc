@@ -14,8 +14,7 @@ set -o AUTO_CD        # Don't require cd
 
 # Imports
 # ------------------
-source ~/dotfiles/zsh/aliases.sh
-#source ~/dotfiles/zsh/vim-mode.sh
+source ~/.zsh_aliases
 
 
 # fnm (fast node manager)

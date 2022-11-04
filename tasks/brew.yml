@@ -1,0 +1,103 @@
+- name: Update Homebrew
+  community.general.homebrew:
+    state: latest
+    update_homebrew: yes
+  tags:
+    - dependencies 
+    - brew
+    - brew-update
+
+- name: Tap repositories with brew
+  community.general.homebrew_tap:
+    name:
+      - "homebrew/cask"
+      - "homebrew/cask-versions"
+      - "homebrew/cask-fonts"
+      - "isen-ng/dotnet-sdk-versions" # For dotnet
+      - "homebrew/bundle"
+      - "homebrew/core"
+      - "cargo-lambda/cargo-lambda"
+    state: present
+  tags:
+    - dependencies 
+    - brew
+    - brew-tap
+
+- name: Install packages with brew
+  community.general.homebrew:
+    name:
+      - "trash" # rm, but put in the trash rather than completely delete
+      - "bat" # better cat
+      - "git" # Git version control (latest version)
+      - "grep" # grep (latest)
+      - "neovim" # A better vim
+      - "python" # python (latst)
+      - "tmux" # terminal multiplexer
+      - "tree" # pretty-print directory contents
+      - "wget" # internet file retriever
+      - "fnm" # Fast Node version manager
+      - "jq" # Json formatter
+      - "curl" # Later curl version
+      - "fzf" # Commandline fuzzy finder
+      - "awscli"
+      - "stow" # Manage dotfiles
+
+      # Golang
+      - "golang" # Go language and dev env
+      - "gopls" # Language server for go
+
+      # Lua
+      - "lua-language-server" # Language server for lua
+
+      # Rust
+      - "rustup" # Rust language and dev env
+      - "rust-analyzer" # Language server for rust
+
+      # Zsh 
+      - "zsh" # zsh (latest)
+      - "zsh-syntax-highlighting" # Syntax highlighting for terminal
+      - "zsh-autosuggestions" # Auto suggest for terminal
+      - "pure" # Prompt to be used
+
+      # Neo-vim
+      - "ripgrep" # Used for telescope fuzzy finder
+      - "stylua" # Formatter for lua
+    state: present
+  tags:
+    - dependencies 
+    - brew
+    - brew-install
+
+- name: Install osx packages with brew
+  community.general.homebrew:
+    name:
+      - "trash" # rm, but put in the trash rather than completely delete
+    state: present
+  when: ansible_distribution == "MacOSX"
+  tags:
+    - dependencies 
+    - brew
+    - brew-install
+
+
+- name: Install applications with brew
+  community.general.homebrew_cask:
+    name:
+      # Applications
+      - "alacritty"
+      - "firefox-developer-edition"
+      # Fonts
+      - "font-fira-code-nerd-font"
+      - "font-hack-nerd-font"
+      # Dotnet
+      - "dotnet-sdk6-0-200"
+      # Docker
+      - "docker" 
+    state: present
+  when: ansible_distribution == "MacOSX"
+  tags:
+    - dependencies 
+    - brew
+    - brew-cask
+
+

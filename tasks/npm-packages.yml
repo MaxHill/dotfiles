@@ -1,0 +1,17 @@
+- name: Install npm global packages
+  loop:
+    - "@astrojs/language-server"
+    - "@tailwindcss/language-server"
+    - "dockerfile-language-server-nodejs"
+    - "emmet-ls"
+    - "typescript-language-server"
+    - "eslint_d"
+    - "aws-sdk"
+    - "aws-cdk"
+  community.general.npm:
+    name: "{{ item }}"
+    state: present
+    global: true
+  tags:
+    - dependencies 
+    - npm

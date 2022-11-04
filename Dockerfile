@@ -1,21 +1,17 @@
-# pull official base image
+# Start with the ubuntu image
 FROM ubuntu
+ARG DEBIAN_FRONTEND=noninteractive
+# Update apt cache
+RUN apt-get -y update
+# RUN apt-get install -y build-essential procps curl file git
+RUN apt update && apt install -y software-properties-common && apt-add-repository -y ppa:ansible/ansible && apt-add-repository -y ppa:neovim-ppa/unstable && apt update && apt install -y curl git ansible build-essential neovim
 
-# Install dependencies
-RUN apt-get update
-RUN apt-get install -y build-essential file git sudo curl language-pack-en
 
+# add playbooks to the image. This might be a git repo instead
+WORKDIR /dotfiles
 
-# Create a test user
-RUN useradd -ms /bin/bash user && \
-        echo "user ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/user && \
-        chmod 0440 /etc/sudoers.d/user
+ADD . .
 
-USER user:user
+RUN ["./pre-install"]
 
-# set working directory
-WORKDIR /home/user
-
-RUN touch .bash_profile
-
-CMD ["/bin/bash"]
+CMD ["sh", "-c", "./install"]

@@ -1,27 +1,18 @@
 # Installation
-1. Setup ssh with 1password
 2. Pull this repo down to ~/dotfiles
-3. Run the install.sh bash scrip to setup the environment.
+3. Run the ./install scrip to setup the environment.
 
 # Updates
 The install script is none-desctructive and can be run multiple times.
 
 # Testing 
-To test, first build the docker image and then launch an interactive shell
-inside it. From there you can navigate to ~/dotfiles and test the install.sh
-script.
-```
-docker compose build --no-cache && docker compose run dev
+Build and run the dotfiles in a docker image.
 
-// Or
-
-docker compose build --no-cache
-docker compose run --rm dev
+``` bash
+docker build . -t max/dotfiles --platform=linux/amd64
+docker run --rm -it --platform linux/amd64 max/dotfiles bash
 ```
 
-Test the installation:
-```
-cd ~/dotfiles
-./install.sh [command]
-```
+
+
 

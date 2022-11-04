@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+DOTFILES="$(pwd)"
+
+title() {
+    echo -e "\n$1"
+    echo -e "==============================\n"
+}
+
+
+# Install Homebrew 
+./pre-install
+
+# Run playbook
+ansible-galaxy install -r requirements.yml # Install community collection
+
+ansible-playbook bootstrap.yml --ask-become-pass # Run playbook
+
+
