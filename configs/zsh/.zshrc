@@ -49,6 +49,7 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 # Keymap
 # ------------------
+bindkey '^n' autosuggest-accept
 
 
 # PATH Management

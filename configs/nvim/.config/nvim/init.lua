@@ -12,6 +12,7 @@ require("user.telescope")
 require("user.harpoon")
 require("user.snippets")
 require("user.neogit")
+require("user.marks")
 
 -- Colorscheme
 

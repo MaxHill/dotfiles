@@ -12,6 +12,8 @@ plugBegin("~/.config/nvim/plugged")
 
 -- NOTE: the argument passed to Plug has to be wrapped with single-quotes
 
+cmd([[Plug 'ThePrimeagen/vim-be-good']]) -- Pratice vim motions
+
 cmd([[Plug 'nvim-lua/plenary.nvim']]) -- Useful lua functions used ny lots of plugins
 cmd([[Plug 'nvim-lua/popup.nvim']]) -- An implementation of the Popup API from vim in Neovim
 --cmd([[Plug 'windwp/nvim-autopairs']]) -- Automatically pair (), "" end more
@@ -24,6 +26,7 @@ cmd([[Plug 'ThePrimeagen/harpoon']]) -- File navigation
 cmd([[Plug 'numToStr/Comment.nvim']]) -- Easier commenting
 cmd([[Plug 'tpope/vim-surround']]) -- change surronding pairs for example "ex" -> 'ex'
 cmd([[Plug 'TimUntersberger/neogit']]) -- manage git from within vim
+cmd([[Plug 'chentoast/marks.nvim']]) -- show marks in the sidebar
 
 -- Colorscheme
 cmd([[Plug 'shaunsingh/nord.nvim']])

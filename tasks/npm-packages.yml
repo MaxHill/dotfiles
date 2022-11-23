@@ -2,6 +2,7 @@
   loop:
     - "@astrojs/language-server"
     - "@tailwindcss/language-server"
+    - "vscode-langservers-extracted"
     - "dockerfile-language-server-nodejs"
     - "emmet-ls"
     - "typescript-language-server"

@@ -1,9 +1,12 @@
 - name: Bootstrap development environment
   hosts: localhost
   vars:
+    source_key: "./.ssh/id_ed25519"
+    dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519"
     the_user: "{{ ansible_user_id }}"
 
   tasks:
+  - import_tasks: tasks/ssh.yml
   - import_tasks: tasks/brew.yml
   - import_tasks: tasks/npm-packages.yml
   - import_tasks: tasks/symlinks.yml

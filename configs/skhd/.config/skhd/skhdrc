@@ -49,109 +49,39 @@ alt - 0x27 : skhd -k "alt - u" && skhd -k "a" # ä
 alt - 0x29 : skhd -k "alt - u" && skhd -k "o" # ö
 
 
-# Layer Up
+# Symbol layer
 
-# rcmd - k : skhd -k "shift + alt - 8" # remap for {
-# rcmd - l : skhd -k "shift + alt - 9" # remap for }
-# rcmd - q : skhd -k "shift - 1" # !
-# rcmd - w : skhd -k "shift - 2" # "
-# rcmd - e : skhd -k "shift - 3" # #
-# rcmd - r : skhd -k "shift - 4" # €
-# rcmd - t : skhd -k "shift - 5" # %
-# rcmd - y : skhd -k "shift - 6" # &
-# rcmd - u : skhd -k "shift - 7" # /
-# rcmd - i : skhd -k "shift - 8" # (
-# rcmd - o : skhd -k "shift - 9" # )
-# rcmd - p : skhd -k "shift - 0" # =
-# rcmd - å : skhd -k "shift - plus" # ?
-
-
-# Switch num and sumbols
-# shift - 1 : skhd -k "1"
-# shift - 3 : skhd -k "2"
-# shift - 3 : skhd -k "3"
-# shift - 4 : skhd -k "4"
-# shift - 5 : skhd -k "5"
-# shift - 6 : skhd -k "6"
-  # shift - 7 : skhd -k "7"
-# shift - 8 : skhd -k "8"
-  # shift - 9 : skhd -k "9"
-# shift - 0 : skhd -k "0"
-
-# 1 : skhd -k "!"
-# 3 : skhd -k "shift - 2"
-# 5 : skhd -k "shift - 5"
-# 6 : skhd -k "shift - 6"
-# 7 : skhd -k "shift - 7"
-# 8 : skhd -k "shift - 8"
-# 9 : skhd -k "shift - 9"
-  # 0 : skhd -k "shift - 0"
-
-# # Layer Up v2 - Symbol layer
-# #
-# rcmd - q : skhd -k "1" # 1
-# rcmd - w : skhd -k "2" # 2
-# rcmd - e : skhd -k "3" # 3
-# rcmd - r : skhd -k "4" # 4
-# rcmd - t : skhd -k "5" # 5
-#   #Middle of hands here
-# rcmd - y : skhd -k "6" # 6
-# rcmd - u : skhd -k "7" # 7
-# rcmd - i : skhd -k "8" # 8
-# rcmd - o : skhd -k "9" # 9
-# rcmd - p : skhd -k "0" # 10 
-
-
-
+rcmd - w : skhd -k "shift - 1" # !
 rcmd - e : skhd -k "shift - 3" # #
 rcmd - r : skhd -k "shift - 2" # @
-  #Middle of hands here
+rcmd - t : skhd -k "0x1B" # t -> -
+rcmd - y : skhd -k "shift - 0x1B" # y -> _
+#Middle of hands here
 rcmd - u : skhd -k "shift - 7" # &
 rcmd - i : skhd -k "shift - 8" # *
 rcmd - o : skhd -k "shift - 5" # %
-# -
-rcmd - 0x21 : skhd -k "0x1B" # å -> -
-rcmd - 0x1E : skhd -k "shift - 0x1B" # ¨ -> _
+
 
 rcmd - a : skhd -k "shift - 0x18" # +
 rcmd - s : skhd -k "0x21" # [
 rcmd - d : skhd -k "shift - 0x21" # {
 rcmd - f : skhd -k "shift - 9" # (
 rcmd - g : skhd -k "shift - 4" # $
-  #Middle of hands here
+#Middle of hands here
 rcmd - h : skhd -k "0x18" # =
 rcmd - j : skhd -k "shift - 0" # )
 rcmd - k : skhd -k "shift - 0x1E" # }
 rcmd - l : skhd -k "0x1E" # ]
-rcmd - 0x29 : skhd -k "shift - 1" # ö -> !
-rcmd - 0x27 : skhd -k "0x1B" # ä -> -
-rcmd + shift - 0x27 : skhd -k "shift - 0x1B" # ä -> _
 
-# Missing symbols
-# @, *, &, #
-
-# Swedish below
-# rcmd - a : skhd -k "alt - 4" # $
-# rcmd - s : skhd -k "0x1B" # +
-# rcmd - d : skhd -k "alt - 8" # [
-# rcmd - f : skhd -k "shift + alt - 8" # {
-# rcmd - g : skhd -k "shift - 8" # (
-#   #Middle of hands here
-# rcmd - h : skhd -k "shift - 9" # )
-# rcmd - j : skhd -k "shift + alt - 9" # }
-# rcmd - k : skhd -k "alt - 9" # ]
-# rcmd - l : skhd -k "shift - 0" # =
-# rcmd - 0x29 : skhd -k "shift - 1" # ö -> !
-# rcmd - 0x27 : skhd -k "alt - 7" # ä -> |
-
-# # Still needs remap:
-# # #, @, /, \, &
-# rcmd - z : skhd -k "shift - 2" # "
-# rcmd - x : skhd -k "shift - 7" # /
-# rcmd - c : skhd -k "shift + alt - 7" # \
-# rcmd - v : skhd -k "shift - 3" # #
-# rcmd - b : skhd -k "alt - 2" # @
-
+  # Shift layer remaps
+rcmd - 0x29 : skhd -k "shift - 0x29" # :
+rcmd - 0x27 : skhd -k "shift - 0x27" # "
+rcmd - 0x2A : skhd -k "shift - 0x2A" # |
+rcmd - 0x2C : skhd -k "shift - 0x2C" # ?
+rcmd - 0x2B : skhd -k "shift - 0x2B" # <
+rcmd - 0x2F : skhd -k "shift - 0x2F" # >
+# rcmd - . : skhd -k "shift - " # >
+# lcmd - 0x2f : skhd -k "shift - 0x2f" # <
 
 # ##############################################################################################################################
 # Needs scripting addition
@@ -193,7 +123,7 @@ rcmd + shift - 0x27 : skhd -k "shift - 0x1B" # ä -> _
 # shift + alt - n : yabai -m space --create && \
 #                    index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
 #                    yabai -m window --space "${index}" && \
-#                    yabai -m space --focus "${index}"
+#                    yabai -m space --fkocus "${index}"
 #
 # # fast focus desktop
 # alt - 0 : yabai -m space --focus recent
