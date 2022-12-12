@@ -87,30 +87,18 @@ normal("<leader>k", ':lua require("harpoon.ui").nav_file(3)<CR>')
 normal("<leader>l", ':lua require("harpoon.ui").nav_file(4)<CR>')
 
 -- Nvim-tree
-vim.cmd([[
-  let g:NetrwIsOpen=0
-
-  function! ToggleNetrw()
-      if g:NetrwIsOpen
-          let i = bufnr("$")
-          while (i >= 1)
-              if (getbufvar(i, "&filetype") == "netrw")
-                  silent exe "bwipeout " . i 
-              endif
-              let i-=1
-          endwhile
-          let g:NetrwIsOpen=0
-      else
-          let g:NetrwIsOpen=1
-          silent Explore
-      endif
-  endfunction
-
-  " Add your own mapping. For example:
-  noremap <silent> <c-n> :call ToggleNetrw()<CR>
-]])
-
--- normal("<c-n>", ":Rexplore<cr>")
+normal("<c-n>", ":Explore<cr>")
+-- Close netrw with ctrl+n
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+local netrw_group = augroup("netrwGroup", {})
+autocmd("FileType", {
+	group = netrw_group,
+	pattern = "netrw",
+	callback = function()
+		normalBuf(0, "<c-n>", ":Rexplore<CR>")
+	end,
+})
 
 -- normal("<leader>r", ":NvimTreeRefresh<cr>")
 

@@ -33,3 +33,5 @@ o.number = true -- Show line number on current line
 o.relativenumber = true -- Use hybrid line numbers
 o.laststatus = 3 -- Use 1 global statusline for all splits
 -- g.highlight = "Pmenu ctermbg=NONE guibg=NONE" -- Don't change background for floats
+g.netrw_browse_split = 0
+g.netrw_banner = 0
