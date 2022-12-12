@@ -14,6 +14,6 @@ title() {
 # Run playbook
 ansible-galaxy install -r requirements.yml # Install community collection
 
-ansible-playbook bootstrap.yml --ask-become-pass # Run playbook
+ansible-playbook bootstrap.yml --ask-become-pass --ask-vault-pass # Run playbook
 
 

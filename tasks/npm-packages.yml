@@ -5,6 +5,7 @@
     - "vscode-langservers-extracted"
     - "dockerfile-language-server-nodejs"
     - "emmet-ls"
+    - "graphql-language-service-cli"
     - "typescript-language-server"
     - "eslint_d"
     - "aws-sdk"
