@@ -25,8 +25,12 @@ cmd([[Plug 'christoomey/vim-tmux-navigator']]) -- Navigate tmux splits seamlessl
 cmd([[Plug 'ThePrimeagen/harpoon']]) -- File navigation
 cmd([[Plug 'numToStr/Comment.nvim']]) -- Easier commenting
 cmd([[Plug 'tpope/vim-surround']]) -- change surronding pairs for example "ex" -> 'ex'
-cmd([[Plug 'TimUntersberger/neogit']]) -- manage git from within vim
 cmd([[Plug 'chentoast/marks.nvim']]) -- show marks in the sidebar
+
+-- GIT
+--cmd([[Plug 'TimUntersberger/neogit']]) -- manage git from within vim
+cmd([[Plug 'tpope/vim-fugitive']]) -- manage git from within vim
+cmd([[Plug 'ThePrimeagen/git-worktree.nvim']]) -- manage git worktrees from within vim
 
 -- Colorscheme
 cmd([[Plug 'shaunsingh/nord.nvim']])
