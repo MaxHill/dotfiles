@@ -85,6 +85,11 @@ normal("<leader>h", ':lua require("harpoon.ui").nav_file(1)<CR>')
 normal("<leader>j", ':lua require("harpoon.ui").nav_file(2)<CR>')
 normal("<leader>k", ':lua require("harpoon.ui").nav_file(3)<CR>')
 normal("<leader>l", ':lua require("harpoon.ui").nav_file(4)<CR>')
+normal("<leader>;", ':lua require("harpoon.ui").nav_file(5)<CR>')
+
+-- Git Worktrees
+normal("<leader>wl", ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>") -- List worktrees
+normal("<leader>wa", ":lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>") -- Create worktree
 
 -- Nvim-tree
 normal("<c-n>", ":Explore<cr>")
