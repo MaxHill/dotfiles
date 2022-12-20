@@ -13,6 +13,3 @@ docker build . -t max/dotfiles --platform=linux/amd64
 docker run --rm -it --platform linux/amd64 max/dotfiles bash
 ```
 
-
-
-

@@ -1,0 +1,32 @@
+{
+    "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+    "Lua.workspace.library": [
+        "/Users/maxhill/.config/nvim",
+        "/Users/maxhill/.local/share/nvim/site",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/Comment.nvim",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/fidget.nvim",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/lualine.nvim",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/LuaSnip",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/mason.nvim",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/nvim-cmp",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/onedark.nvim",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/packer.nvim",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/plenary.nvim",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/telescope.nvim",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/vim-rhubarb",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/vim-sleuth",
+        "/opt/homebrew/Cellar/neovim/0.8.0/share/nvim/runtime",
+        "/opt/homebrew/Cellar/neovim/0.8.0/lib/nvim",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp/after",
+        "/Users/maxhill/.local/share/nvim/site/pack/packer/start/cmp_luasnip/after",
+        "${3rd}/luassert/library"
+    ]
+}
