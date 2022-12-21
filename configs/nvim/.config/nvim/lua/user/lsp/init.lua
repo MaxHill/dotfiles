@@ -74,26 +74,38 @@ require('mason').setup()
 -- Feel free to add/remove any LSPs that you want here. They will automatically be installed
 local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua', 'gopls' }
 
+
 -- Ensure the servers above are installed
-require('mason-lspconfig').setup {
+local mason_lspconfig = require('mason-lspconfig')
+mason_lspconfig.setup {
   ensure_installed = servers,
 }
 
+-- Install Language servers
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-for _, lsp in ipairs(servers) do
-  require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-end
+-- Attach mason managed servers
+mason_lspconfig.setup_handlers({
+  -- The first entry (without a key) will be the default handler
+  -- and will be called for each installed server that doesn't have
+  -- a dedicated handler.
+  function(server_name) -- Default handler (optional)
+    require('lspconfig')[server_name].setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    }
+  end,
 
--- Turn on lsp status information
-require('fidget').setup()
+})
+
+-- Manual config of LSPs
 
 -- Setup sumneko_lua
 require('user.lsp.sumneko').setup(on_attach, capabilities);
+
+-- Turn on lsp status information
+require('fidget').setup()
 
 return M

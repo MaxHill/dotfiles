@@ -91,10 +91,7 @@ nmap('<leader>?', require('telescope.builtin').oldfiles, '[?] Find recently open
 nmap('<leader><space>', require('telescope.builtin').buffers, '[ ] Find existing buffers')
 nmap('<leader>/', function()
 	-- You can pass additional configuration to telescope to change theme, layout, etc.
-	require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-		winblend = 10,
-		previewer = false,
-	})
+	require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {})
 end, '[/] Fuzzily search in current buffer]')
 
 nmap('<leader>sf', function()
@@ -132,6 +129,7 @@ M.lsp_keymaps = function(bufnr)
 	nmapBuf('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 	nmapBuf('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
+	nmapBuf("gl", vim.diagnostic.open_float, '[G]et [L]ine diagnostics')
 	nmapBuf("<leader>f", vim.diagnostic.goto_prev) -- Was <leader>k before, replaced by harpoo,
 	nmapBuf("<leader>d", vim.diagnostic.goto_next)
 	nmapBuf("<leader>q", vim.diagnostic.setloclist, 'Add to quickfix list')

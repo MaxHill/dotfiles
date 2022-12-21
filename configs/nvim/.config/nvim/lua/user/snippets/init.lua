@@ -54,6 +54,7 @@ ls.add_snippets("typescript", {
 })
 
 ls.add_snippets("markdown", {
+	snippet("/link", fmt("[{}]({}{})", { same(2), c(1, { t("./"), t("") }), i(2) })),
 	snippet(
 		"/div",
 		fmt("{} ---------------------------------------------------",
