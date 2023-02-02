@@ -18,4 +18,4 @@ require('user.auto-commands')
 require('user.keymaps')
 
 
-vim.cmd.colorscheme "catppuccin-mocha"
+vim.cmd.colorscheme "catppuccin-macchiato"

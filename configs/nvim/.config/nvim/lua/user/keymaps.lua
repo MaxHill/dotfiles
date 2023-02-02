@@ -80,7 +80,7 @@ nmap("<leader>l", function() require("harpoon.ui").nav_file(4) end)
 nmap("<leader>;", function() require("harpoon.ui").nav_file(5) end)
 
 -- Git Fugitive
-nmap("<leader>gd", ":G <CR>")
+-- nmap("<leader>gd", ":G <CR>")
 
 -- Git Worktrees
 nmap("<leader>wl", require('telescope').extensions.git_worktree.git_worktrees, "List worktrees")
@@ -126,7 +126,7 @@ M.lsp_keymaps = function(bufnr)
 	nmapBuf('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 	nmapBuf('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
 	nmapBuf('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-	nmapBuf('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+	-- nmapBuf('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 	nmapBuf('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
 	nmapBuf("gl", vim.diagnostic.open_float, '[G]et [L]ine diagnostics')

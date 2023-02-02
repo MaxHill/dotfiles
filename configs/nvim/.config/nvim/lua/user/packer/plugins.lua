@@ -49,6 +49,7 @@ M.plugins = function(use)
   -- use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+  use 'tpope/vim-surround' -- Change surronunding char from ex " to '
   use 'christoomey/vim-tmux-navigator' -- Navigate tmux splits seamlessly
   use 'ThePrimeagen/harpoon' -- File navigation
   use 'chentoast/marks.nvim' -- show marks in the sidebar

@@ -36,6 +36,10 @@ alias dc="docker compose"
 
 # NPM
 alias y="yarn"
+alias yw="yarn workspace"
+alias yfe="yarn workspace fe"
+alias ybe="yarn workspace be"
+alias yin="yarn workspace infra"
 
 # Vim
 alias vim="nvim"
