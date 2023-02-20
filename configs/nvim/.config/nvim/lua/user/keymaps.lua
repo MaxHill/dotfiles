@@ -101,6 +101,10 @@ nmap('<leader>sf', function()
 		previewer = false,
 	})
 end, '[S]earch [F]iles')
+
+nmap('<leader>SF', function()
+	require('telescope.builtin').find_files({ hidden = true })
+end, '[S]earch [F]iles')
 nmap('<leader>sh', require('telescope.builtin').help_tags, '[S]earch [H]elp')
 nmap('<leader>sm', require('telescope.builtin').marks, '[S]earch [M]arks')
 nmap('<leader>sw', require('telescope.builtin').grep_string, '[S]earch current [W]ord')

@@ -72,7 +72,7 @@ require('mason').setup()
 
 -- Enable the following language servers
 -- Feel free to add/remove any LSPs that you want here. They will automatically be installed
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua', 'gopls' }
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'lua_ls', 'gopls' }
 
 
 -- Ensure the servers above are installed
@@ -103,7 +103,7 @@ mason_lspconfig.setup_handlers({
 -- Manual config of LSPs
 
 -- Setup sumneko_lua
-require('user.lsp.sumneko').setup(on_attach, capabilities);
+require('user.lsp.lua_ls').setup(on_attach, capabilities);
 
 -- Turn on lsp status information
 require('fidget').setup()
