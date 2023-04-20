@@ -38,9 +38,14 @@ M.plugins = function(use)
     after = 'nvim-treesitter',
   }
 
+  use 'nvim-treesitter/nvim-treesitter-context' -- Context for treesitter
+
   -- Git related plugins
   use 'tpope/vim-fugitive' -- manage git from within vim
   use 'ThePrimeagen/git-worktree.nvim' -- manage git worktrees from within vim
+
+  -- Netrw
+  use 'tpope/vim-vinegar' -- keybindings and settings for netrw
 
   -- Colorscheme
   use { "catppuccin/nvim", as = "catppuccin" }

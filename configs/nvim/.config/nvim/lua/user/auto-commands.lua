@@ -24,9 +24,9 @@ autocmd("TextYankPost", {
 
 --
 -- Close netrw with ctrl+n
-local netrw_group = augroup("netrwGroup", {})
-autocmd("FileType", {
-	group = netrw_group,
-	pattern = "netrw",
-	callback = require("user.keymaps").closeNetrwIfOpen,
-})
+-- local netrw_group = augroup("netrwGroup", {})
+-- autocmd("FileType", {
+-- 	group = netrw_group,
+-- 	pattern = "netrw",
+-- 	callback = require("user.keymaps").closeNetrwIfOpen,
+-- })

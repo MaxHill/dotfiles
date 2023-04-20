@@ -34,12 +34,12 @@ nmap("n", " nzz", "Center screen when moving through results")
 nmap("<C-d>", "<C-d>zz", "Center screen when going down")
 
 -- Netrw
-nmap("<c-n>", ":Explore<cr>")
+-- nmap("<->", ":Explore<cr>")
 -- Close netrw with ctrl+n
 -- (This runs in an autocmd user.auto-commands)
-M.closeNetrwIfOpen = function()
-	vim.keymap.set('n', '<c-n>', ":Rexplore<CR>", { buffer = 0, desc = 'LSP: Signature Documentation' })
-end
+-- M.closeNetrwIfOpen = function()
+-- 	vim.keymap.set('n', '<c-n>', ":Rexplore<CR>", { buffer = 0, desc = 'LSP: Signature Documentation' })
+-- end
 
 -- Snippets
 local ls = require "luasnip"

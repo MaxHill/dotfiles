@@ -53,6 +53,9 @@
       - "rustup" # Rust language and dev env
       - "rust-analyzer" # Language server for rust
 
+      # GRPc
+      - "protobuf"
+
       # Zsh 
       - "zsh" # zsh (latest)
       - "zsh-syntax-highlighting" # Syntax highlighting for terminal

@@ -1,3 +1,11 @@
+# move spave
+lalt - 1 : yabai -m space --focus 2
+lalt - 2 : yabai -m space --focus 3
+lalt - 3 : yabai -m space --focus 4
+lalt - 4 : yabai -m space --focus 5
+lalt - 5 : yabai -m space --focus 6
+lalt - 0 : yabai -m space --focus 1
+
 # focus window
 lalt - h : yabai -m window --focus west
 lalt - j : yabai -m window --focus south
@@ -51,35 +59,37 @@ alt - 0x29 : skhd -k "alt - u" && skhd -k "o" # ö
 
 # Symbol layer
 
-rcmd - w : skhd -k "shift - 1" # !
-rcmd - e : skhd -k "shift - 3" # #
-rcmd - r : skhd -k "shift - 2" # @
-rcmd - t : skhd -k "0x1B" # t -> -
-rcmd - y : skhd -k "shift - 0x1B" # y -> _
+lcmd - q : skhd -k "q" # !
+
+lcmd - w : skhd -k "shift - 1" # !
+lcmd - e : skhd -k "shift - 3" # #
+lcmd - r : skhd -k "shift - 2" # @
+lcmd - t : skhd -k "0x1B" # t -> -
+lcmd - y : skhd -k "shift - 0x1B" # y -> _
 #Middle of hands here
-rcmd - u : skhd -k "shift - 7" # &
-rcmd - i : skhd -k "shift - 8" # *
-rcmd - o : skhd -k "shift - 5" # %
+lcmd - u : skhd -k "shift - 7" # &
+lcmd - i : skhd -k "shift - 8" # *
+lcmd - o : skhd -k "shift - 5" # %
 
 
-rcmd - a : skhd -k "shift - 0x18" # +
-rcmd - s : skhd -k "0x21" # [
-rcmd - d : skhd -k "shift - 0x21" # {
-rcmd - f : skhd -k "shift - 9" # (
-rcmd - g : skhd -k "shift - 4" # $
+lcmd - a : skhd -k "shift - 0x18" # +
+lcmd - s : skhd -k "0x21" # [
+lcmd - d : skhd -k "shift - 0x21" # {
+lcmd - f : skhd -k "shift - 9" # (
+lcmd - g : skhd -k "shift - 4" # $
 #Middle of hands here
-rcmd - h : skhd -k "0x18" # =
-rcmd - j : skhd -k "shift - 0" # )
-rcmd - k : skhd -k "shift - 0x1E" # }
-rcmd - l : skhd -k "0x1E" # ]
+lcmd - h : skhd -k "0x18" # =
+lcmd - j : skhd -k "shift - 0" # )
+lcmd - k : skhd -k "shift - 0x1E" # }
+lcmd - l : skhd -k "0x1E" # ]
 
   # Shift layer remaps
-rcmd - 0x29 : skhd -k "shift - 0x29" # :
-rcmd - 0x27 : skhd -k "shift - 0x27" # "
-rcmd - 0x2A : skhd -k "shift - 0x2A" # |
-rcmd - 0x2C : skhd -k "shift - 0x2C" # ?
-rcmd - 0x2B : skhd -k "shift - 0x2B" # <
-rcmd - 0x2F : skhd -k "shift - 0x2F" # >
+lcmd - 0x29 : skhd -k "shift - 0x29" # :
+lcmd - 0x27 : skhd -k "shift - 0x27" # "
+lcmd - 0x2A : skhd -k "shift - 0x2A" # |
+lcmd - 0x2C : skhd -k "shift - 0x2C" # ?
+lcmd - 0x2B : skhd -k "shift - 0x2B" # <
+lcmd - 0x2F : skhd -k "shift - 0x2F" # >
 # rcmd - . : skhd -k "shift - " # >
 # lcmd - 0x2f : skhd -k "shift - 0x2f" # <
 
