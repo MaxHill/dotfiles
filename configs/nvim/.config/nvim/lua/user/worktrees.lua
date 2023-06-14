@@ -7,9 +7,11 @@ local execute = vim.api.nvim_command
 wt.on_tree_change(function(op, metadata)
 	if op == wt.Operations.Switch then
 		print("Switched from " .. metadata.prev_path .. " to " .. metadata.path)
-		print("FIle:", vim.fn.filereadable(metadata.path .. "package.json"))
-		if vim.fn.filereadable(metadata.path .. "package.json") then
+
+		if vim.fn.filereadable(metadata.path .. "/yarn.lock") ~= 0 then
 			execute("!yarn install")
+		elseif vim.fn.filereadable(metadata.path .. "/package.json") ~= 0 then
+			execute("!npm install")
 		end
 	end
 	if op == wt.Operations.Create then

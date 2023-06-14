@@ -61,6 +61,7 @@
       - "zsh-syntax-highlighting" # Syntax highlighting for terminal
       - "zsh-autosuggestions" # Auto suggest for terminal
       - "pure" # Prompt to be used
+      - "zsh-vi-mode" # Better vim mode
 
       # Neo-vim
       - "ripgrep" # Used for telescope fuzzy finder

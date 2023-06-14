@@ -45,11 +45,16 @@ export PURE_PROMPT_SYMBOL=""
 # ------------------
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh           # Auto suggestion for terminal
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh   # Syntax highlighting for terminal
+source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh   # Better vim mode
 
 
 # Keymap
 # ------------------
 bindkey '^n' autosuggest-accept
+
+# Enable vi mode
+# ------------------
+bindkey -v
 
 
 # PATH Management
@@ -63,3 +68,6 @@ export PATH="/usr/local/opt/curl/bin:$PATH"                               # Use 
 [ -f "/Users/maxhill/.ghcup/env" ] && source "/Users/maxhill/.ghcup/env" # ghcup-env
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
