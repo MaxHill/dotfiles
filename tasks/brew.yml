@@ -90,6 +90,7 @@
       # Applications
       - "alacritty"
       - "firefox-developer-edition"
+      - "arc"
       # Fonts
       - "font-fira-code-nerd-font"
       - "font-hack-nerd-font"
