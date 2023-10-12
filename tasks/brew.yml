@@ -52,6 +52,7 @@
       # Rust
       - "rustup" # Rust language and dev env
       - "rust-analyzer" # Language server for rust
+      - "cargo-lambda" # To cross compile lambda functions
 
       # GRPc
       - "protobuf"

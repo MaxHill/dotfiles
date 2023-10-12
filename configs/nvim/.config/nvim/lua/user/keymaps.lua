@@ -126,7 +126,7 @@ M.lsp_keymaps = function(bufnr)
 	nmapBuf('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 	nmapBuf('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-	nmapBuf('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+	nmapBuf('gd', require("telescope.builtin").lsp_definitions, '[G]oto [D]efinition')
 	nmapBuf('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 	nmapBuf('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
 	nmapBuf('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')

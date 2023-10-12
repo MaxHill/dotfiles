@@ -1,6 +1,7 @@
 -- LSP settings.
 local M = {}
 
+-- Fix for marks getting removed
 M.LspFormatBuffer = function()
   local marks = {}
   local letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -10,7 +11,7 @@ M.LspFormatBuffer = function()
     marks[letter] = markLocation;
   end
 
-  vim.lsp.buf.formatting_sync({}, 5000)
+  vim.lsp.buf.format({}, 5000)
 
   for i = 1, #letters do
     local letter = letters:sub(i, i)
@@ -50,8 +51,6 @@ local on_attach = function(_, bufnr)
         vim.api.nvim_command("" .. linenr .. "mark " .. letter)
       end
     end
-
-
   end, { desc = 'Format current buffer with LSP' })
 end
 

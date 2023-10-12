@@ -1,9 +1,6 @@
 # Live config reload (changes require restart)
 live_config_reload: true
 
-# Fix for swedish keyboard
-alt_send_esc: false
-
 draw_bold_text_with_bright_colors: false
 
 # Font config
