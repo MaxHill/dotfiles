@@ -1,6 +1,13 @@
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
+--
+
 require('nvim-treesitter.configs').setup {
+  -- Enable autotag plugin
+  autotag = {
+    enable = true,
+  },
+
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = {
     'c',
@@ -16,6 +23,19 @@ require('nvim-treesitter.configs').setup {
     "markdown",
     "markdown_inline"
   },
+
+  modules = {},
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = true,
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- List of parsers to ignore installing (or "all")
+  ignore_install = {},
+
 
   highlight = { enable = true },
   indent = { enable = true },

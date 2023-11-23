@@ -41,6 +41,7 @@
       - "fzf" # Commandline fuzzy finder
       - "awscli"
       - "stow" # Manage dotfiles
+      - "1password-cli" # Manage 1password
 
       # Golang
       - "golang" # Go language and dev env

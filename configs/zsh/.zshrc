@@ -6,6 +6,12 @@ export TERM="xterm-256color"
 export XDG_CONFIG_HOME="$HOME/.config"
 export DOTFILES="$HOME/dotfiles"
 
+# Needed to fix for vi mode always overriding keybindings 
+# see https://stackoverflow.com/questions/73033698/fzf-keybindings-doesnt-work-with-zsh-vi-mode 
+# and https://stackoverflow.com/questions/73033698/fzf-keybindings-doesnt-work-with-zsh-vi-mode#:~:text=mode.%20As%20mentioned-,here,-%2C%20Loading%20the%20fzf
+export ZVM_INIT_MODE=sourcing 
+
+
 
 # ZSH options
 # ------------------
@@ -47,15 +53,9 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh       
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh   # Syntax highlighting for terminal
 source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh   # Better vim mode
 
-
-# Keymap
+# vi mode
 # ------------------
-bindkey '^n' autosuggest-accept
-
-# Enable vi mode
-# ------------------
-bindkey -v
-
+bindkey -v # Enable vi mode
 
 # PATH Management
 # ------------------
@@ -71,3 +71,8 @@ export PATH="/usr/local/opt/curl/bin:$PATH"                               # Use 
 
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
+
+
+# Keymap
+# ------------------
+bindkey '^ ' autosuggest-accept

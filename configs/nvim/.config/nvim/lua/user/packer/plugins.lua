@@ -13,6 +13,9 @@ M.plugins = function(use)
 
       -- Useful status updates for LSP
       'j-hui/fidget.nvim',
+
+      -- Better rust tools
+      'simrat39/rust-tools.nvim'
     },
   }
 
@@ -40,8 +43,10 @@ M.plugins = function(use)
 
   use 'nvim-treesitter/nvim-treesitter-context' -- Context for treesitter
 
+  use 'windwp/nvim-ts-autotag'                  -- Auto close tags in html
+
   -- Git related plugins
-  use 'tpope/vim-fugitive' -- manage git from within vim
+  use 'tpope/vim-fugitive'             -- manage git from within vim
   use 'ThePrimeagen/git-worktree.nvim' -- manage git worktrees from within vim
 
   -- Netrw
@@ -50,14 +55,14 @@ M.plugins = function(use)
   -- Colorscheme
   use { "catppuccin/nvim", as = "catppuccin" }
 
-  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
+  use 'nvim-lualine/lualine.nvim'      -- Fancier statusline
   -- use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
-  use 'tpope/vim-surround' -- Change surronunding char from ex " to '
+  use 'numToStr/Comment.nvim'          -- "gc" to comment visual regions/lines
+  use 'tpope/vim-sleuth'               -- Detect tabstop and shiftwidth automatically
+  use 'tpope/vim-surround'             -- Change surronunding char from ex " to '
   use 'christoomey/vim-tmux-navigator' -- Navigate tmux splits seamlessly
-  use 'ThePrimeagen/harpoon' -- File navigation
-  use 'chentoast/marks.nvim' -- show marks in the sidebar
+  use 'ThePrimeagen/harpoon'           -- File navigation
+  use 'chentoast/marks.nvim'           -- show marks in the sidebar
 
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
@@ -65,11 +70,7 @@ M.plugins = function(use)
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
-  -- Markdown
-  use({
-    "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
-  })
+  use 'tpope/vim-abolish' -- Case preserving search and replace
 end
 
 return M
