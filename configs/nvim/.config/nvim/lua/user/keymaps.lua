@@ -81,6 +81,7 @@ nmap("<leader>;", function() require("harpoon.ui").nav_file(5) end)
 
 -- Git Fugitive
 nmap("<leader>g", ":G <CR>")
+nmap("<leader>gp", ":G push<CR>")
 
 -- Git Worktrees
 nmap("<leader>wl", require('telescope').extensions.git_worktree.git_worktrees, "List worktrees")
