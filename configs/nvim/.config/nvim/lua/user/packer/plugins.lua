@@ -45,6 +45,8 @@ M.plugins = function(use)
 
   use 'windwp/nvim-ts-autotag'                  -- Auto close tags in html
 
+  use 'IndianBoy42/tree-sitter-just'            -- Syntax highlighting for justfiles
+
   -- Git related plugins
   use 'tpope/vim-fugitive'             -- manage git from within vim
   use 'ThePrimeagen/git-worktree.nvim' -- manage git worktrees from within vim
@@ -71,6 +73,7 @@ M.plugins = function(use)
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
   use 'tpope/vim-abolish' -- Case preserving search and replace
+  use 'keith/swift.vim'   -- swift language package
 end
 
 return M

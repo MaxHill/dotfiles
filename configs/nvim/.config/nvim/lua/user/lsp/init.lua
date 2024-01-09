@@ -109,6 +109,9 @@ mason_lspconfig.setup_handlers({
     require('user.lsp.lua_ls').setup(on_attach, capabilities);
   end,
 
+  require 'lspconfig'.sourcekit.setup {
+    cmd = { '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp' }
+  }
 })
 
 -- Turn on lsp status information

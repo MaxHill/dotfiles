@@ -75,4 +75,6 @@ eval "$(jenv init -)"
 
 # Keymap
 # ------------------
-bindkey '^ ' autosuggest-accept
+bindkey '^y' autosuggest-accept
+
+

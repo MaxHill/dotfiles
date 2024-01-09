@@ -42,6 +42,8 @@
       - "awscli"
       - "stow" # Manage dotfiles
       - "1password-cli" # Manage 1password
+      - "just" # Command runner alternative to make
+      - "fd"
 
       # Golang
       - "golang" # Go language and dev env

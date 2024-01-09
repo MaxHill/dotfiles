@@ -80,7 +80,7 @@ nmap("<leader>l", function() require("harpoon.ui").nav_file(4) end)
 nmap("<leader>;", function() require("harpoon.ui").nav_file(5) end)
 
 -- Git Fugitive
--- nmap("<leader>gd", ":G <CR>")
+nmap("<leader>g", ":G <CR>")
 
 -- Git Worktrees
 nmap("<leader>wl", require('telescope').extensions.git_worktree.git_worktrees, "List worktrees")
@@ -139,37 +139,18 @@ M.lsp_keymaps = function(bufnr)
 	nmapBuf("<leader>q", vim.diagnostic.setloclist, 'Add to quickfix list')
 
 	nmapBuf('K', vim.lsp.buf.hover, 'Hover Documentation')
-	--nmapBuf('<C-h>', vim.lsp.buf.signature_help, 'Signature Documentation')
+	nmapBuf('<C-h>', vim.lsp.buf.signature_help, 'Signature Documentation')
 	vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, { buffer = bufnr, desc = 'LSP: Signature Documentation' })
 end
 
 M.cmp_keymaps = function(cmp, luasnip)
 	return cmp.mapping.preset.insert {
-		['<C-d>'] = cmp.mapping.scroll_docs(-4),
-		['<C-f>'] = cmp.mapping.scroll_docs(4),
+		['<C-d>'] = cmp.mapping.scroll_docs(4),
+		['<C-u>'] = cmp.mapping.scroll_docs(-4),
 		['<C-Space>'] = cmp.mapping.complete(),
-		['<CR>'] = cmp.mapping.confirm {
-			behavior = cmp.ConfirmBehavior.Replace,
+		['<C-y>'] = cmp.mapping.confirm {
 			select = true,
 		},
-		-- ['<Tab>'] = cmp.mapping(function(fallback)
-		-- 	if cmp.visible() then
-		-- 		cmp.select_next_item()
-		-- 	elseif luasnip.expand_or_jumpable() then
-		-- 		luasnip.expand_or_jump()
-		-- 	else
-		-- 		fallback()
-		-- 	end
-		-- end, { 'i', 's' }),
-		-- ['<S-Tab>'] = cmp.mapping(function(fallback)
-		-- 	if cmp.visible() then
-		-- 		cmp.select_prev_item()
-		-- 	elseif luasnip.jumpable(-1) then
-		-- 		luasnip.jump(-1)
-		-- 	else
-		-- 		fallback()
-		-- 	end
-		-- end, { 'i', 's' }),
 	}
 end
 

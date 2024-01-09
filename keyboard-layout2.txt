@@ -2,13 +2,13 @@
 [rwin]>[lwin]
 [bspc]>[rwin]
 [del]>[bspc]
-[pgdn]>[ralt]
+[pgdn]>[lalt]
 <keypad>
 <function1>
 [rwin]>[lwin]
 [bspc]>[rwin]
 [del]>[bspc]
-[pgdn]>[ralt]
+[pgdn]>[lalt]
 {bsls}>{-lalt}{a}{+lalt}
 {lshf}{bsls}>{-lshf}{-ralt}{a}{+ralt}{+lshf}
 {rshf}{bsls}>{-lshf}{-ralt}{a}{+ralt}{+lshf}
@@ -20,3 +20,5 @@
 {rshf}{apos}>{-lalt}{u}{+lalt}{-lshf}{a}{+lshf}
 <function2>
 <function3>
+
+
