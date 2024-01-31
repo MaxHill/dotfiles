@@ -1,6 +1,11 @@
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
+  extensions = {
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown {}
+    }
+  },
   defaults = {
     file_ignore_patterns = { ".git/", ".cache", ".DS_Store", "%.o", "%.out", "%.class",
       "%.pdf", "%.mkv", "%.mp4", "%.zip", 'node_modules' },
@@ -33,5 +38,7 @@ require('telescope').setup {
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
+require("telescope").load_extension("ui-select")
+
 
 -- See `:help telescope.builtin`

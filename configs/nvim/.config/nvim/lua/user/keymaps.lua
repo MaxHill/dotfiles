@@ -7,7 +7,7 @@ local nmap = function(keys, func, desc)
 end
 
 local vmap = function(keys, func, desc)
-	vim.keymap.set('v', keys, func, { desc = desc })
+	vim.keymap.set({ "v", "x" }, keys, func, { desc = desc })
 end
 
 local nvmap = function(keys, func, desc)
@@ -19,6 +19,10 @@ local ivmap = function(keys, func, desc)
 end
 
 -- Keymaps
+vmap("<leader>ef",
+	require("user.extract-file").extract_selection_to_file,
+	"Extract current selection to a new file")
+
 vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yank" })
 nvmap("<leader>d", '"_d', "Delete without yank")
 nvmap("<leader>y", '"+y', "Copy to system clipboard")
@@ -111,40 +115,45 @@ nmap('<leader>sm', require('telescope.builtin').marks, '[S]earch [M]arks')
 nmap('<leader>sw', require('telescope.builtin').grep_string, '[S]earch current [W]ord')
 nmap('<leader>sg', require('telescope.builtin').live_grep, '[S]earch by [G]rep')
 nmap('<leader>sd', require('telescope.builtin').diagnostics, '[S]earch [D]iagnostics')
+nmap('<leader>st', require('telescope.builtin').treesitter, '[S]earch [T]reesitter')
 
 -- Treesitter
 -- lua/user/treesitter.lua
 
-M.lsp_keymaps = function(bufnr)
-	local nmapBuf = function(keys, func, desc)
-		if desc then
-			desc = 'LSP: ' .. desc
+vim.api.nvim_create_autocmd('LspAttach', {
+	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+	callback = function(ev)
+		local nmapBuf = function(keys, func, desc)
+			if desc then
+				desc = 'LSP: ' .. desc
+			end
+
+			vim.keymap.set('n', keys, func, { buffer = ev.bufnr, desc = desc })
 		end
 
-		vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-	end
+		nmapBuf('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+		nmapBuf('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-	nmapBuf('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-	nmapBuf('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+		nmapBuf('gd', require("telescope.builtin").lsp_definitions, '[G]oto [D]efinition')
+		nmapBuf('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+		nmapBuf('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+		nmapBuf('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+		-- nmapBuf('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+		nmapBuf('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-	nmapBuf('gd', require("telescope.builtin").lsp_definitions, '[G]oto [D]efinition')
-	nmapBuf('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-	nmapBuf('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-	nmapBuf('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-	-- nmapBuf('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-	nmapBuf('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+		nmapBuf("gl", vim.diagnostic.open_float, '[G]et [L]ine diagnostics')
+		nmapBuf("<leader>f", vim.diagnostic.goto_prev) -- Was <leader>k before, replaced by harpoo,
+		nmapBuf("<leader>d", vim.diagnostic.goto_next)
+		nmapBuf("<leader>q", vim.diagnostic.setloclist, 'Add to quickfix list')
 
-	nmapBuf("gl", vim.diagnostic.open_float, '[G]et [L]ine diagnostics')
-	nmapBuf("<leader>f", vim.diagnostic.goto_prev) -- Was <leader>k before, replaced by harpoo,
-	nmapBuf("<leader>d", vim.diagnostic.goto_next)
-	nmapBuf("<leader>q", vim.diagnostic.setloclist, 'Add to quickfix list')
+		nmapBuf('K', vim.lsp.buf.hover, 'Hover Documentation')
+		-- nmapBuf('<C-h>', vim.lsp.buf.signature_help, 'Signature Documentation')
+		vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help,
+			{ buffer = ev.bufnr, desc = 'LSP: Signature Documentation' })
+	end,
+})
 
-	nmapBuf('K', vim.lsp.buf.hover, 'Hover Documentation')
-	nmapBuf('<C-h>', vim.lsp.buf.signature_help, 'Signature Documentation')
-	vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, { buffer = bufnr, desc = 'LSP: Signature Documentation' })
-end
-
-M.cmp_keymaps = function(cmp, luasnip)
+M.cmp_keymaps = function(cmp, _luasnip)
 	return cmp.mapping.preset.insert {
 		['<C-d>'] = cmp.mapping.scroll_docs(4),
 		['<C-u>'] = cmp.mapping.scroll_docs(-4),

@@ -2,6 +2,7 @@ require('user.options')
 
 -- Packages
 require('user.packer')
+require('user.neodev') -- Must be before lsp
 require('user.lsp')
 require('user.treesitter')
 require('user.snippets') -- Must be before cmp

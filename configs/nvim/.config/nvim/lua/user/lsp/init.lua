@@ -25,8 +25,6 @@ end
 
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
-  require('user.keymaps').lsp_keymaps(bufnr)
-
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     local marks = {}
@@ -108,6 +106,7 @@ mason_lspconfig.setup_handlers({
   ["lua_ls"] = function()
     require('user.lsp.lua_ls').setup(on_attach, capabilities);
   end,
+
 
   require 'lspconfig'.sourcekit.setup {
     cmd = { '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp' }

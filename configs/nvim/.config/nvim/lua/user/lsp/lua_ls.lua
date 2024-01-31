@@ -10,16 +10,9 @@ M.setup = function(on_attach, capabilities)
     capabilities = capabilities,
     settings = {
       Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT)
-          version = 'LuaJIT',
-          -- Setup your lua path
-          path = runtime_path,
+        workspace = {
+          checkThirdParty = false
         },
-        diagnostics = {
-          globals = { 'vim' },
-        },
-        workspace = { library = vim.api.nvim_get_runtime_file('', true) },
         -- Do not send telemetry data containing a randomized but unique identifier
         telemetry = { enable = false },
       },
