@@ -107,6 +107,19 @@ mason_lspconfig.setup_handlers({
     require('user.lsp.lua_ls').setup(on_attach, capabilities);
   end,
 
+  ["stylelint_lsp"] = function()
+    require("lspconfig").stylelint_lsp.setup({
+      filetypes = { "css", "scss" },
+      root_dir = require("lspconfig").util.root_pattern("package.json", ".git"),
+      on_attach = on_attach,
+      capabilities = capabilities,
+      settings = {
+        autoFixOnFormat = true,
+        autoFixOnSave = true
+      },
+    });
+  end,
+
 
   require 'lspconfig'.sourcekit.setup {
     cmd = { '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp' }

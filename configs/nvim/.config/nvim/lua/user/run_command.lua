@@ -8,7 +8,7 @@ local options = {
 		vim.notify("two fn")
 	end
 }
-
+-- Select one option from the table and run the function
 M.select_file = function()
 	local keys = vim.tbl_keys(options)
 	table.sort(keys)

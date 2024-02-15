@@ -7,9 +7,29 @@ title() {
     echo -e "==============================\n"
 }
 
+info() { 
+    echo -e "Info: $1" 
+}
 
-# Install Homebrew 
-./pre-install
+if test ! "$(command -v brew)"; then
+    title "Setting up Homebrew"
+    info "Homebrew not installed. Installing."
+    # Run as a login shell (non-interactive) so that the script doesn't pause for user input
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash --login
+
+fi
+
+if [ "$(uname)" == "Linux" ]; then
+    info "Doing linux setup"
+    test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+    test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+fi
+
+if test ! "$(command -v ansible)"; then
+    title "Install ansible"
+    brew install ansible # Install ansible
+fi
 
 # Run playbook
 ansible-galaxy install -r requirements.yml # Install community collection

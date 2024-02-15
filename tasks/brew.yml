@@ -1,7 +1,7 @@
 - name: Update Homebrew
   community.general.homebrew:
-    state: latest
-    update_homebrew: yes
+    state: present
+    update_homebrew: true
   tags:
     - dependencies 
     - brew
@@ -41,7 +41,6 @@
       - "fzf" # Commandline fuzzy finder
       - "awscli"
       - "stow" # Manage dotfiles
-      - "1password-cli" # Manage 1password
       - "just" # Command runner alternative to make
       - "fd"
       - "openssl@1.1" # Needed to cross compile rust lambdas
@@ -71,7 +70,7 @@
       # Neo-vim
       - "ripgrep" # Used for telescope fuzzy finder
       - "stylua" # Formatter for lua
-    state: present
+    state: latest
   tags:
     - dependencies 
     - brew
@@ -81,7 +80,7 @@
   community.general.homebrew:
     name:
       - "trash" # rm, but put in the trash rather than completely delete
-    state: present
+    state: latest
   when: ansible_distribution == "MacOSX"
   tags:
     - dependencies 
@@ -92,18 +91,20 @@
 - name: Install applications with brew
   community.general.homebrew_cask:
     name:
+      - "1password-cli" # Manage 1password
       # Applications
       - "alacritty"
       - "firefox-developer-edition"
-      - "arc"
+      # - "arc" # Conflicts with current install
       # Fonts
       - "font-fira-code-nerd-font"
       - "font-hack-nerd-font"
+      - "font-jetbrains-mono-nerd-font"
       # Dotnet
       - "dotnet-sdk6-0-200"
       # Docker
       - "docker" 
-    state: present
+    state: latest
   when: ansible_distribution == "MacOSX"
   tags:
     - dependencies 

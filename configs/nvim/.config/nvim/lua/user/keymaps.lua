@@ -11,7 +11,7 @@ local vmap = function(keys, func, desc)
 end
 
 local nvmap = function(keys, func, desc)
-	vim.keymap.set({ "n", "v" }, keys, func, { desc = desc })
+	vim.keymap.set({ "n", "v", "x" }, keys, func, { desc = desc })
 end
 
 local ivmap = function(keys, func, desc)
@@ -112,10 +112,18 @@ nmap('<leader>SF', function()
 end, '[S]earch [F]iles')
 nmap('<leader>sh', require('telescope.builtin').help_tags, '[S]earch [H]elp')
 nmap('<leader>sm', require('telescope.builtin').marks, '[S]earch [M]arks')
-nmap('<leader>sw', require('telescope.builtin').grep_string, '[S]earch current [W]ord')
+nvmap('<leader>sw', require('telescope.builtin').grep_string, '[S]earch current [W]ord')
 nmap('<leader>sg', require('telescope.builtin').live_grep, '[S]earch by [G]rep')
 nmap('<leader>sd', require('telescope.builtin').diagnostics, '[S]earch [D]iagnostics')
 nmap('<leader>st', require('telescope.builtin').treesitter, '[S]earch [T]reesitter')
+
+nmap('<leader>sn', function()
+	require('telescope.builtin').find_files({ hidden = true, cwd = os.getenv("NOTES_HOME") })
+end, '[S]earch [N]otes')
+
+nmap('<leader>sD', function()
+	require('telescope.builtin').find_files({ hidden = true, cwd = os.getenv("DOTFILES") })
+end, '[S]earch [D]otfiles')
 
 -- Treesitter
 -- lua/user/treesitter.lua

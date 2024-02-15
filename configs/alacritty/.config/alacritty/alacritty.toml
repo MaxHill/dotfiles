@@ -1,0 +1,77 @@
+import = [
+# "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-mocha.toml"
+  "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-macchiato.toml"
+# "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-frappe.toml"
+# "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-latte.toml"
+]
+
+live_config_reload = true
+
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 16.0
+
+[font.bold]
+#   family = "Hack Nerd Font Mono"
+#   style = "Bold"
+
+#   family = "FiraCode Nerd Font Mono"
+#   style = "Bold"
+
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[font.italic]
+#   family = "Hack Nerd Font Mono"
+#   style = "Italic"
+
+#   family = "FiraCode Nerd Font Mono"
+#   style = "Italic"
+
+family = "JetBrainsMono Nerd Font"
+style = "Italic"
+
+[font.normal]
+#   family = "Hack Nerd Font Mono"
+#   style = "Regular"
+
+#   family = "FiraCode Nerd Font Mono"
+#   style = "Regular"
+
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[font.offset]
+x = 0
+y = 1
+
+[window]
+decorations = "none"
+opacity = 1
+
+[window.padding]
+x = 5
+y = 5
+
+
+# key_bindings:
+  # https://www.joshmedeski.com/posts/macos-keyboard-shortcuts-for-tmux/
+  # Tmux Select window 1-9
+  # - { key: Key1, mods: Command, chars: "\x02\x31" }
+  # - { key: Key2, mods: Command, chars: "\x02\x32" }
+  # - { key: Key3, mods: Command, chars: "\x02\x33" }
+  # - { key: Key4, mods: Command, chars: "\x02\x34" }
+  # - { key: Key5, mods: Command, chars: "\x02\x35" }
+  # - { key: Key6, mods: Command, chars: "\x02\x36" }
+  # - { key: Key7, mods: Command, chars: "\x02\x37" }
+  # - { key: Key8, mods: Command, chars: "\x02\x38" }
+  # - { key: Key9, mods: Command, chars: "\x02\x39" }
+  # # Tmux Create a new window
+  # - { key: N, mods: Command, chars: "\x02\x63" }
+  # # Tmux Kill the current pane (and window if last pane)
+  # - { key: X, mods: Command, chars: "\x02\x78" }

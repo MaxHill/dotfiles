@@ -5,6 +5,7 @@ export TERM="xterm-256color"
 # Exported variables
 export XDG_CONFIG_HOME="$HOME/.config"
 export DOTFILES="$HOME/dotfiles"
+export NOTES_HOME="$HOME/Dropbox/Notes"
 
 # Needed to fix for vi mode always overriding keybindings 
 # see https://stackoverflow.com/questions/73033698/fzf-keybindings-doesnt-work-with-zsh-vi-mode 

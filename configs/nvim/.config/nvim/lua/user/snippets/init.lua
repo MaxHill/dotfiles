@@ -62,51 +62,27 @@ ls.add_snippets("markdown", {
 
 
 
+
+ls.add_snippets("css", {
+	snippet("cc", fmt("{}(var(--{}));", { c(1, { t("rgb"), t("rgba") }), i(2, "color-") })),
+})
+
 ls.add_snippets("rust", {
 	snippet("test", fmt([[
-	    #[test]
+		{}
 		fn {}() {{
 			{}
 		}}
 ]], {
-		i(1, "test_thing"),
-		i(2)
+		c(1, {
+			t("#[test]"),
+			t("#[tokio::test]"),
+			t("#[test_log::test]"),
+			t("#[test_log::test(tokio::test)]")
+		}),
+		i(2, "test_thing"),
+		i(3)
 	})),
-
-	snippet("testa", fmt([[
-	    #[tokio::test]
-		fn {}() {{
-			{}
-		}}
-]], {
-		i(1, "test_thing"),
-		i(2)
-	})),
-
-	snippet("testl",
-		i(1, "//use test_log::test; "),
-		fmt([[
-        #[test_log::test]
-		fn {}() {{
-			{}
-		}}
-]], {
-			i(1, "test_thing"),
-			i(2)
-		})),
-
-	snippet("testall",
-		i(1, "//use test_log::test; "),
-		fmt([[
-        #[test(tokio::test)]
-		fn {}() {{
-			{}
-		}}
-]], {
-			i(1, "test_thing"),
-			i(2)
-		})),
-
 	snippet("modtest", fmt([[
 		#[cfg(test)]
 		mod test {{
