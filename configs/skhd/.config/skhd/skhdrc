@@ -53,6 +53,7 @@ shift + lalt - a : yabai -m window --resize top:0:20
 
 # Be able to write å, ä, ö
 alt - 0x21 : skhd -k "alt - a" # å
+alt - 0x21 : skhd -k "alt - a" # å
 alt - 0x27 : skhd -k "alt - u" && skhd -k "a" # ä
 alt - 0x29 : skhd -k "alt - u" && skhd -k "o" # ö
 

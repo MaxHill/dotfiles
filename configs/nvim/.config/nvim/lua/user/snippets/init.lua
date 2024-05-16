@@ -65,6 +65,8 @@ ls.add_snippets("markdown", {
 
 ls.add_snippets("css", {
 	snippet("cc", fmt("{}(var(--{}));", { c(1, { t("rgb"), t("rgba") }), i(2, "color-") })),
+	snippet("var", fmt("var(--{})", { i(1) })),
+	snippet("bg", fmt("background: {};", { i(1) })),
 })
 
 ls.add_snippets("rust", {
@@ -93,5 +95,20 @@ ls.add_snippets("rust", {
 	]], {
 		c(1, { t("use super::*;", {}), t("") }),
 		i(2),
+	})),
+	snippet("query", fmt([[
+		sqlx::query_as!(
+			{},
+			r"
+			{}
+			",
+		)
+		.fetch_all(pool)
+		.await
+		{}
+	]], {
+		i(1),
+		i(2),
+		i(3),
 	}))
 })

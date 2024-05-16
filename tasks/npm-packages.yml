@@ -9,6 +9,7 @@
     - "eslint_d"
     - "aws-sdk"
     - "aws-cdk"
+    - "sql-formatter"
   community.general.npm:
     name: "{{ item }}"
     state: present

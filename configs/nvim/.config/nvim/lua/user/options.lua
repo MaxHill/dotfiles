@@ -9,6 +9,9 @@ vim.g.maplocalleader = " "
 vim.o.hlsearch = false
 vim.o.incsearch = true
 
+-- Show command and replace inline
+vim.o.inccommand = true
+
 vim.o.showmode = true -- Always show what mode we're currently editing in
 
 -- Make line numbers default
@@ -16,7 +19,7 @@ vim.o.number = true
 vim.o.relativenumber = true -- Use hybrid line numbers
 
 -- Enable mouse mode
-vim.o.mouse = 'a'
+vim.o.mouse = "a"
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -30,7 +33,7 @@ vim.o.smartcase = true
 
 -- Decrease update time
 vim.o.updatetime = 100
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = "yes"
 
 vim.o.colorcolumn = "81" -- Highlight to column to see 80 char mark
 
@@ -53,5 +56,3 @@ vim.opt.swapfile = false -- Don't use swap files
 vim.opt.backup = false -- Don't backup with swap files
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir" -- Save undo history here
 vim.opt.undofile = true -- Do save undo history
-
-

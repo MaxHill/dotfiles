@@ -109,6 +109,11 @@ _G.packer_plugins = {
     path = "/Users/maxhill/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["conform.nvim"] = {
+    loaded = true,
+    path = "/Users/maxhill/.local/share/nvim/site/pack/packer/start/conform.nvim",
+    url = "https://github.com/stevearc/conform.nvim"
+  },
   ["fidget.nvim"] = {
     loaded = true,
     path = "/Users/maxhill/.local/share/nvim/site/pack/packer/start/fidget.nvim",
@@ -143,6 +148,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/maxhill/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
+  },
+  ["mini.surround"] = {
+    loaded = true,
+    path = "/Users/maxhill/.local/share/nvim/site/pack/packer/start/mini.surround",
+    url = "https://github.com/echasnovski/mini.surround"
   },
   ["neodev.nvim"] = {
     loaded = true,
@@ -185,6 +195,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/maxhill/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
+  },
+  playground = {
+    loaded = true,
+    path = "/Users/maxhill/.local/share/nvim/site/pack/packer/start/playground",
+    url = "https://github.com/nvim-treesitter/playground"
   },
   ["plenary.nvim"] = {
     loaded = true,
@@ -238,11 +253,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/maxhill/.local/share/nvim/site/pack/packer/start/vim-sleuth",
     url = "https://github.com/tpope/vim-sleuth"
-  },
-  ["vim-surround"] = {
-    loaded = true,
-    path = "/Users/maxhill/.local/share/nvim/site/pack/packer/start/vim-surround",
-    url = "https://github.com/tpope/vim-surround"
   },
   ["vim-tmux-navigator"] = {
     loaded = true,

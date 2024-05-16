@@ -1,6 +1,6 @@
 <base>
-[rwin]>[lwin]
-[bspc]>[rwin]
+[rwin]>[rwin]
+[bspc]>[lwin]
 [del]>[bspc]
 [pgdn]>[lalt]
 <keypad>
@@ -20,5 +20,3 @@
 {rshf}{apos}>{-lalt}{u}{+lalt}{-lshf}{a}{+lshf}
 <function2>
 <function3>
-
-

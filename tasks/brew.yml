@@ -45,6 +45,9 @@
       - "fd"
       - "openssl@1.1" # Needed to cross compile rust lambdas
 
+      # SQL
+      - "pgformatter" # Format sql
+
       # Golang
       - "golang" # Go language and dev env
       - "gopls" # Language server for go
