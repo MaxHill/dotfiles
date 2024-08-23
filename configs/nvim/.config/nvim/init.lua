@@ -1,23 +1,17 @@
-require("user.options")
+vim.g.mapleader = " " -- needs to be set before lazy is loaded
+vim.g.maplocalleader = " "
 
--- Packages
-require("user.packer")
-require("user.neodev") -- Must be before lsp
-require("user.lsp")
-require("user.treesitter")
-require("user.snippets") -- Must be before cmp
-require("user.cmp")
-require("user.telescope")
-require("user.marks")
-require("user.comment")
-require("user.lualine")
-require("user.worktrees")
-require("user.mini_surround")
-require("user.conform")
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  vim.fn.system {
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  }
+end
+vim.opt.rtp:prepend(lazypath)
 
-require("user.auto-commands")
-
--- keymaps
-require("user.keymaps")
-
-vim.cmd.colorscheme("catppuccin-macchiato")
+require("lazy").setup "custom.plugins"

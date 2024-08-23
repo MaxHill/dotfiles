@@ -1,0 +1,39 @@
+#editor = "vim" # Defaults to $EDITOR env variable
+#note_file_type = "md" # Defaults to ""
+notes_dir = "/Users/maxhill/Dropbox/Notes"
+templates_dir = "/Users/maxhill/.config/notes-cli/templates" 
+
+# Subcommands are launched with sh -c {{command}}
+# which means you can cd and do whatever you want because when
+# it finishes it will return to where you were.
+#
+# Subcommands are also templates which get's passed the following object:
+# {
+#   // This very config
+#   config: Config,
+#   // Flags passed to ex. Given `note subcommand thing --f1 a --f2 b` flags would equal "thing --f1 a --f2 b"
+#   args: String,
+# }
+# This means you can put the flags wherever you want in the command.
+[subcommands]
+# Search filenames with fzf and open in default editor
+find = "cd {{config.notes_dir}} && $EDITOR $(fzf {{flags}})"
+new-meeting = "create-meetings-binary {{setup.notes-dir}}"
+
+# Create a meeting note
+get-events-today = "get-calendar-events $(date -u +\"%Y-%m-%dT00:00:00+0000\") $(date -u +\"%Y-%m-%dT23:59:00+0000\")"
+meeting-fzf = 'notes-cli get-events-today | jq -r ".[].title" | fzf'
+select-meeting = 'selected=$(notes-cli meeting-fzf); notes-cli get-events-today | jq ".[] | select(.title == \"$selected\")" | jq @json' 
+# NOT WORKING
+meeting = 'meeting=$(notes-cli select-meeting); notes-cli  new meeting-name --meta-data-json="$meeting" -t meeting'
+
+
+# Meta can also be added to on a per request basis
+# using the -m/--meta-data KEY:VALUE flag.
+# Meta can be accessed in template like this: {{config.meta.who}}
+[meta]
+who = "Max Hill"
+author = "Max"
+timestamp = "2023-01-02T18:00:00"
+
+

@@ -6,6 +6,8 @@ export TERM="xterm-256color"
 export XDG_CONFIG_HOME="$HOME/.config"
 export DOTFILES="$HOME/dotfiles"
 export NOTES_HOME="$HOME/Dropbox/Notes"
+export EDITOR=nvim
+export VISUAL="$EDITOR"
 
 # Needed to fix for vi mode always overriding keybindings 
 # see https://stackoverflow.com/questions/73033698/fzf-keybindings-doesnt-work-with-zsh-vi-mode 
@@ -78,4 +80,5 @@ eval "$(jenv init -)"
 # ------------------
 bindkey '^y' autosuggest-accept
 
-
+# opam configuration
+[[ ! -r /Users/maxhill/.opam/opam-init/init.zsh ]] || source /Users/maxhill/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null

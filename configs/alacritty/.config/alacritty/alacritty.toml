@@ -1,8 +1,10 @@
 import = [
 # "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-mocha.toml"
-  "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-macchiato.toml"
+#  "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-macchiato.toml"
 # "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-frappe.toml"
 # "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-latte.toml"
+  "/Users/maxhill/.config/alacritty/cyberdream/cyberdream.toml"
+  # "/Users/maxhill/.config/alacritty/cyberdream/cyberdream-light.toml"
 ]
 
 live_config_reload = true
@@ -52,7 +54,8 @@ y = 1
 
 [window]
 decorations = "none"
-opacity = 1
+opacity = 0.88
+blur = true
 
 [window.padding]
 x = 5

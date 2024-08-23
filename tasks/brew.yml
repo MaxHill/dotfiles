@@ -44,6 +44,13 @@
       - "just" # Command runner alternative to make
       - "fd"
       - "openssl@1.1" # Needed to cross compile rust lambdas
+      - "watchexec"
+
+      # Gleam
+      - "gleam"
+
+      # Ocaml
+      - "opam"
 
       # SQL
       - "pgformatter" # Format sql
@@ -107,6 +114,8 @@
       - "dotnet-sdk6-0-200"
       # Docker
       - "docker" 
+      # window manager
+      - "nikitabobko/tap/aerospace"
     state: latest
   when: ansible_distribution == "MacOSX"
   tags:
