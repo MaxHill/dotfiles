@@ -125,7 +125,7 @@ M.lsp_keymaps = function(args)
 
   -- Lspsaga variations
   nmapBuf("K", "<Cmd>Lspsaga hover_doc<cr>", "Hover Documentation")
-  nmapBuf("<leader>kk", "<Cmd>Lspsaga hover_doc ++keep<cr>", "Hover Documentation and keep it visible")
+  nmapBuf("<leader>KK", "<Cmd>Lspsaga hover_doc ++keep<cr>", "Hover Documentation and keep it visible")
 
   -- nmapBuf("<leader>f", "<Cmd>Lspsaga diagnostic_jump_next<cr>") -- Was <leader>k before, replaced by harpoo,
   -- nmapBuf("<leader>d", "<Cmd>Lspsaga diagnostic_jump_prev<cr>")
@@ -138,16 +138,10 @@ M.telescope_keymaps = function(builtin)
     -- You can pass additional configuration to telescope to change theme, layout, etc.
     builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {})
   end, "[/] Fuzzily search in current buffer]")
-  nmap("<leader>ft", builtin.git_files)
-  nmap("<leader>sf", function()
-    -- You can pass additional configuration to telescope to change theme, layout, etc.
-    builtin.find_files(require("telescope.themes").get_dropdown {
-      hidden = true,
-      previewer = false,
-    })
-  end, "[S]earch [F]iles")
+  nmap("<leader>sF", builtin.git_files, "[S]earch [F]iles")
+  nmap("<leader>SF", builtin.find_files, "[S]earch [F]iles")
 
-  nmap("<leader>SF", function()
+  nmap("<leader>sf", function()
     builtin.find_files { hidden = true }
   end, "[S]earch [F]iles")
   nmap("<leader>sh", builtin.help_tags, "[S]earch [H]elp")

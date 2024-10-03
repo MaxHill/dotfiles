@@ -1,0 +1,61 @@
+;; `defsrc` defines the keys that will be intercepted by kanata.
+;; The order of the keys matches with deflayer declarations and all deflayer
+;; declarations must have the same number of keys as defsrc. Any keys not listed
+;; in defsrc will be passed straight to the operating system.
+(defsrc
+  home 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    ret
+  caps a    s    d    f    g    h    j    k    l    ;    '    \
+  lsft grv z    x    c    v    b    n    m    ,    .    /    rsft
+  fn   lctl lalt lmet           spc            rmet ralt
+)
+
+
+;; Base layer (active by default when kanata starts up):
+;;  - the 3 main thumb keys become mod/taps
+;;  - home-row mods on SDF and JKL
+;;  - CapsLock becomes Escape
+(deflayer qwerty
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  esc  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    @sym           _              _    _
+)
+
+;; ;; Swedish layer:
+;; ;;  be able to type o å a
+;; (deflayer swedish 
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    å    _    _
+;;   esc  _    _    _    _    _    _    _    _    _    ö    ä    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   @swe _    _    @sym           _              _    _
+;; )
+
+;; Symbol layer:
+(deflayer symbol
+  _    _      _    _       _       _       _        _    _       _    _    _    _    _
+  _    S-1    S-1  S-3     S-2     kp-     S--      S-7  S-8     S-5  _    S-[  S-]  _
+  esc  +      [    S-[     S-9     S-4     eql      S-0  S-]     ]    S-;  S-'  S-\
+  _    S-grv  _    _       _       _       _        _    _       S-,  S-.  _    _
+  _    _      _    @sym            _                _    _
+)
+
+
+;; `defalias` is used to declare a shortcut for a more complicated action to keep
+;; the deflayer declarations clean and aligned. The alignment in deflayers is
+;; not necessary, but is highly recommended for ease of understanding visually.
+;; Aliases are referred to by `@<alias_name>`.
+(defalias
+  ;; tap: backtick (grave), hold: toggle layer-switching layer while held
+  ;; grl (tap-hold 200 200 grv (layer-toggle layers))
+
+  ;; layer-switch changes the base layer.
+  std (layer-switch qwerty)
+  sym (layer-while-held symbol)
+  ;; swe (layer-while-held swedish)
+
+)
+
+;; vim: set ft=lisp
