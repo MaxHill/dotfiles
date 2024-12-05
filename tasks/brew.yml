@@ -26,6 +26,7 @@
 - name: Install packages with brew
   community.general.homebrew:
     name:
+      - "dbmate"
       - "trash" # rm, but put in the trash rather than completely delete
       - "bat" # better cat
       - "git" # Git version control (latest version)
@@ -75,7 +76,7 @@
       - "zsh-syntax-highlighting" # Syntax highlighting for terminal
       - "zsh-autosuggestions" # Auto suggest for terminal
       - "pure" # Prompt to be used
-      - "zsh-vi-mode" # Better vim mode
+      # - "zsh-vi-mode" # Better vim mode
 
       # Neo-vim
       - "ripgrep" # Used for telescope fuzzy finder

@@ -1,8 +1,9 @@
 import = [
-"/Users/maxhill/.config/alacritty/catppuccin/catppuccin-mocha.toml"
+  # "~/.config/alacritty/rose-pine/dist/rose-pine.toml"
+# "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-mocha.toml"
  # "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-macchiato.toml"
 # "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-frappe.toml"
-# "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-latte.toml"
+"/Users/maxhill/.config/alacritty/catppuccin/catppuccin-latte.toml"
   # "/Users/maxhill/.config/alacritty/cyberdream/cyberdream.toml"
   # "/Users/maxhill/.config/alacritty/cyberdream/cyberdream-light.toml"
 ]
@@ -16,9 +17,7 @@ draw_bold_text_with_bright_colors = false
 TERM = "xterm-256color"
 
 [font]
-size = 20.0
-
-
+size = 18.0
 
 [font.bold]
 #   family = "Hack Nerd Font Mono"
@@ -52,17 +51,17 @@ style = "Regular"
 
 [font.offset]
 x = 0
-y = 1
+y = 15
 
 [window]
 decorations = "none"
 # opacity = 0.88
-opacity = 0.98
+opacity = 1
 blur = true
 
 [window.padding]
-x = 5
-y = 5
+x = 10
+y = 10
 
 
 # key_bindings:

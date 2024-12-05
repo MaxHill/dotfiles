@@ -145,21 +145,25 @@ return {
       })
 
       -- Autoformatting Setup
-      require("conform").setup {
+      local conform = require "conform"
+      conform.setup {
         formatters_by_ft = {
           lua = { "stylua" },
           javascript = { { "prettierd", "prettier" } },
           rust = { "rustfmt" },
+          sql = { "sleek" },
+        },
+        formatters = {
+          sleek = {
+            command = "sleek",
+            -- args = { "", "-" },
+          },
         },
       }
 
       vim.api.nvim_create_autocmd("BufWritePre", {
         callback = function(args)
-          require("conform").format {
-            bufnr = args.buf,
-            lsp_fallback = true,
-            quiet = true,
-          }
+          require("conform").format { bufnr = args.buf, lsp_fallback = true, quiet = true }
         end,
       })
     end,

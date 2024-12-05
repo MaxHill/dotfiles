@@ -6,13 +6,13 @@ export TERM="xterm-256color"
 export XDG_CONFIG_HOME="$HOME/.config"
 export DOTFILES="$HOME/dotfiles"
 export NOTES_HOME="$HOME/Dropbox/Notes"
-export EDITOR=nvim
+export EDITOR="nvim"
 export VISUAL="$EDITOR"
 
 # Needed to fix for vi mode always overriding keybindings 
 # see https://stackoverflow.com/questions/73033698/fzf-keybindings-doesnt-work-with-zsh-vi-mode 
 # and https://stackoverflow.com/questions/73033698/fzf-keybindings-doesnt-work-with-zsh-vi-mode#:~:text=mode.%20As%20mentioned-,here,-%2C%20Loading%20the%20fzf
-export ZVM_INIT_MODE=sourcing 
+# export ZVM_INIT_MODE=sourcing 
 
 
 
@@ -47,18 +47,22 @@ fi
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
 autoload -U promptinit; promptinit
 prompt pure
-export PURE_PROMPT_SYMBOL=""
 
 
 # ZSH Plugins
 # ------------------
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh           # Auto suggestion for terminal
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh   # Syntax highlighting for terminal
-source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh   # Better vim mode
+# source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh   # Better vim mode
 
 # vi mode
 # ------------------
-bindkey -v # Enable vi mode
+bindkey -v # Enable vi mode instead of emacs
+
+# Edit command in vim
+# ------------------
+autoload -z edit-command-line
+zle -N edit-command-line
 
 # PATH Management
 # ------------------
@@ -67,6 +71,8 @@ export PATH=$PATH:$HOME/dotfiles/scripts                                  # Add 
 export PATH="$PATH:/Users/maxhill/.dotnet/tools"                          # Add .NET Core SDK tools
 
 export PATH="/usr/local/opt/curl/bin:$PATH"                               # Use cUrl from homebrew
+
+export PATH="$PATH:/Applications"                               # Use cUrl from homebrew
 
 [ -f "/Users/maxhill/.ghcup/env" ] && source "/Users/maxhill/.ghcup/env" # ghcup-env
 
@@ -78,7 +84,10 @@ eval "$(jenv init -)"
 
 # Keymap
 # ------------------
-bindkey '^y' autosuggest-accept
+bindkey '^y' autosuggest-accept # Accept suggestion
+bindkey "^e" edit-command-line # Edit current command in vim
+bindkey "^p" up-line-or-history
+bindkey "^n" down-line-or-history
 
 # opam configuration
 [[ ! -r /Users/maxhill/.opam/opam-init/init.zsh ]] || source /Users/maxhill/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null

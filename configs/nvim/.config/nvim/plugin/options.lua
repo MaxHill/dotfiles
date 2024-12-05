@@ -47,7 +47,7 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 
 vim.opt.wrap = false -- Don't wrap lines
-vim.o.laststatus = 3 -- Use 1 global statusline for all splits
+vim.o.laststatus = 2 -- 1: Show statusline only if multiple files open, 2: always show statuslin, 3: Use 1 global statusline for all splits
 vim.g.netrw_banner = 0 -- Don't show netrw header
 vim.g.netrw_browse_split = 0 -- Don't use split for netrw
 vim.opt.termguicolors = true -- Better color support

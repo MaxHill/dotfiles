@@ -24,6 +24,12 @@ M.global = function()
   nmap("<leader><space>t", function()
     require("custom.open-related-plugin").toggle ".*ts$"
   end)
+  -- Toggle test file lua
+  nmap("<leader>tt", function()
+    local tt = require "custom.toggle-test-file"
+    print(tt)
+    tt.toggle_test_file()
+  end)
 
   -- Quickfix
   nmap("]q", ":cn<CR>") -- next in quickfix list
@@ -115,8 +121,8 @@ M.lsp_keymaps = function(args)
   nmapBuf("gl", vim.diagnostic.open_float, "[G]et [L]ine diagnostics")
   -- nmapBuf("K", vim.lsp.buf.hover, "Hover Documentation")
 
-  nmapBuf("<leader>f", vim.diagnostic.goto_prev) -- Was <leader>k before, replaced by harpoo,
-  nmapBuf("<leader>d", vim.diagnostic.goto_next)
+  -- nmapBuf("<leader>f", vim.diagnostic.goto_prev) -- Was <leader>k before, replaced by harpoo,
+  -- nmapBuf("<leader>d", vim.diagnostic.goto_next)
   nmapBuf("<leader>q", vim.diagnostic.setloclist, "Add to quickfix list")
 
   -- nmapBuf("<space>rn", vim.lsp.buf.rename, "[R]e[n]ame")
@@ -140,6 +146,7 @@ M.telescope_keymaps = function(builtin)
   end, "[/] Fuzzily search in current buffer]")
   nmap("<leader>sF", builtin.git_files, "[S]earch [F]iles")
   nmap("<leader>SF", builtin.find_files, "[S]earch [F]iles")
+  nmap("<leader>sb", builtin.buffers, "[S]earch [B]uffers")
 
   nmap("<leader>sf", function()
     builtin.find_files { hidden = true }

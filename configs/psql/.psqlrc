@@ -1,0 +1,6 @@
+\set QUIET 1
+\x auto
+\pset linestyle unicode
+\timing
+\pset null 'NULL'
+\set QUIET 0
