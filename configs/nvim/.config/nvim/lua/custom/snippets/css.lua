@@ -17,4 +17,15 @@ ls.add_snippets("css", {
   snippet("cc", fmt("{}(var(--{}));", { c(1, { t "rgb", t "rgba" }), i(2, "color-") })),
   snippet("va", fmt("var(--{})", { i(1) })),
   snippet("bg", fmt("background: {};", { i(1) })),
+  snippet(
+    "title",
+    fmt(
+      [[
+/* {} --------------------------------------------------------------------- */
+  ]],
+      {
+        i(1),
+      }
+    )
+  ),
 })

@@ -1,7 +1,7 @@
 # This is Git's per-user configuration file.
 [user]
 	name = Max Hill
-	email = max@hilloco.se
+	email = max@hills.nu
 [github]
 	user = maxhill
 [core]
@@ -24,8 +24,5 @@
 	required = true
 
 
-# This next lines include Netlify's Git Credential Helper configuration in your Git configuration.
-[include]
-  path = /Users/maxhill/Library/Preferences/netlify/helper/git-config
 [credential]
 	helper = osxkeychain

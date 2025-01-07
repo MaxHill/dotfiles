@@ -1,9 +1,9 @@
 import = [
   # "~/.config/alacritty/rose-pine/dist/rose-pine.toml"
-# "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-mocha.toml"
+"/Users/maxhill/.config/alacritty/catppuccin/catppuccin-mocha.toml"
  # "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-macchiato.toml"
 # "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-frappe.toml"
-"/Users/maxhill/.config/alacritty/catppuccin/catppuccin-latte.toml"
+# "/Users/maxhill/.config/alacritty/catppuccin/catppuccin-latte.toml"
   # "/Users/maxhill/.config/alacritty/cyberdream/cyberdream.toml"
   # "/Users/maxhill/.config/alacritty/cyberdream/cyberdream-light.toml"
 ]

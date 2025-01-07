@@ -46,6 +46,7 @@
       - "fd"
       - "openssl@1.1" # Needed to cross compile rust lambdas
       - "watchexec"
+      - "coreutils" # core BSD programs like date (aliased to gdate)
 
       # Gleam
       - "gleam"
@@ -60,6 +61,9 @@
       - "golang" # Go language and dev env
       - "gopls" # Language server for go
 
+      # GRPc
+      - "protobuf"
+
       # Lua
       - "lua-language-server" # Language server for lua
 
@@ -68,8 +72,8 @@
       - "rust-analyzer" # Language server for rust
       - "cargo-lambda" # To cross compile lambda functions
 
-      # GRPc
-      - "protobuf"
+      # Js
+      - "deno"
 
       # Zsh 
       - "zsh" # zsh (latest)

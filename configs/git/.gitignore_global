@@ -22,3 +22,5 @@ tscommand*.txt
 # npm things
 npm-debug.log
 node_modules
+
+.tmux_sessionizer
