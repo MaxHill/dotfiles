@@ -10,12 +10,8 @@
 - name: Tap repositories with brew
   community.general.homebrew_tap:
     name:
-      - "homebrew/cask"
-      - "homebrew/cask-versions"
-      - "homebrew/cask-fonts"
       - "isen-ng/dotnet-sdk-versions" # For dotnet
       - "homebrew/bundle"
-      - "homebrew/core"
       - "cargo-lambda/cargo-lambda"
     state: present
   tags:
@@ -32,7 +28,6 @@
       - "git" # Git version control (latest version)
       - "grep" # grep (latest)
       - "neovim" # A better vim
-      - "python" # python (latst)
       - "tmux" # terminal multiplexer
       - "tree" # pretty-print directory contents
       - "wget" # internet file retriever
@@ -44,7 +39,6 @@
       - "stow" # Manage dotfiles
       - "just" # Command runner alternative to make
       - "fd"
-      - "openssl@1.1" # Needed to cross compile rust lambdas
       - "watchexec"
       - "coreutils" # core BSD programs like date (aliased to gdate)
 
@@ -58,8 +52,11 @@
       - "pgformatter" # Format sql
 
       # Golang
-      - "golang" # Go language and dev env
-      - "gopls" # Language server for go
+      # - "golang" # Go language and dev env 
+      # - "gopls" # Language server for go
+
+      # Js
+      - "node"
 
       # GRPc
       - "protobuf"
@@ -109,14 +106,10 @@
       - "1password-cli" # Manage 1password
       # Applications
       - "alacritty"
-      - "firefox-developer-edition"
-      # - "arc" # Conflicts with current install
       # Fonts
       - "font-fira-code-nerd-font"
       - "font-hack-nerd-font"
       - "font-jetbrains-mono-nerd-font"
-      # Dotnet
-      - "dotnet-sdk6-0-200"
       # Docker
       - "docker" 
       # window manager

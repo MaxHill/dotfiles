@@ -1,4 +1,4 @@
-import = [
+general.import = [
   # "~/.config/alacritty/rose-pine/dist/rose-pine.toml"
 "~/.config/alacritty/catppuccin/catppuccin-mocha.toml"
  # "~/.config/alacritty/catppuccin/catppuccin-macchiato.toml"
@@ -8,7 +8,7 @@ import = [
   # "~/.config/alacritty/cyberdream/cyberdream-light.toml"
 ]
 
-live_config_reload = true
+general.live_config_reload = true
 
 [colors]
 draw_bold_text_with_bright_colors = false
