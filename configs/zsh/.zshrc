@@ -68,13 +68,9 @@ zle -N edit-command-line
 # ------------------
 export PATH=$PATH:$HOME/dotfiles/scripts                                  # Add my custom scripts to path
 
-export PATH="$PATH:/Users/maxhill/.dotnet/tools"                          # Add .NET Core SDK tools
-
 export PATH="/usr/local/opt/curl/bin:$PATH"                               # Use cUrl from homebrew
 
 export PATH="$PATH:/Applications"                               # Use cUrl from homebrew
-
-[ -f "/Users/maxhill/.ghcup/env" ] && source "/Users/maxhill/.ghcup/env" # ghcup-env
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -90,4 +86,4 @@ bindkey "^p" up-line-or-history
 bindkey "^n" down-line-or-history
 
 # opam configuration
-[[ ! -r /Users/maxhill/.opam/opam-init/init.zsh ]] || source /Users/maxhill/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+[[ ! -r ~/.opam/opam-init/init.zsh ]] || source ~/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
