@@ -9,7 +9,9 @@ default:
 
 # DB
 keyboard:
-    sudo kanata --cfg ~/.config/kanata/kanata.kbd --debug
+    mprocs \
+    "sudo '/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon'" \
+    "sudo kanata --cfg ~/.config/kanata/kanata.kbd --debug"
 
 brew:
     ansible-playbook bootstrap.yml --ask-become-pass --tags "brew" 

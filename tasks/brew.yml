@@ -22,6 +22,7 @@
 - name: Install packages with brew
   community.general.homebrew:
     name:
+      - "mprocs" 
       - "dbmate"
       - "trash" # rm, but put in the trash rather than completely delete
       - "bat" # better cat

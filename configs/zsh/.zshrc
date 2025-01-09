@@ -74,9 +74,6 @@ export PATH="$PATH:/Applications"                               # Use cUrl from 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
-
 
 # Keymap
 # ------------------
