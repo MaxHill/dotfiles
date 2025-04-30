@@ -10,7 +10,9 @@
 - name: Tap repositories with brew
   community.general.homebrew_tap:
     name:
-      - "isen-ng/dotnet-sdk-versions" # For dotnet
+      # - "isen-ng/dotnet-sdk-versions" # For dotnet
+      - "dotnet-sdk@8"
+      - "dotnet-sdk@6" # Needed for episerver-cli
       - "homebrew/bundle"
       - "cargo-lambda/cargo-lambda"
     state: present
@@ -73,12 +75,20 @@
       # Js
       - "deno"
 
+      # Dotnet
+      # Cannot use this, I need a specific version
+      # - "dotnet-sdk"
+
       # Zsh 
       - "zsh" # zsh (latest)
       - "zsh-syntax-highlighting" # Syntax highlighting for terminal
       - "zsh-autosuggestions" # Auto suggest for terminal
       - "pure" # Prompt to be used
+      - "starship"
       # - "zsh-vi-mode" # Better vim mode
+      
+      # Shell
+      - "fish"
 
       # Neo-vim
       - "ripgrep" # Used for telescope fuzzy finder
@@ -107,6 +117,8 @@
       - "1password-cli" # Manage 1password
       # Applications
       - "alacritty"
+      # Ghostty
+      - "ghostty"
       # Fonts
       - "font-fira-code-nerd-font"
       - "font-hack-nerd-font"

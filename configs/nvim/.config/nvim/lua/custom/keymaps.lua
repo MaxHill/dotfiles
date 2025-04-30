@@ -27,7 +27,6 @@ M.global = function()
   -- Toggle test file lua
   nmap("<leader>tt", function()
     local tt = require "custom.toggle-test-file"
-    print(tt)
     tt.toggle_test_file()
   end)
 
@@ -59,9 +58,9 @@ M.global = function()
   nmap("<c-h>", ":TmuxNavigateLeft<CR>")
   nmap("<c-l>", ":TmuxNavigateRight<CR>")
 
-  -- Git Fugitive
-  nmap("<leader>g", ":G <CR>")
-  nmap("<leader>gp", ":G push<CR>")
+  -- Git worktrees
+  nmap("<leader>ws", require("telescope").extensions.git_worktree.git_worktrees, "[W]orktrees [S]earch ")
+  nmap("<leader>wc", require("telescope").extensions.git_worktree.create_git_worktree, "[W]orktre [C]reate")
 
   -- Ocaml
   -- nmap("<leader>opt", require("ocaml.mappings").dune_promote_file, "[O]caml [P]romote [T]est")
@@ -103,6 +102,34 @@ M.harpoon_keymaps = function(harpoon)
   end, "Navigate to file 4 in hapoon list")
 end
 
+M.dap = function(dap)
+  vim.keymap.set("n", "<space>b", dap.toggle_breakpoint)
+  vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
+
+  -- Eval var under cursor
+  vim.keymap.set("n", "<space>?", function()
+    require("dapui").eval(nil, { enter = true })
+  end)
+
+  vim.keymap.set("n", "<leader>d1", dap.continue)
+  vim.keymap.set("n", "<leader>d2", dap.step_into)
+  vim.keymap.set("n", "<leader>d3", dap.step_over)
+  vim.keymap.set("n", "<leader>d4", dap.step_out)
+  vim.keymap.set("n", "<leader>d5", dap.step_back)
+  vim.keymap.set("n", "<leader>d6", dap.restart)
+end
+
+M.lsp_keymaps_csharp = function(args)
+  local nmapBuf = M.lsp_keymaps(args)
+  -- C# overrides
+  nmapBuf("gd", require("omnisharp_extended").telescope_lsp_definition, "[G]oto [D]efinition")
+  nmapBuf("gr", require("omnisharp_extended").telescope_lsp_references, "[G]oto [R]eferences")
+  nmapBuf("gD", vim.lsp.buf.declaration, "[G]oto [Declaration]")
+  nmapBuf("gi", require("omnisharp_extended").telescope_lsp_implementation, "[G]oto [I]mplementation")
+  nmapBuf("gT", require("omnisharp_extended").lsp_type_definition, "[G]oto [T]ype definition")
+  nmapBuf("gl", vim.diagnostic.open_float, "[G]et [L]ine diagnostics")
+end
+
 M.lsp_keymaps = function(args)
   local builtin = require "telescope.builtin"
   local nmapBuf = function(keys, func, desc)
@@ -119,26 +146,22 @@ M.lsp_keymaps = function(args)
   nmapBuf("gi", builtin.lsp_implementations, "[G]oto [I]mplementation")
   nmapBuf("gT", builtin.lsp_type_definitions, "[G]oto [T]ype definition")
   nmapBuf("gl", vim.diagnostic.open_float, "[G]et [L]ine diagnostics")
-  -- nmapBuf("K", vim.lsp.buf.hover, "Hover Documentation")
 
-  -- nmapBuf("<leader>f", vim.diagnostic.goto_prev) -- Was <leader>k before, replaced by harpoo,
-  -- nmapBuf("<leader>d", vim.diagnostic.goto_next)
   nmapBuf("<leader>q", vim.diagnostic.setloclist, "Add to quickfix list")
 
-  -- nmapBuf("<space>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-  nmapBuf("<space>rn", "<Cmd>Lspsaga rename<cr>", "[R]e[n]ame")
-  nmapBuf("<space>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+  nmapBuf("<leader>rn", "<Cmd>Lspsaga rename<cr>", "[R]e[n]ame")
+  nmapBuf("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
   -- Lspsaga variations
   nmapBuf("K", "<Cmd>Lspsaga hover_doc<cr>", "Hover Documentation")
   nmapBuf("<leader>KK", "<Cmd>Lspsaga hover_doc ++keep<cr>", "Hover Documentation and keep it visible")
-
   -- nmapBuf("<leader>f", "<Cmd>Lspsaga diagnostic_jump_next<cr>") -- Was <leader>k before, replaced by harpoo,
   -- nmapBuf("<leader>d", "<Cmd>Lspsaga diagnostic_jump_prev<cr>")
+
+  return nmapBuf
 end
 
 M.telescope_keymaps = function(builtin)
-  print "Registering keys"
   nmap("<leader>?", builtin.oldfiles, "[?] Find recently opened files")
   nmap("<leader>/", function()
     -- You can pass additional configuration to telescope to change theme, layout, etc.

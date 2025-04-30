@@ -1,0 +1,5 @@
+title = " "
+font-family = JetBrains Mono
+theme = catppuccin-mocha
+font-size = 16
+adjust-cell-height = 30%

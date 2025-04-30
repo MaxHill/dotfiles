@@ -13,3 +13,7 @@ elif [[ -d /home/linuxbrew/.linuxbrew ]]; then
     test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 eval "$(/opt/homebrew/bin/brew shellenv)"
+# Add .NET Core SDK tools
+export PATH="$PATH:/Users/8717/.dotnet/tools"
+# Add .NET Core SDK tools
+export PATH="$PATH:/Users/8717/.dotnet/tools"

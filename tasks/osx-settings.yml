@@ -158,19 +158,6 @@
     - mac
     - osx
 
-- name: "Enable Safari’s debug menu"
-  community.general.osx_defaults:
-    domain: com.apple.Safari 
-    key: IncludeInternalDebugMenu
-    type: bool
-    value: true
-    state: present
-  when: ansible_distribution == "MacOSX"
-  tags:
-    - settings
-    - mac
-    - osx
-
 - name: "Disable desktop icons"
   community.general.osx_defaults:
     domain: com.apple.finder 

@@ -72,7 +72,11 @@ export PATH="/usr/local/opt/curl/bin:$PATH"                               # Use 
 
 export PATH="$PATH:/Applications"                               # Use cUrl from homebrew
 
+GOPATH=$HOME/go  PATH=$PATH:/usr/local/go/bin:$GOPATH/bin # Add gopath
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+source <(fzf --zsh)
 
 
 # Keymap
@@ -84,3 +88,6 @@ bindkey "^n" down-line-or-history
 
 # opam configuration
 [[ ! -r ~/.opam/opam-init/init.zsh ]] || source ~/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+export PATH="/opt/homebrew/opt/dotnet@6/bin:$PATH"
+export PATH="/opt/homebrew/opt/dotnet@8/bin:$PATH"
+export PATH="/opt/homebrew/opt/dotnet@8/bin:$PATH"

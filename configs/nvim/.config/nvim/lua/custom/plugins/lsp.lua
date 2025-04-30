@@ -1,4 +1,5 @@
 return {
+
   {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -9,7 +10,7 @@ return {
 
       { "j-hui/fidget.nvim", opts = {} },
 
-      -- Autoformatting
+      -- Auto formatting
       "stevearc/conform.nvim",
 
       -- Schema information
@@ -17,14 +18,13 @@ return {
 
       -- Helper functions
       "nvimdev/lspsaga.nvim",
+
+      -- c# dotnet
+      { "Hoffs/omnisharp-extended-lsp.nvim" },
+      { "OrangeT/vim-csharp" },
     },
     config = function()
-      require("neodev").setup {
-        -- library = {
-        --   plugins = { "nvim-dap-ui" },
-        --   types = true,
-        -- },
-      }
+      require("neodev").setup {}
 
       local capabilities = nil
       if pcall(require, "cmp_nvim_lsp") then
@@ -36,16 +36,28 @@ return {
       local servers = {
         bashls = true,
         gopls = true,
-        lua_ls = true,
+        lua_ls = {
+          settings = {
+            Lua = {
+              completion = {
+                callSnippet = "Replace",
+              },
+              diagnostics = {
+                globals = { "vim" }, -- Optional if using neodev
+              },
+            },
+          },
+        },
         rust_analyzer = true,
         templ = true,
         cssls = true,
+        svelte = true,
         gleam = {
           manual_install = true,
         },
 
         -- Probably want to disable formatting for this lang server
-        tsserver = true,
+        ts_ls = true,
 
         ocamllsp = {
           manual_install = true,
@@ -71,6 +83,7 @@ return {
           },
         },
 
+        marksman = true,
         yamlls = {
           settings = {
             yaml = {
@@ -84,10 +97,22 @@ return {
         },
 
         clangd = {
-          -- TODO: Could include cmd, but not sure those were all relevant flags.
-          --    looks like something i would have added while i was floundering
           init_options = { clangdFileStatus = true },
           filetypes = { "c" },
+        },
+
+        omnisharp = {
+          cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+          root_dir = lspconfig.util.root_pattern("*.csproj", "*.sln", ".git"),
+          handlers = {
+            ["textDocument/definition"] = function(...)
+              return require("omnisharp_extended").handler(...)
+            end,
+          },
+          -- keys = require("custom.keymaps").omnisharp(),
+          enable_roslyn_analyzers = true,
+          organize_imports_on_format = true,
+          enable_import_completion = true,
         },
       }
 
@@ -103,9 +128,13 @@ return {
 
       require("mason").setup()
       local ensure_installed = {
+        "js-debug-adapter",
         "stylua",
         "lua_ls",
-        -- "tailwind-language-server",
+        "markdownlint-cli2",
+        "svelte-language-server",
+        "csharpier", -- c#
+        "netcoredbg", --c#
       }
 
       vim.list_extend(ensure_installed, servers_to_install)
@@ -135,28 +164,58 @@ return {
           vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
 
           require("lspsaga").setup {}
-          require("custom.keymaps").lsp_keymaps(args)
 
           local filetype = vim.bo[bufnr].filetype
+
+          if filetype == "cs" then
+            require("custom.keymaps").lsp_keymaps_csharp(args)
+          else
+            require("custom.keymaps").lsp_keymaps(args)
+          end
+
           if disable_semantic_tokens[filetype] then
             client.server_capabilities.semanticTokensProvider = nil
           end
         end,
       })
 
-      -- Autoformatting Setup
+      -- Auto formatting Setup
       local conform = require "conform"
       conform.setup {
         formatters_by_ft = {
+          cs = { "csharpier" },
           lua = { "stylua" },
           javascript = { { "prettierd", "prettier" } },
           rust = { "rustfmt" },
           sql = { "sleek" },
+          ["markdown"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
+          ["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
         },
         formatters = {
           sleek = {
             command = "sleek",
             -- args = { "", "-" },
+          },
+          csharpier = {
+            command = "dotnet-csharpier",
+            args = { "--write-stdout" },
+          },
+          ["markdown-toc"] = {
+            condition = function(_, ctx)
+              for _, line in ipairs(vim.api.nvim_buf_get_lines(ctx.buf, 0, -1, false)) do
+                if line:find "<!%-%- toc %-%->" then
+                  return true
+                end
+              end
+            end,
+          },
+          ["markdownlint-cli2"] = {
+            condition = function(_, ctx)
+              local diag = vim.tbl_filter(function(d)
+                return d.source == "markdownlint"
+              end, vim.diagnostic.get(ctx.buf))
+              return #diag > 0
+            end,
           },
         },
       }
