@@ -71,18 +71,6 @@
 
       # Js
       - "deno"
-
-      # Dotnet
-      # Cannot use this, I need a specific version
-      # - "dotnet-sdk"
-
-      # Zsh 
-      - "zsh" # zsh (latest)
-      - "zsh-syntax-highlighting" # Syntax highlighting for terminal
-      - "zsh-autosuggestions" # Auto suggest for terminal
-      - "pure" # Prompt to be used
-      - "starship"
-      # - "zsh-vi-mode" # Better vim mode
       
       # Shell
       - "fish"

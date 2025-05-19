@@ -1,0 +1,14 @@
+- name: Get fish path
+  command: which fish
+  changed_when: false
+  register: fish_path
+  tags:
+    - settings
+    - shell
+
+- name: Change user shell to  fish
+  become: yes
+  user: name={{the_user}} shell={{ fish_path.stdout }}
+  tags:
+    - settings
+    - shell
