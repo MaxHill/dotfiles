@@ -7,9 +7,20 @@ return {
       "nvim-neotest/nvim-nio",
       "williamboman/mason.nvim",
       "jay-babu/mason-nvim-dap.nvim", -- ensure mason dap integration
+      "Cliffback/netcoredbg-macOS-arm64.nvim",
     },
+    event = "VeryLazy",
     config = function()
       local dap = require "dap"
+
+      vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "DapBreakpoint", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapStopped", { text = "➡️", texthl = "DapStopped", linehl = "DebugLineHL", numhl = "" })
+      vim.fn.sign_define("DapBreakpointCondition", { text = "🔶", texthl = "DapBreakpoint", linehl = "", numhl = "" })
+      vim.fn.sign_define(
+        "DapBreakpointRejected",
+        { text = "⚠️", texthl = "DapBreakpoint", linehl = "", numhl = "" }
+      )
+
       local ui = require "dapui"
 
       dap.set_log_level "TRACE"
@@ -18,43 +29,8 @@ return {
       require("dapui").setup()
       require("nvim-dap-virtual-text").setup()
 
-      -- NETCOREDBG (C#) SETUP
-      if not dap.adapters["netcoredbg"] then
-        dap.adapters["netcoredbg"] = {
-          type = "executable",
-          command = "/Users/8717/.local/share/nvim/mason/bin/netcoredbg",
-          args = { "--interpreter=vscode" },
-          options = {
-            detached = false,
-          },
-        }
-      end
-
-      for _, lang in ipairs { "cs", "fsharp", "vb" } do
-        if not dap.configurations[lang] then
-          dap.configurations[lang] = {
-            {
-              type = "netcoredbg",
-              name = "Launch file",
-              request = "launch",
-              program = function()
-                return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/", "file")
-              end,
-              cwd = "${workspaceFolder}",
-              stopAtEntry = true,
-            },
-            {
-              type = "netcoredbg",
-              name = "Attach to process",
-              request = "attach",
-              processId = function()
-                local project_name = vim.fn.input("Project name: ", "")
-                return vim.fn.input("Process ID: ", vim.fn.system("pgrep " .. project_name), "file")
-              end,
-            },
-          }
-        end
-      end
+      -- C# part
+      require("netcoredbg-macOS-arm64").setup(require "dap")
 
       -- JS/TS/Svelte (via js-debug-adapter)
       local js_debug_path = vim.fn.stdpath "data" .. "/mason/bin/js-debug-adapter"
@@ -113,6 +89,50 @@ return {
           },
         }
       end
+
+      --  ------------------------------------------------------------------------
+      --  GO
+      --  ------------------------------------------------------------------------
+      dap.adapters.go = function(callback, config)
+        local handle
+        local pid_or_err
+        local port = 38697
+        handle, pid_or_err = vim.loop.spawn("dlv", {
+          args = { "dap", "-l", "127.0.0.1:" .. port },
+          detached = true,
+        }, function(code)
+          handle:close()
+          print("Delve exited with exit code: " .. code)
+        end)
+        -- Wait for delve to start
+        vim.defer_fn(function()
+          -- Connect to delve via TCP
+          callback { type = "server", host = "127.0.0.1", port = port }
+        end, 100)
+      end
+
+      dap.configurations.go = {
+        {
+          type = "go",
+          name = "Debug",
+          request = "launch",
+          program = "${file}",
+        },
+        {
+          type = "go",
+          name = "Debug Test",
+          request = "launch",
+          mode = "test",
+          program = "${file}",
+        },
+        {
+          type = "go",
+          name = "Debug Package",
+          request = "launch",
+          mode = "test",
+          program = "./${relativeFileDirname}",
+        },
+      }
 
       require("custom.keymaps").dap(dap)
 

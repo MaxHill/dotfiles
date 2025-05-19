@@ -15,8 +15,9 @@ if test ! "$(command -v brew)"; then
     title "Setting up Homebrew"
     info "Homebrew not installed. Installing."
     # Run as a login shell (non-interactive) so that the script doesn't pause for user input
-    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash --login
-
+    # curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash --login
+NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 if [ "$(uname)" == "Linux" ]; then

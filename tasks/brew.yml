@@ -10,9 +10,6 @@
 - name: Tap repositories with brew
   community.general.homebrew_tap:
     name:
-      # - "isen-ng/dotnet-sdk-versions" # For dotnet
-      - "dotnet-sdk@8"
-      - "dotnet-sdk@6" # Needed for episerver-cli
       - "homebrew/bundle"
       - "cargo-lambda/cargo-lambda"
     state: present

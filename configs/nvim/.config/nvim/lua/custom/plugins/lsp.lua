@@ -134,7 +134,7 @@ return {
         "markdownlint-cli2",
         "svelte-language-server",
         "csharpier", -- c#
-        "netcoredbg", --c#
+        "delve", -- golang DAP
       }
 
       vim.list_extend(ensure_installed, servers_to_install)

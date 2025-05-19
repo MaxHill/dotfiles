@@ -1,3 +1,4 @@
+set fish_greeting # Remove welcome message
 #  ------------------------------------------------------------------------
 #  Key bindings                                                                     
 #  ------------------------------------------------------------------------ 
@@ -81,3 +82,30 @@ function fish_prompt
     echo -n "❯ "
     set_color normal
 end
+
+#  ------------------------------------------------------------------------
+#  Path                                                                     
+#  ------------------------------------------------------------------------ 
+# Add my custom scripts to path
+set -x PATH $PATH $HOME/dotfiles/scripts
+
+# Use cURL from Homebrew
+set -x PATH /usr/local/opt/curl/bin $PATH
+
+# Add /Applications to path
+set -x PATH $PATH /Applications
+
+# Add .NET SDKs from Homebrew
+set -x PATH /opt/homebrew/opt/dotnet@6/bin $PATH
+set -x PATH /opt/homebrew/opt/dotnet@8/bin $PATH
+set -x ASPNETCORE_ENVIRONMENT "Development"
+
+# Setup GO
+set -x GOPATH $HOME/go
+set -x PATH $PATH /usr/local/go/bin $GOPATH/bin
+
+# Setup Rust
+set -x PATH $PATH ~/.cargo/bin
+
+set -x PATH $PATH /opt/homebrew/bin
+
