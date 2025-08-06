@@ -21,7 +21,6 @@ return {
 
       -- c# dotnet
       { "Hoffs/omnisharp-extended-lsp.nvim" },
-      { "OrangeT/vim-csharp" },
     },
     config = function()
       require("neodev").setup {}
@@ -109,10 +108,28 @@ return {
               return require("omnisharp_extended").handler(...)
             end,
           },
-          -- keys = require("custom.keymaps").omnisharp(),
           enable_roslyn_analyzers = true,
           organize_imports_on_format = true,
           enable_import_completion = true,
+          filetypes = { "cs", "fs", "vb", "razor" },
+        },
+        emmet_ls = {
+          filetypes = {
+            "html",
+            "css",
+            "scss",
+            "javascriptreact",
+            "typescriptreact",
+            "svelte",
+            "vue",
+          },
+          init_options = {
+            html = {
+              options = {
+                ["bem.enabled"] = true,
+              },
+            },
+          },
         },
       }
 
@@ -126,7 +143,12 @@ return {
         end
       end, vim.tbl_keys(servers))
 
-      require("mason").setup()
+      require("mason").setup {
+        registries = {
+          "github:mason-org/mason-registry",
+          "github:Crashdummyy/mason-registry",
+        },
+      }
       local ensure_installed = {
         "js-debug-adapter",
         "stylua",

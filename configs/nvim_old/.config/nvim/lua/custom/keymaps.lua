@@ -103,8 +103,16 @@ M.harpoon_keymaps = function(harpoon)
 end
 
 M.dap = function(dap)
-  vim.keymap.set("n", "<space>b", dap.toggle_breakpoint)
-  vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
+  vim.keymap.set("n", "<space>du", function()
+    require("dapui").toggle()
+  end)
+
+  vim.keymap.set("n", "<space>db", dap.toggle_breakpoint)
+  vim.keymap.set("n", "<leader>dc", dap.continue)
+  vim.keymap.set("n", "<leader>di", dap.step_into)
+  vim.keymap.set("n", "<leader>do", dap.step_over)
+  vim.keymap.set("n", "<space>dC", dap.run_to_cursor)
+  vim.keymap.set("n", "<space>dT", dap.terminate)
 
   -- Eval var under cursor
   vim.keymap.set("n", "<space>?", function()

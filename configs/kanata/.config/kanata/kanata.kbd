@@ -28,6 +28,7 @@
 ;; ;; Swedish layer:
 ;; ;;  be able to type o å a
 ;; (deflayer swedish 
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _ 
 ;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
 ;;   _    _    _    _    _    _    _    _    _    _    _    å    _    _
 ;;   esc  _    _    _    _    _    _    _    _    _    ö    ä    _

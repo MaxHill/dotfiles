@@ -8,6 +8,7 @@ return {
       "williamboman/mason.nvim",
       "jay-babu/mason-nvim-dap.nvim", -- ensure mason dap integration
       "Cliffback/netcoredbg-macOS-arm64.nvim",
+      { dir = "~/code/work/netcoredbg-macOS-arm64.nvim/" },
     },
     event = "VeryLazy",
     config = function()

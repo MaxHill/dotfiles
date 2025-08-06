@@ -99,6 +99,8 @@ set -x PATH $PATH /Applications
 set -x PATH /opt/homebrew/opt/dotnet@6/bin $PATH
 set -x PATH /opt/homebrew/opt/dotnet@8/bin $PATH
 set -x ASPNETCORE_ENVIRONMENT "Development"
+set -x ASPNETCORE_URLS "https://localhost:5000/"
+
 
 # Setup GO
 set -x GOPATH $HOME/go
@@ -106,6 +108,10 @@ set -x PATH $PATH /usr/local/go/bin $GOPATH/bin
 
 # Setup Rust
 set -x PATH $PATH ~/.cargo/bin
+
+# Setup ripgrep
+set -Ux RIPGREP_CONFIG_PATH ~/.ripgreprc
+
 
 set -x PATH $PATH /opt/homebrew/bin
 
