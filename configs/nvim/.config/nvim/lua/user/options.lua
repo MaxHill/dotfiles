@@ -34,6 +34,6 @@ vim.opt.undodir = os.getenv "HOME" .. "/.vim/undodir" -- Save undo history here
 vim.opt.undofile = true -- Save undo history
 vim.opt.termguicolors = true -- Better color support
 vim.o.signcolumn = "yes"
-vim.o.winborder = "rounded"
 
+vim.o.winborder = "rounded"
 

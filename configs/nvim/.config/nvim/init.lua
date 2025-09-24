@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 require("user.options");
+require("user.types")
 
 -- -----------------------------
 -- Plugins
@@ -11,18 +12,23 @@ vim.pack.add({
     { src = "https://github.com/echasnovski/mini.surround" },
     { src = "https://github.com/echasnovski/mini.comment" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-    { src = "https://github.com/Saghen/blink.cmp",                 version = '1.*' },
+    { src = "https://github.com/Saghen/blink.cmp",                 version = "v1.6.0" },
+    { src = "https://github.com/L3MON4D3/LuaSnip" },
     -- LSP
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/Hoffs/omnisharp-extended-lsp.nvim" },
-
+    -- DAP
+    { src = "https://github.com/mfussenegger/nvim-dap" },
+    { src = "https://github.com/igorlfs/nvim-dap-view" },
 })
+-- local packages
+vim.cmd.packadd('netcoredbg-macOS-arm64.nvim') -- Vendored version with improvements
 -- vim.pack.update();
 
 -- Find
 -- -----------------------------
-require "mini.pick".setup()
+require('mini.pick').setup()
 
 -- Treesitter
 -- -----------------------------
@@ -39,124 +45,56 @@ require("nvim-treesitter.configs").setup({
 
 -- LSP
 -- -----------------------------
-require("omnisharp_extended")
 require("mason").setup()
----@class LspConfig
----@field mason_name? string Name of the LSP package in Mason
----@field lsp_name string Name of the LSP server
----@field config? table LSP configuration table
-
----@class Language
----@field lsps? LspConfig[] List of LSP configurations for the
-
----@type Language
-local lua = {
-    lsps = {
-        {
-            mason_name = "lua-language-server",
-            lsp_name = "lua_ls",
-            config = {
-                settings = {
-                    Lua = {
-                        workspace = {
-                            library = vim.api.nvim_get_runtime_file("", true)
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
----@type Language
-local csharp = {
-    lsps = {
-        {
-            mason_name = "omnisharp",
-            lsp_name = "omnisharp",
-            config = {
-                cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
-                root_markers = { "*.csproj", "*.sln", ".git" },
-                filetypes = { "cs" },
-                handlers = {
-                    ["textDocument/definition"] = function(...)
-                        return require("omnisharp_extended").definition_handler(...)
-                    end,
-                    ["textDocument/typeDefinition"] = function(...)
-                        return require("omnisharp_extended").type_definition_handler(...)
-                    end,
-                    ["textDocument/references"] = function(...)
-                        return require("omnisharp_extended").references_handler(...)
-                    end,
-                    ["textDocument/implementation"] = function(...)
-                        return require("omnisharp_extended").implementation_handler(...)
-                    end,
-                },
-                init_options = {
-                    useModernNet = true,
-                },
-                settings = {
-                    FormattingOptions = {
-                        EnableEditorConfigSupport = true,
-                        OrganizeImports = true,
-                    },
-                    MsBuild = {
-                        LoadProjectsOnDemand = false,
-                    },
-                    RoslynExtensionsOptions = {
-                        EnableAnalyzersSupport = true,
-                        EnableImportCompletion = true,
-                        AnalyzeOpenDocumentsOnly = false,
-                    },
-                    Sdk = {
-                        IncludePrereleases = true,
-                    }
-                }
-            }
-        }
-    }
-}
-
----@type Language[]
-local languages = { lua, csharp }
-
--- Global defaults for all servers
-vim.lsp.config('*', {
-    -- TODO: Remove csproj & sln here
-    root_markers = { '.git', 'package.json', '*.csproj', '*.sln' },
-    capabilities = require('blink.cmp').get_lsp_capabilities(),
-    on_attach = function(client, bufnr)
-        -- "grn" is mapped in Normal mode to vim.lsp.buf.rename()
-        -- "gra" is mapped in Normal and Visual mode to vim.lsp.buf.code_action()
-        -- "grr" is mapped in Normal mode to vim.lsp.buf.references()
-        -- "gri" is mapped in Normal mode to vim.lsp.buf.implementation()
-        -- "grt" is mapped in Normal mode to vim.lsp.buf.type_definition()
-        -- "gO" is mapped in Normal mode to vim.lsp.buf.document_symbol()
-        -- CTRL-S is mapped in Insert mode to vim.lsp.buf.signature_help()
-
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition" })
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover documentation" })
-        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action" })
-        vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "[G]et [L]ine diagnostics" })
-
-        -- Show when LSP attaches
-        print("LSP attached: " .. client.name)
-    end,
-})
-
 function mason_install(name)
     if not require("mason-registry").is_installed(name) then
         vim.cmd("MasonInstall " .. name)
     end
 end
 
+---@type Language[]
+local languages = {
+    require("user.languages.lua"),
+    require("user.languages.csharp"),
+    require("user.languages.go"),
+    require("user.languages.typescript"),
+    require("user.languages.css")
+}
+
+-- Global defaults for all servers
+function on_attach(client, bufnr)
+    -- "grn" is mapped in Normal mode to vim.lsp.buf.rename()
+    -- "gra" is mapped in Normal and Visual mode to vim.lsp.buf.code_action()
+    -- "grr" is mapped in Normal mode to vim.lsp.buf.references()
+    -- "gri" is mapped in Normal mode to vim.lsp.buf.implementation()
+    -- "grt" is mapped in Normal mode to vim.lsp.buf.type_definition()
+    -- "gO" is mapped in Normal mode to vim.lsp.buf.document_symbol()
+    -- CTRL-S is mapped in Insert mode to vim.lsp.buf.signature_help()
+
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition" })
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover documentation" })
+    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action" })
+    vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "[G]et [L]ine diagnostics" })
+
+    -- Show when LSP attaches
+    print("LSP attached: " .. client.name)
+end
+
+vim.lsp.config('*', {
+    root_markers = { '.git', 'package.json' },
+    capabilities = require('blink.cmp').get_lsp_capabilities(),
+    on_attach = on_attach
+})
+
 -- Install and configure each language
--- TODO: Make defensive
 for _, language in pairs(languages) do
     if type(language.lsps) == "table" then
-        for _, lsp in pairs(language.lsps) or {} do
+        for _, lsp in pairs(language.lsps) do
             if lsp.config then
+                lsp.config.on_attach = on_attach
                 vim.lsp.config(lsp.lsp_name, lsp.config)
+            else
+                vim.lsp.config(lsp.lsp_name, { on_attach = on_attach })
             end
 
             if lsp.mason_name then
@@ -193,11 +131,17 @@ require('blink.cmp').setup({
             },
         },
     },
+    fuzzy = {
+        prebuilt_binaries = {
+            force_version = "v1.6.0", -- specify exact version here
+        }
+    },
 })
 
 -- Disable built-in completion sources
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 vim.opt.complete = ''
+vim.opt.shortmess:append "c"
 
 -- Disable omnifunc for all filetypes
 vim.api.nvim_create_autocmd("FileType", {
@@ -207,9 +151,86 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+-- Dap
+-- -----------------------------
+local dap = require("dap")
+local dap_view = require("dap-view");
+dap_view.setup({
+    windows = {
+        terminal = {
+            hide = { "coreclr" }, -- Don't hide for any adapters
+        },
+    },
+})
+
+dap.defaults.fallback.external_terminal = {
+    command = '/usr/bin/open',
+    args = { '-a', 'Terminal' }
+}
+
+dap.listeners.before.attach.dapui_config = function()
+    dap_view.open()
+end
+dap.listeners.before.launch.dapui_config = function()
+    dap_view.open()
+end
+dap.listeners.before.event_terminated.dapui_config = function()
+    dap_view.close()
+end
+dap.listeners.before.event_exited.dapui_config = function()
+    dap_view.close()
+end
+
+
+vim.keymap.set("n", "<leader>du", function()
+    dap_view.toggle()
+end)
+vim.keymap.set("n", "<space>db", dap.toggle_breakpoint)
+vim.keymap.set("n", "<leader>dc", dap.continue)
+vim.keymap.set("n", "<leader>di", dap.step_into)
+vim.keymap.set("n", "<leader>do", dap.step_over)
+vim.keymap.set("n", "<space>dC", dap.run_to_cursor)
+vim.keymap.set("n", "<space>dT", dap.terminate)
+
+vim.keymap.set("n", "<leader>dw", function()
+    dap_view.add_expr(vim.fn.expand("<cword>"))
+end)
+
+require('netcoredbg-macOS-arm64').setup(require('dap'))
+
+-- Snippets
+-- -----------------------------
+local ls = require("luasnip")
+ls.setup({ enable_autosnippets = true })
+require("luasnip.loaders.from_lua").load({ paths = { "~/.config/nvim/snippets/" } })
+
+vim.keymap.set({ "i", "s" }, "<C-k>", function()
+    print("LuaSnip keymap triggered!")
+    if ls.expand_or_jumpable() then
+        print("Expanding...")
+        ls.expand_or_jump()
+    else
+        print("Nothing to expand")
+    end
+end, { desc = "Expand snippet" })
+
+vim.keymap.set({ "i", "s" }, "<C-j>", function()
+    if ls.jumpable(-1) then
+        ls.jump(-1)
+    end
+end, { silent = true })
+
+-- Navigate choices
+vim.keymap.set({ "i", "s" }, "<C-c>", function()
+    if ls.choice_active() then
+        ls.change_choice(1)
+    end
+end, { silent = true })
+
 -- Colors
 -- -----------------------------
-require "vague".setup({ transparent = true })
+require("vague").setup()
+
 vim.cmd("colorscheme vague")
 vim.cmd(":hi statusline guibg=NONE")
 
@@ -237,6 +258,8 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Center screen when going up" }
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Center screen when going down" })
 vim.keymap.set("n", "n", " nzz", { desc = "Center screen when moving through results" })
 
+vim.keymap.set("n", "-", ":Ex<CR>", { desc = "Center screen when moving through results" })
+
 -- Lsp
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 
@@ -244,3 +267,24 @@ local pick = require('mini.pick')
 vim.keymap.set('n', '<leader>sf', pick.builtin.files, { desc = "[S]earch [F]iles" })
 vim.keymap.set('n', '<leader>sh', pick.builtin.help, { desc = "[S]earch [H]elp" })
 vim.keymap.set('n', '<leader>sg', pick.builtin.grep_live, { desc = "[S]earch [G]rep" })
+
+
+--  ------------------------------------------------------------------------
+--  Autocommands
+--  ------------------------------------------------------------------------
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+
+-- Highlight yanked selection
+local yank_group = augroup("HighlightYank", {})
+autocmd("TextYankPost", {
+    group = yank_group,
+    pattern = "*",
+    callback = function()
+        vim.highlight.on_yank {
+            higroup = "IncSearch",
+            timeout = 70,
+        }
+    end,
+})
+

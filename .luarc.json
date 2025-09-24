@@ -1,0 +1,6 @@
+{
+    "diagnostics.globals": [
+        "mason_install",
+        "on_attach"
+    ]
+}

@@ -1,19 +1,13 @@
 #!/usr/bin/env bash
 
 # Prompt for title
-TITLE=$(gum input --placeholder "Enter note title")
-
-# Ask if it's a work note
-if gum confirm "Is this a work note?"; then
-    TAGS="#mhc #work"
-else
-    TAGS=""
-fi
+TITLE=$(gum input --placeholder "Enter meeting title")
+FILE_TITLE=${TITLE// /-}  # Replace spaces with hyphens
 
 # put current date as yyyy-mm-dd in $date
 DATE=$(date '+%Y-%m-%d')
 FILE_PATH=$(echo ${@%/})
-NOTE_FILE=$(echo "$FILE_PATH/$DATE-daily-note.md")
+NOTE_FILE=$(echo "$FILE_PATH/meetings/$DATE-$FILE_TITLE.md")
 
 # Only create the file if it doesn't already exist
 if [ ! -f "$NOTE_FILE" ]; then
@@ -21,7 +15,7 @@ if [ ! -f "$NOTE_FILE" ]; then
 ---
 title: $TITLE
 date: $DATE
-tags: $TAGS
+tags: #mhc #work
 ---
 EOM
 fi

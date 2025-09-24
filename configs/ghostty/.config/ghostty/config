@@ -1,5 +1,5 @@
 title = " "
 font-family = JetBrains Mono
-theme = dark:catppuccin-mocha,light:catppuccin-mocha
+theme = vague
 font-size = 16
 adjust-cell-height = 30%
