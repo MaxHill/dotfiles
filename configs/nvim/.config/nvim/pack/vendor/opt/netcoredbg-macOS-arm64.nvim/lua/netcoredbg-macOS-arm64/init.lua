@@ -11,19 +11,26 @@ local netcoredbg_path = plugin_directory .. "netcoredbg/netcoredbg"
 
 local settings_cache = {}
 
+local function debug_log(msg)
+    -- Only show if you set a debug flag
+    if vim.g.dap_cs_debug then
+        debug_log("[dap-cs] " .. msg, vim.log.levels.DEBUG)
+    end
+end
+
 -- Recursively find the nearest .csproj from a starting directory
 local function find_nearest_csproj(start_dir)
     local path = start_dir
     while path ~= "/" do
         for name in vim.fs.dir(path) do
             if name:match("%.csproj$") then
-                vim.notify("[dap-cs] Found .csproj: " .. path .. "/" .. name)
+                debug_log("[dap-cs] Found .csproj: " .. path .. "/" .. name)
                 return path .. "/" .. name
             end
         end
         path = vim.fn.fnamemodify(path, ":h")
     end
-    vim.notify("[dap-cs] No .csproj found starting from: " .. start_dir)
+    debug_log("[dap-cs] No .csproj found starting from: " .. start_dir)
     return nil
 end
 
@@ -32,22 +39,22 @@ local function get_dll_path_from_csproj(csproj_path)
     local project_dir = vim.fn.fnamemodify(csproj_path, ":h")
     local project_name = vim.fn.fnamemodify(csproj_path, ":t:r")
     local tfm_dir_cmd = 'find "' .. project_dir .. '/bin/Debug" -type d -name "net*" | head -n 1'
-    vim.notify("[dap-cs] Searching for TFM directory with command: " .. tfm_dir_cmd)
+    debug_log("[dap-cs] Searching for TFM directory with command: " .. tfm_dir_cmd)
     local handle = io.popen(tfm_dir_cmd)
     local tfm_path = handle:read("*a"):gsub("[%s\n]+", "")
     handle:close()
 
     if tfm_path ~= "" then
         local dll_path = tfm_path .. "/" .. project_name .. ".dll"
-        vim.notify("[dap-cs] Potential DLL path: " .. dll_path)
+        debug_log("[dap-cs] Potential DLL path: " .. dll_path)
         if vim.fn.filereadable(dll_path) == 1 then
-            vim.notify("[dap-cs] DLL found: " .. dll_path)
+            debug_log("[dap-cs] DLL found: " .. dll_path)
             return dll_path
         else
-            vim.notify("[dap-cs] DLL not found at: " .. dll_path)
+            debug_log("[dap-cs] DLL not found at: " .. dll_path)
         end
     else
-        vim.notify("[dap-cs] No TFM directory found under bin/Debug")
+        debug_log("[dap-cs] No TFM directory found under bin/Debug")
     end
     return nil
 end
@@ -59,7 +66,7 @@ local function parse_launch_settings(csproj_dir)
     local path = csproj_dir .. "/Properties/launchSettings.json"
     local file = io.open(path, "r")
     if not file then
-        vim.notify("[dap-cs] Properties/launchSettings.json not found at: " .. path)
+        debug_log("[dap-cs] Properties/launchSettings.json not found at: " .. path)
         return {}
     end
 
@@ -68,18 +75,18 @@ local function parse_launch_settings(csproj_dir)
 
     -- Strip UTF-8 BOM if present
     if content:sub(1, 3) == '\239\187\191' then
-        vim.notify("[dap-cs] Stripped UTF-8 BOM from launchSettings.json")
+        debug_log("[dap-cs] Stripped UTF-8 BOM from launchSettings.json")
         content = content:sub(4)
     end
 
     local ok, json = pcall(vim.fn.json_decode, content)
     if not ok then
-        vim.notify("[dap-cs] Failed to parse Properties/launchSettings.json: " .. content)
+        debug_log("[dap-cs] Failed to parse Properties/launchSettings.json: " .. content)
         return {}
     end
 
     if not json.profiles or vim.tbl_isempty(json.profiles) then
-        vim.notify("[dap-cs] No profiles found in launchSettings.json")
+        debug_log("[dap-cs] No profiles found in launchSettings.json")
         return {}
     end
 
@@ -99,7 +106,7 @@ local function parse_launch_settings(csproj_dir)
         end
         choice = vim.fn.inputlist(menu)
         if choice < 1 or choice > #profile_names then
-            vim.notify("[dap-cs] Invalid choice")
+            debug_log("[dap-cs] Invalid choice")
             return {}
         end
     else
@@ -111,13 +118,13 @@ local function parse_launch_settings(csproj_dir)
 
     local env = profile.environmentVariables or {}
     if profile.applicationUrl then
-        vim.notify("[dap-cs] Found applicationUrl: " .. profile.applicationUrl)
+        debug_log("[dap-cs] Found applicationUrl: " .. profile.applicationUrl)
         if not env.ASPNETCORE_URLS then
             env.ASPNETCORE_URLS = profile.applicationUrl
-            vim.notify("[dap-cs] Setting ASPNETCORE_URLS to: " .. profile.applicationUrl)
+            debug_log("[dap-cs] Setting ASPNETCORE_URLS to: " .. profile.applicationUrl)
         end
     else
-        vim.notify("[dap-cs] No applicationUrl found.")
+        debug_log("[dap-cs] No applicationUrl found.")
     end
 
     settings_cache[csproj_dir] = {
@@ -149,7 +156,7 @@ M.setup = function(dap)
                  local csproj = find_nearest_csproj(file_dir)
                 if not csproj then
                     local cwd_fallback = vim.fn.getcwd()
-                    vim.notify("[dap-cs] No csproj found, using cwd: " .. cwd_fallback)
+                    debug_log("[dap-cs] No csproj found, using cwd: " .. cwd_fallback)
                     return cwd_fallback
                 end
 
@@ -171,15 +178,15 @@ M.setup = function(dap)
                  local file_dir = vim.fn.expand("%:p:h")
                  local csproj = find_nearest_csproj(file_dir)
                 if not csproj then
-                    vim.notify("[dap-cs] Could not find .csproj, asking for DLL path")
+                    debug_log("[dap-cs] Could not find .csproj, asking for DLL path")
                     return vim.fn.input("Could not find .csproj. Path to dll: ", "", "file")
                 end
                 local dll = get_dll_path_from_csproj(csproj)
                 if dll then
-                    vim.notify("[dap-cs] Using DLL: " .. dll)
+                    debug_log("[dap-cs] Using DLL: " .. dll)
                     return dll
                 else
-                    vim.notify("[dap-cs] DLL not found automatically, asking for path")
+                    debug_log("[dap-cs] DLL not found automatically, asking for path")
                 end
 
                 return vim.fn.input("Could not find dll. Path: ", "", "file")
