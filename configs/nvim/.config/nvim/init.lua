@@ -30,11 +30,22 @@ vim.cmd.packadd('netcoredbg-macOS-arm64.nvim') -- Vendored version with improvem
 -- -----------------------------
 require('mini.pick').setup()
 
+---@type Language[]
+local languages = {
+    require("user.languages.lua"),
+    require("user.languages.csharp"),
+    require("user.languages.go"),
+    require("user.languages.typescript"),
+    require("user.languages.css"),
+    require("user.languages.ziggy"),
+    require("user.languages.html"),
+    require("user.languages.md")
+}
 -- Treesitter
 -- -----------------------------
 require("nvim-treesitter.configs").setup({
     modules = {},
-    ensure_installed = { "lua", "c_sharp" },
+    ensure_installed = { "lua", "c_sharp", "ziggy", "ziggy_schema", "superhtml" },
     sync_install = false,
     auto_install = true,
     ignore_install = {},
@@ -42,6 +53,26 @@ require("nvim-treesitter.configs").setup({
         enable = true,
     }
 })
+
+local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+
+-- Install and configure each language's parsers
+for _, language in pairs(languages) do
+    if type(language.parsers) == "table" then
+        for name, config in pairs(language.parsers) do
+            parser_config[name] = config
+        end
+    end
+end
+
+vim.filetype.add {
+  extension = {
+    smd = 'supermd',
+    shtml = 'superhtml',
+    ziggy = 'ziggy',
+    ['ziggy-schema'] = 'ziggy_schema',
+  },
+}
 
 -- LSP
 -- -----------------------------
@@ -52,14 +83,6 @@ function mason_install(name)
     end
 end
 
----@type Language[]
-local languages = {
-    require("user.languages.lua"),
-    require("user.languages.csharp"),
-    require("user.languages.go"),
-    require("user.languages.typescript"),
-    require("user.languages.css")
-}
 
 -- Global defaults for all servers
 function on_attach(client, bufnr)

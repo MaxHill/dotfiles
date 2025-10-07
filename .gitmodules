@@ -1,0 +1,6 @@
+[submodule "vendor/ziggy"]
+	path = vendor/ziggy
+	url = https://github.com/kristoff-it/ziggy
+[submodule "vendor/supermd"]
+	path = vendor/supermd
+	url = https://github.com/kristoff-it/supermd

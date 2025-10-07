@@ -34,6 +34,7 @@ alias dotfiles='cd ~/dotfiles'
 alias hosts='sudo vim /etc/hosts'
 alias notes='cd ~/Dropbox/Notes'
 alias code='cd ~/code'
+alias notes2="cd ~/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Notes"
 function fr
     echo "Reloading Fish config..."
     source ~/.config/fish/config.fish
