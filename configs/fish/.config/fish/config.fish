@@ -58,7 +58,7 @@ alias vim="nvim"
 function fish_prompt
     # Show current directory in ~ format
     set_color cyan
-    echo -n (prompt_pwd)
+    echo -n (pwd | sed "s|$HOME|~|")
     set_color normal
 
     # Git branch and dirty status (robust & quiet)

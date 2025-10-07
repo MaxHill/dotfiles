@@ -14,12 +14,12 @@ keyboard:
     "sudo kanata --cfg ~/.config/kanata/kanata.kbd --debug"
 
 brew:
-    ansible-playbook bootstrap.yml --ask-become-pass --tags "brew" 
+    ansible-playbook bootstrap.yml --tags "brew" 
 
 dependencies:
-    ansible-playbook bootstrap.yml --ask-become-pass --tags "dependencies"
+    ansible-playbook bootstrap.yml --tags "dependencies"
 
 symlinks:
-    ansible-playbook bootstrap.yml --ask-become-pass --tags "symlinks"
+    ansible-playbook bootstrap.yml --tags "symlinks"
 
 
