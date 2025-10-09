@@ -240,9 +240,16 @@ find_dirs() {
             depth="${BASH_REMATCH[2]}"
         else
             path="$entry"
+            depth=""
         fi
 
-        [[ -d "$path" ]] && find "$path" -mindepth 1 -maxdepth "${depth:-${TS_MAX_DEPTH:-1}}" -path '*/.git' -prune -o -type d -print
+        if [[ -d "$path" ]]; then
+            if [[ "$depth" == "0" ]]; then
+                echo "$path"
+            else
+                find "$path" -mindepth 1 -maxdepth "${depth:-${TS_MAX_DEPTH:-1}}" -path '*/.git' -prune -o -type d -print
+            fi
+        fi
     done
 }
 
