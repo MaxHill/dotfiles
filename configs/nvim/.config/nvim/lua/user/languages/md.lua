@@ -32,4 +32,13 @@ M.parsers = {
     }
 }
 
+M.setup = function()
+    vim.api.nvim_create_autocmd("FileType", {
+        pattern = "supermd",
+        callback = function()
+            vim.bo.commentstring = "<!-- %s -->"
+        end,
+    })
+end
+
 return M

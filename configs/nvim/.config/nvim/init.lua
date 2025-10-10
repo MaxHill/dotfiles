@@ -8,11 +8,10 @@ require("user.types")
 -- -----------------------------
 vim.pack.add({
     { src = "https://github.com/vague2k/vague.nvim" },
-    { src = "https://github.com/echasnovski/mini.pick" },
     { src = "https://github.com/echasnovski/mini.surround" },
     { src = "https://github.com/echasnovski/mini.comment" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-    { src = "https://github.com/Saghen/blink.cmp",                 version = "v1.6.0" },
+    { src = "https://github.com/Saghen/blink.cmp",                        version = "v1.6.0" },
     { src = "https://github.com/L3MON4D3/LuaSnip" },
     -- LSP
     { src = "https://github.com/neovim/nvim-lspconfig" },
@@ -21,14 +20,52 @@ vim.pack.add({
     -- DAP
     { src = "https://github.com/mfussenegger/nvim-dap" },
     { src = "https://github.com/igorlfs/nvim-dap-view" },
+    -- Dependencies
+    { src = "https://github.com/nvim-lua/plenary.nvim" },
+    -- Telescope
+    { src = "https://github.com/nvim-telescope/telescope.nvim" },
+    { src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim" },
+    -- Harpoon 2
+    { src = "https://github.com/ThePrimeagen/harpoon",                    version = "harpoon2" },
 })
 -- local packages
 vim.cmd.packadd('netcoredbg-macOS-arm64.nvim') -- Vendored version with improvements
 -- vim.pack.update();
 
+-- Mini
+require('mini.comment').setup()
+require('mini.surround').setup({
+    mappings = { replace = 'sc',                              -- Replace surrounding, originally sr
+    },
+})
+
+-- Harpoon 2
+local harpoon = require('harpoon')
+harpoon:setup({})
+
+vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, { desc = "Add file to Harpoon" })
+vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end, { desc = "Select Harpoon item 1" })
+vim.keymap.set("n", "<C-j>", function() harpoon:list():select(2) end, { desc = "Select Harpoon item 2" })
+vim.keymap.set("n", "<C-k>", function() harpoon:list():select(3) end, { desc = "Select Harpoon item 3" })
+vim.keymap.set("n", "<C-l>", function() harpoon:list():select(4) end, { desc = "Select Harpoon item 4" })
+
 -- Find
 -- -----------------------------
-require('mini.pick').setup()
+require('telescope').setup({
+    defaults = {
+        -- Add any custom defaults here
+    },
+    extensions = {
+        fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = "smart_case",
+        }
+    }
+})
+require('telescope').load_extension('fzf') -- Uncomment after building fzf-native
 
 ---@type Language[]
 local languages = {
@@ -36,16 +73,25 @@ local languages = {
     require("user.languages.csharp"),
     require("user.languages.go"),
     require("user.languages.typescript"),
+    require("user.languages.astro"),
     require("user.languages.css"),
     require("user.languages.ziggy"),
     require("user.languages.html"),
     require("user.languages.md")
 }
+
+-- Setup languages
+for _, language in pairs(languages) do
+    if type(language.setup) == "function" then
+        language.setup()
+    end
+end
+
 -- Treesitter
 -- -----------------------------
 require("nvim-treesitter.configs").setup({
     modules = {},
-    ensure_installed = { "lua", "c_sharp", "ziggy", "ziggy_schema", "superhtml" },
+    ensure_installed = { "lua", "c_sharp", "ziggy", "ziggy_schema", "superhtml", "astro" },
     sync_install = false,
     auto_install = true,
     ignore_install = {},
@@ -66,12 +112,12 @@ for _, language in pairs(languages) do
 end
 
 vim.filetype.add {
-  extension = {
-    smd = 'supermd',
-    shtml = 'superhtml',
-    ziggy = 'ziggy',
-    ['ziggy-schema'] = 'ziggy_schema',
-  },
+    extension = {
+        smd = 'supermd',
+        shtml = 'superhtml',
+        ziggy = 'ziggy',
+        ['ziggy-schema'] = 'ziggy_schema',
+    },
 }
 
 -- LSP
@@ -82,7 +128,6 @@ function mason_install(name)
         vim.cmd("MasonInstall " .. name)
     end
 end
-
 
 -- Global defaults for all servers
 function on_attach(client, bufnr)
@@ -286,10 +331,11 @@ vim.keymap.set("n", "-", ":Ex<CR>", { desc = "Center screen when moving through 
 -- Lsp
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 
-local pick = require('mini.pick')
-vim.keymap.set('n', '<leader>sf', pick.builtin.files, { desc = "[S]earch [F]iles" })
-vim.keymap.set('n', '<leader>sh', pick.builtin.help, { desc = "[S]earch [H]elp" })
-vim.keymap.set('n', '<leader>sg', pick.builtin.grep_live, { desc = "[S]earch [G]rep" })
+local telescope = require('telescope.builtin')
+vim.keymap.set('n', '<leader>sf', telescope.find_files, { desc = "[S]earch [F]iles" })
+vim.keymap.set('n', '<leader>sh', telescope.help_tags, { desc = "[S]earch [H]elp" })
+vim.keymap.set('n', '<leader>sg', telescope.live_grep, { desc = "[S]earch [G]rep" })
+vim.keymap.set('n', '<leader>sp', telescope.builtin, { desc = "[S]earch [P]ickers" })
 
 
 --  ------------------------------------------------------------------------
@@ -310,4 +356,3 @@ autocmd("TextYankPost", {
         }
     end,
 })
-

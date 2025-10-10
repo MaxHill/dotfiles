@@ -8,4 +8,13 @@ M.lsps = {
     }
 }
 
+M.setup = function()
+    vim.api.nvim_create_autocmd("FileType", {
+        pattern = "superhtml",
+        callback = function()
+            vim.bo.commentstring = "<!-- %s -->"
+        end,
+    })
+end
+
 return M
