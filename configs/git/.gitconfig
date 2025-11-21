@@ -12,6 +12,9 @@
 	autosetuprebase = always
 [pull]
 	rebase = true
+[rerere]
+    enabled = true
+    autoupdate = true
 
 # Include custom .gitconfig if in work folder
 [includeIf "gitdir:~/code/work/"]
@@ -26,3 +29,5 @@
 
 [credential]
 	helper = osxkeychain
+[coderabbit]
+	machineId = cli/6830963b970e47eda9363b40d1e3de66

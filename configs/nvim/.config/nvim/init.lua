@@ -13,6 +13,7 @@ vim.pack.add({
     { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
     { src = "https://github.com/Saghen/blink.cmp",                        version = "v1.6.0" },
     { src = "https://github.com/L3MON4D3/LuaSnip" },
+    { src = "https://github.com/danymat/neogen" },
     -- LSP
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason.nvim" },
@@ -38,6 +39,25 @@ require('mini.surround').setup({
     mappings = { replace = 'sc',                              -- Replace surrounding, originally sr
     },
 })
+
+-- Neogen (documentation generator)
+require('neogen').setup({
+    enabled = true,
+    languages = {
+        typescript = {
+            template = {
+                annotation_convention = "jsdoc"
+            }
+        },
+        javascript = {
+            template = {
+                annotation_convention = "jsdoc"
+            }
+        }
+    }
+})
+
+vim.keymap.set("n", "<leader>dg", require('neogen').generate, { desc = "Generate documentation" })
 
 -- Harpoon 2
 local harpoon = require('harpoon')
@@ -77,7 +97,8 @@ local languages = {
     require("user.languages.css"),
     require("user.languages.ziggy"),
     require("user.languages.html"),
-    require("user.languages.md")
+    require("user.languages.md"),
+    require("user.languages.mdx")
 }
 
 -- Setup languages
@@ -91,7 +112,7 @@ end
 -- -----------------------------
 require("nvim-treesitter.configs").setup({
     modules = {},
-    ensure_installed = { "lua", "c_sharp", "ziggy", "ziggy_schema", "superhtml", "astro" },
+    ensure_installed = { "lua", "c_sharp", "ziggy", "ziggy_schema", "superhtml", "astro", "markdown", "markdown_inline", "jsdoc" },
     sync_install = false,
     auto_install = true,
     ignore_install = {},
@@ -113,6 +134,7 @@ end
 
 vim.filetype.add {
     extension = {
+        mdx = 'mdx',
         smd = 'supermd',
         shtml = 'superhtml',
         ziggy = 'ziggy',
@@ -123,11 +145,7 @@ vim.filetype.add {
 -- LSP
 -- -----------------------------
 require("mason").setup()
-function mason_install(name)
-    if not require("mason-registry").is_installed(name) then
-        vim.cmd("MasonInstall " .. name)
-    end
-end
+local mason_utils = require("user.mason")
 
 -- Global defaults for all servers
 function on_attach(client, bufnr)
@@ -166,7 +184,7 @@ for _, language in pairs(languages) do
             end
 
             if lsp.mason_name then
-                mason_install(lsp.mason_name)
+                mason_utils.install(lsp.mason_name)
             end
 
             vim.lsp.enable(lsp.lsp_name)
@@ -262,6 +280,23 @@ vim.keymap.set("n", "<space>dT", dap.terminate)
 
 vim.keymap.set("n", "<leader>dw", function()
     dap_view.add_expr(vim.fn.expand("<cword>"))
+end)
+
+vim.keymap.set("n", "<leader>df", function()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        local ft = vim.api.nvim_buf_get_option(buf, "filetype")
+        if ft == "dap-view" then
+            local current_height = vim.api.nvim_win_get_height(win)
+            local max_height = vim.o.lines - 2
+            if current_height >= max_height - 5 then
+                vim.cmd("wincmd =")
+            else
+                vim.api.nvim_win_set_height(win, max_height)
+            end
+            return
+        end
+    end
 end)
 
 require('netcoredbg-macOS-arm64').setup(require('dap'))

@@ -116,3 +116,4 @@ set -Ux RIPGREP_CONFIG_PATH ~/.ripgreprc
 
 set -x PATH $PATH /opt/homebrew/bin
 
+set -gx PATH /Users/8717/.local/bin $PATH

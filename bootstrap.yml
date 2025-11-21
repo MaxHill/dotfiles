@@ -10,6 +10,7 @@
   - import_tasks: tasks/brew.yml
   - import_tasks: tasks/npm-packages.yml
   - import_tasks: tasks/symlinks.yml
+  - import_tasks: tasks/opencode.yml
   - import_tasks: tasks/fish.yml
   - import_tasks: tasks/git.yml
   - import_tasks: tasks/osx-settings.yml

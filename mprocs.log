@@ -51,3 +51,22 @@ ERROR [mprocs::error] Error: Device not configured (os error 6)
 ERROR [mprocs] Got panic. @info:panicked at std/src/io/stdio.rs:1123:9:
 failed printing to stderr: Input/output error (os error 5)
 @stackTrace:disabled backtrace
+ERROR [mprocs::error] Error: Input/output error (os error 5)
+ERROR [mprocs::error] Error: Device not configured (os error 6)
+ERROR [mprocs] Got panic. @info:panicked at std/src/io/stdio.rs:1123:9:
+failed printing to stderr: Input/output error (os error 5)
+@stackTrace:disabled backtrace
+ERROR [mprocs::error] Error: Input/output error (os error 5)
+ERROR [mprocs::error] Error: channel closed
+ERROR [mprocs::error] Error: channel closed
+ERROR [mprocs::error] Error: channel closed
+ERROR [mprocs::error] Error: Device not configured (os error 6)
+ERROR [mprocs::error] Error: channel closed
+ERROR [mprocs] Got panic. @info:panicked at std/src/io/stdio.rs:1123:9:
+failed printing to stderr: Input/output error (os error 5)
+@stackTrace:disabled backtrace
+ERROR [mprocs::error] Error: Input/output error (os error 5)
+ERROR [mprocs::error] Error: Device not configured (os error 6)
+ERROR [mprocs] Got panic. @info:panicked at std/src/io/stdio.rs:1123:9:
+failed printing to stderr: Input/output error (os error 5)
+@stackTrace:disabled backtrace

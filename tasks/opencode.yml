@@ -1,0 +1,6 @@
+- name: Install opencode plugin dependencies
+  shell: npm install
+  args:
+    chdir: "{{ lookup('env', 'HOME') }}/.config/opencode"
+  tags:
+    - opencode

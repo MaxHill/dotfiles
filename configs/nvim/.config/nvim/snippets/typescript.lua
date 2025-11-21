@@ -118,5 +118,94 @@ else {{
 }}
 ]], {
         i(0),
+    })),
+    s("wc", fmt([[
+import {{ MElement }} from "../utils/m-element";
+import {{ BindAttribute }} from "../utils/reflect-attribute";
+import styles from "./{}.css?inline";
+
+const baseStyleSheet = new CSSStyleSheet();
+baseStyleSheet.replaceSync(styles);
+
+export class {} extends MElement {{
+    static tagName = '{}';
+    static observedAttributes = ['example'];
+
+    @BindAttribute()
+    example: string = '';
+
+    #shadowRoot: ShadowRoot;
+
+    constructor() {{
+        super();
+        this.#shadowRoot = this.attachShadow({{ mode: 'open' }});
+        this.#shadowRoot.adoptedStyleSheets = [baseStyleSheet];
+    }}
+
+    connectedCallback() {{
+        this.render();
+    }}
+
+    render() {{
+        this.#shadowRoot.innerHTML = `
+            {}
+        `;
+    }}
+}}
+]], {
+        f(function()
+            return vim.fn.expand("%:t:r")
+        end),
+        d(1, function()
+            local name = vim.fn.expand("%:t:r")
+            name = name:sub(1, 1):upper() .. name:sub(2)
+            return sn(nil, i(1, name))
+        end),
+        i(2, "my-component"),
+        i(0, "<div></div>"),
+    })),
+    s("acc", fmt([[
+attributeChangedCallback(name: string, oldValue: unknown, newValue: unknown) {{
+    super.attributeChangedCallback(name, oldValue, newValue);
+    {}
+}}
+]], {
+        i(0),
+    })),
+    s("jsdoc", fmt([[
+/**
+ * {}
+ */
+]], {
+        i(0, "Description"),
+    })),
+    s("@", c(1, {
+        sn(nil, fmt([[ * @slot {} - {}]], {
+            i(1, "name"),
+            i(2, "Description"),
+        })),
+        sn(nil, fmt([[ * @attr {{{}}} {} - {}]], {
+            i(1, "string"),
+            i(2, "name"),
+            i(3, "Description"),
+        })),
+        sn(nil, fmt([[ * @prop {{{}}} {} - {}]], {
+            i(1, "string"),
+            i(2, "name"),
+            i(3, "Description"),
+        })),
+        sn(nil, fmt([[ * @csspart {} - {}]], {
+            i(1, "name"),
+            i(2, "Description"),
+        })),
+        sn(nil, fmt([[ * @cssprop {{{}}} {} - {}]], {
+            i(1, "color"),
+            i(2, "--example-color"),
+            i(3, "Description"),
+        })),
+        sn(nil, fmt([[ * @fires {} - {}]], {
+            i(1, "event-name"),
+            i(2, "Description"),
+        })),
     }))
 }

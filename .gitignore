@@ -1,6 +1,8 @@
 configs/nvim/.config/nvim/autoload/plug.vim
 configs/nvim/.config/nvim/plugged
 configs/tmux/.config/tmux/plugins
+configs/opencode/.config/opencode/node_modules
+configs/opencode/.config/opencode/package-lock.json
 notes-cli/node-modules
 notes-cli/.idea
 Brewfile.lock.json
