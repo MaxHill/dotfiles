@@ -47,6 +47,31 @@ end
 alias ls="ls -lhG"
 alias lsal="ls -lhAG"
 
+function pm
+    set -l dir (pwd)
+    while test "$dir" != "/"
+        if test -f "$dir/pnpm-lock.yaml"
+            pnpm $argv
+            return
+        else if test -f "$dir/yarn.lock"
+            yarn $argv
+            return
+        else if test -f "$dir/package-lock.json"
+            npm $argv
+            return
+        else if test -f "$dir/package.json"
+            echo "No lock file found. Using npm as default."
+            npm $argv
+            return
+        end
+        set dir (dirname "$dir")
+    end
+    echo "No package.json found in current or parent directories."
+    return 1
+end
+
+alias r="pm run"
+
 # Remaps
 alias rm="trash" # http://hasseg.org/trash/
 alias cat='bat'

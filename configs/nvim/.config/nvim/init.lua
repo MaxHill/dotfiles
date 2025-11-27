@@ -64,11 +64,11 @@ local harpoon = require('harpoon')
 harpoon:setup({})
 
 vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, { desc = "Add file to Harpoon" })
-vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end, { desc = "Select Harpoon item 1" })
-vim.keymap.set("n", "<C-j>", function() harpoon:list():select(2) end, { desc = "Select Harpoon item 2" })
-vim.keymap.set("n", "<C-k>", function() harpoon:list():select(3) end, { desc = "Select Harpoon item 3" })
-vim.keymap.set("n", "<C-l>", function() harpoon:list():select(4) end, { desc = "Select Harpoon item 4" })
+vim.keymap.set("n", "<leader>e", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+vim.keymap.set("n", "<leader>h", function() harpoon:list():select(1) end, { desc = "Select Harpoon item 1" })
+vim.keymap.set("n", "<leader>j", function() harpoon:list():select(2) end, { desc = "Select Harpoon item 2" })
+vim.keymap.set("n", "<leader>k", function() harpoon:list():select(3) end, { desc = "Select Harpoon item 3" })
+vim.keymap.set("n", "<leader>l", function() harpoon:list():select(4) end, { desc = "Select Harpoon item 4" })
 
 -- Find
 -- -----------------------------
@@ -371,6 +371,9 @@ vim.keymap.set('n', '<leader>sf', telescope.find_files, { desc = "[S]earch [F]il
 vim.keymap.set('n', '<leader>sh', telescope.help_tags, { desc = "[S]earch [H]elp" })
 vim.keymap.set('n', '<leader>sg', telescope.live_grep, { desc = "[S]earch [G]rep" })
 vim.keymap.set('n', '<leader>sp', telescope.builtin, { desc = "[S]earch [P]ickers" })
+vim.keymap.set('n', '<leader>sd', function()
+    telescope.find_files({ cwd = vim.fn.expand('%:p:h') })
+end, { desc = "[S]earch [D]irectory of current file" })
 
 
 --  ------------------------------------------------------------------------
