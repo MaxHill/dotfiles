@@ -97,8 +97,7 @@ local languages = {
     require("user.languages.css"),
     require("user.languages.ziggy"),
     require("user.languages.html"),
-    require("user.languages.md"),
-    require("user.languages.mdx")
+    require("user.languages.md")
 }
 
 -- Setup languages
@@ -135,7 +134,6 @@ end
 vim.filetype.add {
     extension = {
         mdx = 'mdx',
-        smd = 'supermd',
         shtml = 'superhtml',
         ziggy = 'ziggy',
         ['ziggy-schema'] = 'ziggy_schema',
