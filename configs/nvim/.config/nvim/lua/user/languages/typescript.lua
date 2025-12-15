@@ -14,6 +14,19 @@ M.lsps = {
     }
 }
 
+M.filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
+
+M.formatters = {
+    {
+        name = "prettierd",
+        mason_name = "prettierd",
+    },
+    {
+        name = "prettier",
+        mason_name = "prettier",
+    }
+}
+
 M.setup = function()
     local mason_utils = require("user.mason")
     mason_utils.install("js-debug-adapter")

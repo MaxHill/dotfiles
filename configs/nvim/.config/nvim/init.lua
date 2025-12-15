@@ -18,6 +18,8 @@ vim.pack.add({
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/Hoffs/omnisharp-extended-lsp.nvim" },
+    -- Formatting
+    { src = "https://github.com/stevearc/conform.nvim" },
     -- DAP
     { src = "https://github.com/mfussenegger/nvim-dap" },
     { src = "https://github.com/igorlfs/nvim-dap-view" },
@@ -107,6 +109,62 @@ for _, language in pairs(languages) do
     end
 end
 
+-- Mason (needed for both LSP and formatters)
+-- -----------------------------
+require("mason").setup()
+local mason_utils = require("user.mason")
+
+-- Conform (Formatting)
+-- -----------------------------
+local conform = require("conform")
+
+-- Build formatters_by_ft from language configs
+local formatters_by_ft = {}
+local custom_formatters = {}
+local formatters_to_install = {}  -- Set of unique formatter packages to install
+
+for _, language in pairs(languages) do
+    if type(language.formatters) == "table" and type(language.filetypes) == "table" then
+        -- Collect unique formatters to install
+        for _, formatter_config in ipairs(language.formatters) do
+            if formatter_config.mason_name then
+                formatters_to_install[formatter_config.mason_name] = true
+            end
+            
+            -- Store custom formatter options
+            if formatter_config.options then
+                custom_formatters[formatter_config.name] = formatter_config.options
+            end
+        end
+        
+        -- Map formatters to filetypes
+        local formatter_names = {}
+        for _, formatter_config in ipairs(language.formatters) do
+            table.insert(formatter_names, formatter_config.name)
+        end
+        
+        for _, filetype in ipairs(language.filetypes) do
+            formatters_by_ft[filetype] = formatter_names
+        end
+    end
+end
+
+-- Install unique formatters via Mason
+for formatter_name, _ in pairs(formatters_to_install) do
+    mason_utils.install(formatter_name)
+end
+
+conform.setup({
+    formatters_by_ft = formatters_by_ft,
+    formatters = custom_formatters,
+    format_on_save = {
+        timeout_ms = 1000,
+        lsp_format = "fallback", -- Use LSP formatting as fallback
+    },
+    notify_on_error = true,
+    notify_no_formatters = false, -- Less noisy for languages without formatters
+})
+
 -- Treesitter
 -- -----------------------------
 require("nvim-treesitter.configs").setup({
@@ -142,9 +200,6 @@ vim.filetype.add {
 
 -- LSP
 -- -----------------------------
-require("mason").setup()
-local mason_utils = require("user.mason")
-
 -- Global defaults for all servers
 function on_attach(client, bufnr)
     -- "grn" is mapped in Normal mode to vim.lsp.buf.rename()
@@ -362,7 +417,9 @@ vim.keymap.set("n", "n", " nzz", { desc = "Center screen when moving through res
 vim.keymap.set("n", "-", ":Ex<CR>", { desc = "Center screen when moving through results" })
 
 -- Lsp
-vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
+vim.keymap.set('n', '<leader>lf', function()
+    require('conform').format({ lsp_format = "fallback" })
+end, { desc = "Format buffer" })
 
 local telescope = require('telescope.builtin')
 vim.keymap.set('n', '<leader>sf', telescope.find_files, { desc = "[S]earch [F]iles" })

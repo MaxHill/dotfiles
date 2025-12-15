@@ -1,0 +1,10 @@
+# Terms to avoid in documentation
+# One term per line - case-sensitive regular expressions
+# Leave empty if no terms to reject
+
+# Add terms you want to avoid here
+# Example:
+# simply
+# just
+# easy
+# obviously

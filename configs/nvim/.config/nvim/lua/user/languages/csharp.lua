@@ -51,6 +51,15 @@ M.lsps = {
     }
 }
 
+M.filetypes = { "cs" }
+
+M.formatters = {
+    {
+        name = "csharpier",
+        mason_name = "csharpier",
+    }
+}
+
 local function find_project_root()
     local current_dir = vim.fn.expand('%:p:h')
     while current_dir ~= '/' do

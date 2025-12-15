@@ -14,4 +14,17 @@ M.lsps = {
     }
 }
 
+M.filetypes = { "css", "scss", "less" }
+
+M.formatters = {
+    {
+        name = "prettierd",
+        mason_name = "prettierd",
+    },
+    {
+        name = "prettier",
+        mason_name = "prettier",
+    }
+}
+
 return M;

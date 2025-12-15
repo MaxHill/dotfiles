@@ -10,4 +10,13 @@ M.lsps = {
     }
 }
 
+M.filetypes = { "go" }
+
+M.formatters = {
+    {
+        name = "gofmt",
+        -- gofmt is bundled with Go, no Mason package needed
+    }
+}
+
 return M

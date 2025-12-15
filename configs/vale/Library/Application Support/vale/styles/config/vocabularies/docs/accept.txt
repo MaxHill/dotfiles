@@ -1,0 +1,88 @@
+# Technical terms and project-specific vocabulary
+# One term per line - case-sensitive regular expressions
+
+# Editors and Tools
+[Nn]eovim
+[Nn]vim
+[Vv]im
+VSCode
+VS Code
+Emacs
+
+# Languages and Frameworks
+JavaScript
+TypeScript
+MDX
+Astro
+Svelte
+Lua
+[Pp]ython
+Rust
+Zig
+Ziggy
+
+# Markup and Documentation
+[Mm]arkdown
+AsciiDoc
+reStructuredText
+
+# Development Tools
+LSP
+Mason
+[Ss]tow
+[Dd]otfiles
+Git
+GitHub
+[Aa]nsible
+
+# Terminal and Shell
+[Tt]mux
+Fish
+[Zz]sh
+Bash
+Ghostty
+
+# Linting and Formatting
+Vale
+Prettier
+ESLint
+vale-ls
+prettierd
+
+# Package Managers
+npm
+pnpm
+yarn
+Homebrew
+[Bb]rew
+
+# Configuration
+TOML
+YAML
+JSON
+INI
+
+# Common Tech Terms
+API
+CLI
+HTTP
+HTTPS
+URL
+macOS
+Linux
+Unix
+regex
+config
+configs
+repo
+repos
+
+# Programming Concepts
+async
+await
+enum
+struct
+func
+bool
+refactor
+refactoring

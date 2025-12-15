@@ -7,5 +7,10 @@ notes-cli/node-modules
 notes-cli/.idea
 Brewfile.lock.json
 
+# Vale downloaded packages (managed via Packages in .vale.ini)
+# Note: We track vocabularies (config/) but not downloaded packages
+configs/vale/Library/Application Support/vale/styles/*
+!configs/vale/Library/Application Support/vale/styles/config/
+
 # Local Netlify folder
 .netlify

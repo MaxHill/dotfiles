@@ -8,4 +8,13 @@ M.lsps = {
     }
 }
 
+M.filetypes = { "astro" }
+
+M.formatters = {
+    {
+        name = "prettier",
+        mason_name = "prettier",
+    }
+}
+
 return M
