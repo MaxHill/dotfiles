@@ -221,7 +221,14 @@ end
 
 vim.lsp.config('*', {
     root_markers = { '.git', 'package.json' },
-    capabilities = require('blink.cmp').get_lsp_capabilities(),
+    capabilities = (function()
+        local capabilities = require('blink.cmp').get_lsp_capabilities()
+        capabilities.textDocument.foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true
+        }
+        return capabilities
+    end)(),
     on_attach = on_attach
 })
 

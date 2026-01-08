@@ -15,87 +15,135 @@
 -- dl = require("luasnip.extras").dynamic_lambda (dynamic lambdas)
 
 return {
-    -- Function snippet
-    s("fn", fmt([[
+	-- Function snippet
+	s(
+		"fn",
+		fmt(
+			[[
 func {}({}) {} {{
     {}
 }}
-]], {
-        i(1, "functionName"),
-        i(2, ""), -- parameters, e.g. "arg int"
-        i(3, ""), -- return type, e.g. "int" or "(int, error)"
-        i(0),
-    })),
+]],
+			{
+				i(1, "functionName"),
+				i(2, ""), -- parameters, e.g. "arg int"
+				i(3, ""), -- return type, e.g. "int" or "(int, error)"
+				i(0),
+			}
+		)
+	),
 
-    -- Method snippet
-    s("meth", fmt([[
+	-- Method snippet
+	s(
+		"meth",
+		fmt(
+			[[
 func ({}) {}({}) {} {{
     {}
 }}
-]], {
-        i(1, "r Receiver"), -- receiver
-        i(2, "MethodName"),
-        i(3, ""),       -- parameters
-        i(4, ""),       -- return type
-        i(0),
-    })),
+]],
+			{
+				i(1, "r Receiver"), -- receiver
+				i(2, "MethodName"),
+				i(3, ""), -- parameters
+				i(4, ""), -- return type
+				i(0),
+			}
+		)
+	),
 
-    s("type", fmt([[
+	s(
+		"type",
+		fmt(
+			[[
 type {} {}{}
-]], {
-        i(1, "TypeName"),
-        i(2, "struct"), -- e.g., `struct`, `int`, `interface`, etc.
-        i(0),
-    })),
+]],
+			{
+				i(1, "TypeName"),
+				i(2, "struct"), -- e.g., `struct`, `int`, `interface`, etc.
+				i(0),
+			}
+		)
+	),
 
-    -- Interface snippet
-    s("iface", fmt([[
+	-- Interface snippet
+	s(
+		"iface",
+		fmt(
+			[[
 type {} interface {{
     {}
 }}
-]], {
-        i(1, "InterfaceName"),
-        i(0),
-    })),
+]],
+			{
+				i(1, "InterfaceName"),
+				i(0),
+			}
+		)
+	),
 
-    -- For loop snippet (range loop)
-    s("for", fmt([[
+	-- For loop snippet (range loop)
+	s(
+		"for",
+		fmt(
+			[[
 for {}, {} := range {} {{
     {}
 }}
-]], {
-        i(1, "i"),
-        i(2, "v"),
-        i(3, "collection"),
-        i(0),
-    })),
+]],
+			{
+				i(1, "i"),
+				i(2, "v"),
+				i(3, "collection"),
+				i(0),
+			}
+		)
+	),
 
-    -- If snippet
-    s("if", fmt([[
+	-- If snippet
+	s(
+		"if",
+		fmt(
+			[[
 if {} {{
     {}
 }}
-]], {
-        i(1, "condition"),
-        i(0),
-    })),
+]],
+			{
+				i(1, "condition"),
+				i(0),
+			}
+		)
+	),
 
-    -- Else if snippet
-    s("elseif", fmt([[
+	-- Else if snippet
+	s(
+		"elseif",
+		fmt(
+			[[
 else if {} {{
     {}
 }}
-]], {
-        i(1, "condition"),
-        i(0),
-    })),
+]],
+			{
+				i(1, "condition"),
+				i(0),
+			}
+		)
+	),
 
-    -- Else snippet
-    s("else", fmt([[
+	-- Else snippet
+	s(
+		"else",
+		fmt(
+			[[
 else {{
     {}
 }}
-]], {
-        i(0),
-    })),
+]],
+			{
+				i(0),
+			}
+		)
+	),
 }

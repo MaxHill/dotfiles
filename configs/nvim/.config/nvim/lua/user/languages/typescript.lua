@@ -5,8 +5,44 @@ local M = {}
 
 M.lsps = {
     {
+        -- TypeScript LSP for Node.js/Vite/esbuild projects
         mason_name = "typescript-language-server",
         lsp_name = "ts_ls",
+        config = {
+            single_file_support = false,
+            root_markers = { "tsconfig.json", "package.json", "jsconfig.json" },
+            root_dir = function(bufnr, on_dir)
+                -- Check if this is a Deno project
+                local is_deno = vim.fs.root(bufnr, { "deno.json", "deno.jsonc" }) ~= nil
+                if is_deno then
+                    -- This is a Deno project, don't use ts_ls
+                    return nil
+                end
+                
+                -- Not a Deno project, find Node.js root
+                local root = vim.fs.root(bufnr, { "tsconfig.json", "package.json", "jsconfig.json" })
+                return root and on_dir(root)
+            end,
+        }
+    },
+    {
+        -- Deno LSP - only for projects with explicit deno.json
+        lsp_name = "denols",
+        config = {
+            single_file_support = false,
+            root_markers = { "deno.json", "deno.jsonc" },
+            root_dir = function(bufnr, on_dir)
+                -- Only attach if this IS a Deno project
+                local is_deno = vim.fs.root(bufnr, { "deno.json", "deno.jsonc" }) ~= nil
+                if not is_deno then
+                    return nil
+                end
+                
+                -- Find Deno root
+                local root = vim.fs.root(bufnr, { "deno.json", "deno.jsonc" })
+                return root and on_dir(root)
+            end,
+        }
     },
     {
         mason_name = "svelte-language-server",
@@ -14,16 +50,16 @@ M.lsps = {
     }
 }
 
-M.filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
+M.filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact", "svelte" }
 
 M.formatters = {
     {
-        name = "prettierd",
-        mason_name = "prettierd",
-    },
-    {
-        name = "prettier",
-        mason_name = "prettier",
+        name = "deno_fmt",
+        options = {
+            command = "deno",
+            args = { "fmt", "--line-width=100", "--unstable-component", "-" },
+            stdin = true,
+        }
     }
 }
 

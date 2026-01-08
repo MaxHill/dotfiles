@@ -37,3 +37,8 @@ vim.o.signcolumn = "yes"
 
 vim.o.winborder = "rounded"
 
+-- Folding settings
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldenable = true
