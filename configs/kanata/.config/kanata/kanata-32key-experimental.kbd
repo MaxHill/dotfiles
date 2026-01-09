@@ -1,0 +1,234 @@
+;; ============================================================================
+;; EXPERIMENTAL 32-KEY SPLIT KEYBOARD LAYOUT - SHIFTED UP ONE ROW
+;; ============================================================================
+;;
+;; This layout shifts the entire keyboard up one row for more comfortable typing.
+;; Your hands rest on what would traditionally be the QWERTY top letter row.
+;;
+;; Physical Input → Desired Output:
+;;
+;; Left hand      Right hand
+;;
+;; 34567          890-=        → QWERT YUIOP
+;; werty          iop[]        → ASDFG HJKL;
+;; asdfg          kl;'\        → ZXCVB NM,./
+;;
+;; ============================================================================
+
+(defcfg
+  process-unmapped-keys yes
+)
+
+;; ============================================================================
+;; SOURCE LAYOUT
+;; ============================================================================
+
+(defsrc
+  esc   f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12
+  home  1     2     3     4     5     6     7     8     9     0     -     =    bspc
+  tab   q     w     e     r     t     y     u     i     o     p     [     ]     ret
+  caps  a     s     d     f     g     h     j     k     l     ;     '     \
+  lsft  grv   z     x     c     v     b     n     m     ,     .     /     rsft
+  fn    lctl  lalt  lmet              spc               rmet  ralt
+)
+
+;; ============================================================================
+;; ALIASES
+;; ============================================================================
+
+(defalias
+  ;; Tap-hold modifiers on traditional bottom row
+  x_esc_ctl (tap-hold 200 200 esc lctl)    ;; X: tap=Escape, hold=Ctrl
+  c_tab_opt (tap-hold 200 200 tab lalt)    ;; C: tap=Tab, hold=Option/Alt
+  v_cmd     (tap-hold 200 200 _ lmet)      ;; V: tap=nothing, hold=Cmd
+  
+  ;; Layer activators (hold only)
+  dot_nav   (layer-while-held nav)         ;; .: hold=Nav layer
+  comma_sym (layer-while-held symbol)      ;; ,: hold=Symbol layer
+  m_shft    (layer-while-held shift)       ;; M: hold=Shift layer
+)
+
+;; ============================================================================
+;; BASE LAYER - ALPHA ONLY
+;; ============================================================================
+(deflayer base
+  ;;        ╭─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────╮
+  ;;        │  ESC    │  BRDN   │  BRUP   │         │         │         │         │  PREV   │  PLAY   │  NEXT   │  MUTE   │  VOL-   │  VOL+   │
+  _          brdn      brup      _         _         _         _         prev      pp        next      mute      vold      volu
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────╮
+  ;;        │         │         │         │  Q      │  W      │  E      │  R      │  T      │  Y      │  U      │  I      │  O      │  P      │         │
+  _          _         _         q         w         e         r         t         y         u         i         o         p         _
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+  ;;        │         │         │  A      │  S      │  D      │  F      │  G      │         │  H      │  J      │  K      │  L      │  BSPC   │         │
+  _          _         a         s         d         f         g         _         h         j         k         l         bspc      _
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+  ;;        │         │  Z      │  X      │  C      │  V      │  B      │         │         │  N      │  M      │  ,      │  .      │  ENTER  │
+  _          z         x         c         v         b         _         _         n         m         ,         .         ret
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+  ;;        │         │         │ESC/CTRL │TAB/OPT  │  CMD    │         │         │         │  SHFT   │  SYM    │  NAV    │         │         │
+  _          _      @x_esc_ctl @c_tab_opt @v_cmd      _         _         _      @m_shft @comma_sym @dot_nav    _         _
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┴─────────┴─────────┴─────────╯
+  ;;        │         │         │         │         │         │  SPC    │         │         │         │
+  _          _         _         _                             spc                           _         _
+  ;;        ╰─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────╯
+)
+
+;; ============================================================================
+;; SYMBOL LAYER - Activated by holding physical comma (,)
+;; ============================================================================
+(deflayer symbol
+  ;;        ╭─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────╮
+  ;;        │         │         │         │         │         │         │         │         │         │         │         │         │         │
+  _          _         _         _         _         _         _         _         _         _         _         _         _
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────╮
+  ;;        │         │         │         │  !      │  @      │  #      │  $      │  %      │  ^      │  &      │  *      │  `      │  ~      │         │
+  _          _         _         S-1       S-2       S-3       S-4       S-5       S-6       S-7       S-8       grv       S-grv     _
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+  ;;        │         │         │  "      │  [      │  {      │  (      │         │         │  /      │  -      │  =      │  :      │  ;      │         │
+  _          _         S-'       [         S-[       S-9       _         _         /         -         =         S-;       ;         _
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+  ;;        │         │  '      │  ]      │  }      │  )      │         │         │         │  \      │  _      │  +      │  |      │  ?      │
+  _          '         ]         S-]       S-0       _         _         _         \         S--       S-=       S-\       S-/
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+  ;;        │         │         │         │         │         │         │         │         │         │         │         │         │         │
+  _          _         _         _         _         _         _         _         _         _         _         _         _
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┴─────────┴─────────┴─────────╯
+  ;;        │         │         │         │         │         │         │         │         │         │
+  _          _         _         _                             _                             _         _
+  ;;        ╰─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────╯
+)
+
+;; ============================================================================
+;; SHIFT LAYER - Activated by holding physical C
+;; ============================================================================
+(deflayer shift
+  ;;        ╭─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────╮
+  ;;        │         │         │         │         │         │         │         │         │         │         │         │         │         │
+  _          _         _         _         _         _         _         _         _         _         _         _         _
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────╮
+  ;;        │         │         │         │  Q      │  W      │  E      │  R      │  T      │  Y      │  U      │  I      │  O      │  P      │         │
+  _          _         _         S-q       S-w       S-e       S-r       S-t       S-y       S-u       S-i       S-o       S-p       _
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+  ;;        │         │         │  A      │  S      │  D      │  F      │  G      │         │  H      │  J      │  K      │  L      │  BSPC   │         │
+  _          _         S-a       S-s       S-d       S-f       S-g       _         S-h       S-j       S-k       S-l       bspc      _
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+  ;;        │         │  Z      │  X      │  C      │  V      │  B      │         │         │  N      │  M      │  <      │  >      │  ?      │
+  _          S-z       S-x       S-c       S-v       S-b       _         _         S-n       S-m       S-,       S-.       S-/
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+  ;;        │         │         │         │         │         │         │         │         │         │         │         │         │         │
+  _          _         _         _         _         _         _         _         _         _         _         _         _
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┴─────────┴─────────┴─────────╯
+  ;;        │         │         │         │         │         │         │         │         │         │
+  _          _         _         _                             _                             _         _
+  ;;        ╰─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────╯
+)
+
+;; ============================================================================
+;; NAV LAYER - Activated by holding physical M
+;; ============================================================================
+(deflayer nav
+  ;;        ╭─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────╮
+  ;;        │         │         │         │         │         │         │         │         │         │         │         │         │         │
+  _          _         _         _         _         _         _         _         _         _         _         _         _
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────╮
+  ;;        │         │         │         │  1      │  2      │  3      │  4      │  5      │  6      │  7      │  8      │  9      │  0      │         │
+  _          _         _         1         2         3         4         5         6         7         8         9         0         _
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+  ;;        │         │         │         │         │         │         │         │         │  LEFT   │  DOWN   │  UP     │  RIGHT  │  BSPC   │         │
+  _          _         _         _         _         _         _         _         left      down      up        right     bspc      _
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+  ;;        │         │  UNDO   │  CUT    │  COPY   │  PASTE  │         │         │         │  HOME   │  PGDN   │  PGUP   │  END    │         │
+  _          C-z       C-x       C-c       C-v       _         _         _         home      pgdn      pgup      end       _
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+  ;;        │         │         │         │         │         │         │         │         │         │         │         │         │         │
+  _          _         _         _         _         _         _         _         _         _         _         _         _
+  ;;        ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┴─────────┴─────────┴─────────╯
+  ;;        │         │         │         │         │         │         │         │         │         │
+  _          _         _         _                             _                             _         _
+  ;;        ╰─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────╯
+)
+
+;; ============================================================================
+;; USAGE NOTES
+;; ============================================================================
+;;
+;; To activate this experimental config:
+;;   just kanata-test-experimental
+;;
+;; BASE LAYER - Verify mappings work:
+;;   1. Press physical 3 4 5 6 7 → should output: q w e r t
+;;   2. Press physical W E R T Y → should output: a s d f g
+;;   3. Press physical A S D F G → should output: z x c v b
+;;   4. Press physical 8 9 0 - = → should output: y u i o p
+;;   5. Press physical I O P [ ] → should output: h j k l ;
+;;   6. Press physical K L ; ' \ → should output: n m , . enter
+;;
+;; ESSENTIAL KEYS:
+;;   - Space: Physical spacebar
+;;   - Enter: Physical \ (backslash key, shifted-up caps row)
+;;   - Tab: Tap physical c (on traditional bottom row)
+;;   - Escape: Tap physical x (on traditional bottom row)
+;;   - Comma: Physical ; key (outputs ,)
+;;   - Period: Physical ' key (outputs .)
+;;
+;; MODIFIERS (on traditional bottom row - X C V):
+;;   - Ctrl: Hold physical x (tap=Escape, hold=Ctrl)
+;;   - Option/Alt: Hold physical c (tap=Tab, hold=Option)
+;;   - Cmd: Hold physical v (hold only)
+;;
+;;   Vim usage examples:
+;;     - Ctrl+D: Hold x + press R (outputs D) = Ctrl+D (scroll down)
+;;     - Ctrl+U: Hold x + press U = Ctrl+U (scroll up)
+;;     - Ctrl+W: Hold x + press 4 (outputs W) = Ctrl+W (window commands)
+;;     - Ctrl+C: Hold x + press D (outputs C) = Ctrl+C (interrupt)
+;;
+;;   Mac shortcuts:
+;;     - Cmd+C: Hold v + press D (outputs C) = Cmd+C (copy)
+;;     - Cmd+V: Hold v + press F (outputs V) = Cmd+V (paste)
+;;     - Cmd+Tab: Hold v + tap c = Cmd+Tab (app switch)
+;;
+;; LAYER ACTIVATORS (hold these keys):
+;;   - Physical m (traditional bottom row) → Shift layer (uppercase letters)
+;;   - Physical . (period on traditional bottom row) → Nav layer (numbers, arrows)
+;;   - Physical , (comma on traditional bottom row) → Symbol layer (symbols)
+;;
+;; SYMBOL LAYER - Hold physical comma key
+;;   Top row:
+;;     Hold comma + press 3 4 5 6 7 → should output: ! @ # $ %
+;;     Hold comma + press 8 9 0 - = → should output: ^ & * ` ~
+;;   Home row:
+;;     Hold comma + press W E R T → should output: " [ { (
+;;     Hold comma + press I O P [ ] → should output: / - = : ;
+;;   Bottom row:
+;;     Hold comma + press A S D F → should output: ' ] } )
+;;     Hold comma + press K L ; ' \ → should output: \ _ + | ?
+;;
+;; SHIFT LAYER - Hold physical m key
+;;   Hold m + press any alpha key → outputs uppercase letter
+;;   Hold m + press physical ; ' \ → should output: < > ?
+;;
+;; NAV LAYER - Hold physical . (period) key
+;;   Numbers:
+;;     Hold . + press 3 4 5 6 7 8 9 0 - = → should output: 1 2 3 4 5 6 7 8 9 0
+;;   Arrow keys (Vim style):
+;;     Hold . + press I O P [ → should output: Left Down Up Right
+;;   Navigation:
+;;     Hold . + press K L ; ' → should output: Home PgDn PgUp End
+;;   Clipboard:
+;;     Hold . + press A S D F → should output: Undo Cut Copy Paste (Ctrl+Z/X/C/V)
+;;   Backspace:
+;;     Hold . + press ] → should output: Backspace
+;;
+;; MODIFIER + LAYER COMBINATIONS:
+;;   You can combine modifiers with Nav layer. Examples:
+;;     - Ctrl+arrows: Hold x (Ctrl) + Hold . (Nav) + press I/O/P/[ → Ctrl+arrows
+;;     - Cmd+arrows: Hold v (Cmd) + Hold . (Nav) + press I/O/P/[ → Cmd+arrows
+;;     - Option+arrows: Hold c (Option) + Hold . (Nav) + press I/O/P/[ → Option+arrows
+;;     - Perfect for Vim text navigation and selection!
+;;
+;; LAYOUT SUMMARY - Traditional Bottom Row:
+;;   Physical:  z     x           c           v         m         ,         .
+;;   Function:  _     ESC/CTRL    TAB/OPT     CMD       SHIFT     SYMBOL    NAV
+;;                    tap/hold    tap/hold    (hold)    (hold)    (hold)    (hold)
+;;
+;; vim: set ft=lisp

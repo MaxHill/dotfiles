@@ -7,7 +7,7 @@
 ;; declarations must have the same number of keys as defsrc. Any keys not listed
 ;; in defsrc will be passed straight to the operating system.
 (defsrc
-  esc   brdn  brup  mctl  sls   dtn   dnd   prev  pp    next  mute  vold  volu
+  esc   f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12
   home  1     2     3     4     5     6     7     8     9     0     -     =    bspc
   tab   q     w     e     r     t     y     u     i     o     p     [     ]    ret
   caps  a     s     d     f     g     h     j     k     l     ;     '     \
@@ -17,16 +17,17 @@
 
 
 ;; Base layer (active by default when kanata starts up):
-;;  - the 3 main thumb keys become mod/taps
-;;  - home-row mods on SDF and JKL
+;;  - Left Cmd: hold to activate symbol layer
+;;  - Space: tap = space, hold = navigation layer (vim arrows, numbers)
 ;;  - CapsLock becomes Escape
+;;  - F1/F2 brightness, F10/F11/F12 volume/mute, F7/F8/F9 media controls
 (deflayer qwerty
-  _    _    _    _    _    _    _    _    _    _    _    _    _   
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  esc  _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    @sym           _              _    _
+  _    brdn  brup  mctl  sls   dtn   dnd   prev  pp    next  mute  vold  volu
+  _    _     _     _     _     _     _     _     _     _     _     _     _    _
+  _    _     _     _     _     _     _     _     _     _     _     _     _    _
+  esc  _     _     _     _     _     _     _     _     _     _     _     _
+  _    _     _     _     _     _     _     _     _     _     _     _     _
+  _    _     _     @sym           @spc_nav              _    _
 )
 
 ;; ;; Swedish layer:
@@ -40,14 +41,42 @@
 ;;   @swe _    _    @sym           _              _    _
 ;; )
 
-;; Symbol layer:
+;; Symbol layer: Optimized for programming
+;;  - Activated by holding Left Cmd
+;;  - Number row: 1-9-0 accessible while holding left-cmd
+;;  - Tab row: !@#$%^&* symbols (natural left-to-right)
+;;  - Home row: Most-used programming symbols
+;;    - A: + (addition, concatenation)
+;;    - S-D-F: [{( (opening brackets - left hand)
+;;    - G: = (assignment, comparison)
+;;    - H: _ (underscore - very common)
+;;    - J-K-L: )}] (closing brackets - right hand)
+;;    - ;: : (object properties, types)
+;;    - ': " (quotes)
+;;    - \: | (pipes, union types)
+;;  - Bottom row: Minimal additions (-, +, `)
 (deflayer symbol
-  _    _      _    _       _       _       _        _    _       _    _    _    _    
-  _    _      _    _       _       _       _        _    _       _    _    _    _    _
-  _    S-1    S-1  S-3     S-2     kp-     S--      S-7  S-8     S-5  _    S-[  S-]  _
-  esc  +      [    S-[     S-9     S-4     eql      S-0  S-]     ]    S-;  S-'  S-\
-  _    S-grv  _    _       _       _       _        _    _       S-,  S-.  _    _
-  _    _      _    @sym            _                _    _
+  _    brdn   brup  mctl    sls     dtn     dnd      prev  pp      next  mute  vold  volu
+  _    1      2     3       4       5       6        7     8       9     0     -     =    _
+  _    S-1    S-2   S-3     S-4     S-5     S-6      S-7   S-8     _     _     S-[   S-]  _
+  esc  S-=    [     S-[     S-9     eql     S--      S-0   S-]     ]     S-;   S-'   S-\
+  _    S-grv  _     _       -       S-=     _        grv   _       S-,   S-.   S-/   _
+  _    _      _     _               _                _     _
+)
+
+;; Navigation layer: Vim-style navigation
+;;  - Activated by holding Space
+;;  - QWERTY row: Numbers 1-9-0 accessible while holding space
+;;  - Home row: H/J/K/L = vim arrows (left/down/up/right)
+;;  - Bottom row: N/M/,/. = Home/PgDn/PgUp/End
+;;  - Left side: Passthrough for normal typing
+(deflayer navigation
+  _    brdn  brup  mctl  sls   dtn   dnd   prev  pp    next  mute  vold  volu
+  _    _     _     _     _     _     _     _     _     _     _     -     =    _
+  _    1     2     3     4     5     6     7     8     9     0     _     _    _
+  esc  _     _     _     _     _     left  down  up    rght  _     _     _
+  _    _     _     _     _     _     home  pgdn  pgup  end   _     _     _
+  _    _     _     _               _                _     _
 )
 
 
@@ -56,10 +85,11 @@
 ;; not necessary, but is highly recommended for ease of understanding visually.
 ;; Aliases are referred to by `@<alias_name>`.
 (defalias
-  ;; tap: backtick (grave), hold: toggle layer-switching layer while held
-  ;; grl (tap-hold 200 200 grv (layer-toggle layers))
+  ;; Space tap-hold for navigation layer
+  ;; tap = space, hold (200ms) = navigation layer
+  spc_nav (tap-hold 200 200 spc (layer-while-held navigation))
 
-  ;; layer-switch changes the base layer.
+  ;; Layer switching
   std (layer-switch qwerty)
   sym (layer-while-held symbol)
   ;; swe (layer-while-held swedish)
