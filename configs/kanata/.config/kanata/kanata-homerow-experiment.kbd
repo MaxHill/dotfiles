@@ -1,0 +1,136 @@
+(defcfg
+  process-unmapped-keys yes
+)
+
+;; `defsrc` defines the keys that will be intercepted by kanata.
+;; The order of the keys matches with deflayer declarations and all deflayer
+;; declarations must have the same number of keys as defsrc. Any keys not listed
+;; in defsrc will be passed straight to the operating system.
+(defsrc
+  esc   f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12
+  home  1     2     3     4     5     6     7     8     9     0     -     =    bspc
+  tab   q     w     e     r     t     y     u     i     o     p     [     ]    ret
+  caps  a     s     d     f     g     h     j     k     l     ;     '     \
+  lsft  grv   z     x     c     v     b     n     m     ,     .     /     rsft
+  fn    lctl  lalt  lmet              spc               rmet  ralt
+)
+
+(defvar
+  ;; Homerow mod timings
+  tap-timeout 200    ;; Window for double-tap (e.g., jj in vim)
+  hold-timeout 200   ;; How long to hold before modifier activates
+  
+  ;; Keyboard halves for early tap trigger (prevents misfires)
+  left-hand-keys (
+    q w e r t
+    a s d f g
+    z x c v b
+  )
+  right-hand-keys (
+    y u i o p
+    h j k l ;
+    n m , . /
+  )
+)
+
+;; Base layer (active by default when kanata starts up):
+;;  - Left Cmd: tap = backspace, hold (150ms) = symbol layer
+;;  - Right Cmd: normal command modifier
+;;  - Holding BOTH Cmd keys together = navigation layer
+;;  - CapsLock becomes Escape
+;;  - F1/F2 brightness, F10/F11/F12 volume/mute, F7/F8/F9 media controls
+(deflayer qwerty
+  _    brdn  brup  mctl  sls   dtn   dnd   prev  pp    next  mute  vold  volu
+  _    _     _     _     _     _     _     _     _     _     _     _     _    _
+  _    _     _     _     _     _     _     _     _     _     _     _     _    _
+  esc  @a    @s    @d    @f    _     _     @j    @k    @l    @;    _     _
+  _    _     _     _     _     _     _     _     _     _     _     _     _
+  _    _     _     @lcmd          _                     @rcmd _
+)
+
+;; ;; Swedish layer:
+;; ;;  be able to type o å a
+;; (deflayer swedish 
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _ 
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    å    _    _
+;;   esc  _    _    _    _    _    _    _    _    _    ö    ä    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   @swe _    _    @sym           _              _    _
+;; )
+
+;; Symbol layer: Optimized for programming
+;;  - Activated by holding Left Cmd
+;;  - Number row: 1-9-0 accessible while holding left-cmd
+;;  - Tab row: !@#$%^&* symbols (natural left-to-right)
+;;  - Home row: Most-used programming symbols
+;;    - A: + (addition, concatenation)
+;;    - S-D-F: [{( (opening brackets - left hand)
+;;    - G: = (assignment, comparison)
+;;    - H: _ (underscore - very common)
+;;    - J-K-L: )}] (closing brackets - right hand)
+;;    - ;: : (object properties, types)
+;;    - ': " (quotes)
+;;    - \: | (pipes, union types)
+;;  - Bottom row: Minimal additions (-, +, `)
+(deflayer symbol
+  _    brdn   brup  mctl    sls     dtn     dnd      prev  pp      next  mute  vold  volu
+  _    1      2     3       4       5       6        7     8       9     0     -     =    _
+  _    S-1    S-2   S-3     S-4     S-5     S-6      S-7   S-8     _     _     S-[   S-]  _
+  esc  S-=    [     S-[     S-9     eql     S--      S-0   S-]     ]     S-;   S-'   S-\
+  _    S-grv  _     _       -       S-=     _        grv   _       S-,   S-.   S-/   _
+  _    _      _     _               _                _     _
+)
+
+;; Navigation layer: Vim-style navigation
+;;  - Activated by holding Space
+;;  - QWERTY row: Numbers 1-9-0 accessible while holding space
+;;  - Home row: H/J/K/L = vim arrows (left/down/up/right)
+;;  - Bottom row: N/M/,/. = Home/PgDn/PgUp/End
+;;  - Left side: Passthrough for normal typing
+(deflayer navigation
+  _    brdn  brup  mctl  sls   dtn   dnd   prev  pp    next  mute  vold  volu
+  _    _     _     _     _     _     _     _     _     _     _     -     =    _
+  _    1     2     3     4     5     6     7     8     9     0     _     _    _
+  esc  _     _     _     _     _     left  down  up    rght  _     _     _
+  _    _     _     _     _     _     home  pgdn  pgup  end   _     _     _
+  _    _     _     _               _                _     _
+)
+
+
+;; `defalias` is used to declare a shortcut for a more complicated action to keep
+;; the deflayer declarations clean and aligned. The alignment in deflayers is
+;; not necessary, but is highly recommended for ease of understanding visually.
+;; Aliases are referred to by `@<alias_name>`.
+(defalias
+  ;; Left Command: tap = backspace, hold = symbol layer
+  lcmd (chord cmd-chord lmet)
+
+  ;; Right Command: tap = enter, hold = command modifier
+  rcmd (chord cmd-chord rmet)
+
+  ;; Layer switching
+  std (layer-switch qwerty)
+  ;; swe (layer-while-held swedish)
+
+  ;; Homerow mods - left hand (Miryoku layout: Super, Alt, Ctrl, Shift)
+  a (tap-hold-tap-keys $tap-timeout $hold-timeout a lmet $left-hand-keys)
+  s (tap-hold-tap-keys $tap-timeout $hold-timeout s lalt $left-hand-keys)
+  d (tap-hold-tap-keys $tap-timeout $hold-timeout d lctl $left-hand-keys)
+  f (tap-hold-tap-keys $tap-timeout $hold-timeout f lsft $left-hand-keys)
+  
+  ;; Homerow mods - right hand (Miryoku layout: Shift, Ctrl, Alt, Super)
+  j (tap-hold-tap-keys $tap-timeout $hold-timeout j rsft $right-hand-keys)
+  k (tap-hold-tap-keys $tap-timeout $hold-timeout k rctl $right-hand-keys)
+  l (tap-hold-tap-keys $tap-timeout $hold-timeout l ralt $right-hand-keys)
+  ; (tap-hold-tap-keys $tap-timeout $hold-timeout ; rmet $right-hand-keys)
+)
+
+;; Chord definition for both command keys
+(defchords cmd-chord 150
+  (lmet) (tap-hold 150 150 bspc (layer-while-held symbol))
+  (rmet) (tap-hold 150 150 ret rmet)
+  (lmet rmet) (layer-while-held navigation)
+)
+
+;; vim: set ft=lisp

@@ -1,5 +1,8 @@
 (defcfg
   process-unmapped-keys yes
+  macos-dev-names-include (
+    "Apple Internal Keyboard / Trackpad"
+  )
 )
 
 ;; `defsrc` defines the keys that will be intercepted by kanata.
@@ -17,51 +20,51 @@
 
 
 ;; Base layer (active by default when kanata starts up):
-;;  - Left Cmd: hold to activate symbol layer
-;;  - Space: tap = space, hold = navigation layer (vim arrows, numbers)
+;;  - Left Cmd: tap = backspace, hold (150ms) = symbol layer
+;;  - Right Cmd: normal command modifier
+;;  - Holding BOTH Cmd keys together = navigation layer
+;;  - Fn: hold for Swedish layer
 ;;  - CapsLock becomes Escape
 ;;  - F1/F2 brightness, F10/F11/F12 volume/mute, F7/F8/F9 media controls
+;;  - /: remapped to ' for consistency with symbol layer
+;;  - ': unmapped (next to L)
 (deflayer qwerty
-  _    brdn  brup  mctl  sls   dtn   dnd   prev  pp    next  mute  vold  volu
-  _    _     _     _     _     _     _     _     _     _     _     _     _    _
-  _    _     _     _     _     _     _     _     _     _     _     _     _    _
-  esc  _     _     _     _     _     _     _     _     _     _     _     _
-  _    _     _     _     _     _     _     _     _     _     _     _     _
-  _    _     _     @sym           @spc_nav              _    _
+  _     brdn  brup  mctl  sls   dtn   dnd   prev  pp    next  mute  vold  volu
+  _     _     _     _     _     _     _     _     _     _     _     _     _    _
+  _     _     _     _     _     _     _     _     _     _     _     _     _    _
+  esc   _     _     _     _     _     _     _     _     _     _     XX    _
+  _     _     _     _     _     _     _     _     _     _     _     '     _
+  @swe  _     _     @lcmd          _                     @rcmd _
 )
 
-;; ;; Swedish layer:
-;; ;;  be able to type o å a
-;; (deflayer swedish 
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _ 
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    å    _    _
-;;   esc  _    _    _    _    _    _    _    _    _    ö    ä    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   @swe _    _    @sym           _              _    _
-;; )
+;; Swedish layer: Swedish characters
+;;  - Activated by holding Fn key
+;;  - [: å (Option+a)
+;;  - ;: ö (Option+u, then o)
+;;  - ': ä (Option+u, then a)
+(deflayer swedish 
+  _    _    _    _    _    _    _    _    _    _    _    _    _ 
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    @aa  _    _
+  esc  _    _    _    _    _    _    _    _    _    @oo  @ae  _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _              _                   _    _
+)
 
-;; Symbol layer: Optimized for programming
+;; Symbol layer: Matches Glove80 layout
 ;;  - Activated by holding Left Cmd
-;;  - Number row: 1-9-0 accessible while holding left-cmd
-;;  - Tab row: !@#$%^&* symbols (natural left-to-right)
-;;  - Home row: Most-used programming symbols
-;;    - A: + (addition, concatenation)
-;;    - S-D-F: [{( (opening brackets - left hand)
-;;    - G: = (assignment, comparison)
-;;    - H: _ (underscore - very common)
-;;    - J-K-L: )}] (closing brackets - right hand)
-;;    - ;: : (object properties, types)
-;;    - ': " (quotes)
-;;    - \: | (pipes, union types)
-;;  - Bottom row: Minimal additions (-, +, `)
+;;  - Number row: 1-0 accessible
+;;  - Tab row: ` ~ # & |  ->  ^ { } [ ]
+;;  - Home row: ! _ : = $  ->  @ ( ) ; :
+;;  - Bottom row: % ? * + \  ->  (unmapped) / - < > "
+;;  - All other keys unmapped (XX)
 (deflayer symbol
-  _    brdn   brup  mctl    sls     dtn     dnd      prev  pp      next  mute  vold  volu
-  _    1      2     3       4       5       6        7     8       9     0     -     =    _
-  _    S-1    S-2   S-3     S-4     S-5     S-6      S-7   S-8     _     _     S-[   S-]  _
-  esc  S-=    [     S-[     S-9     eql     S--      S-0   S-]     ]     S-;   S-'   S-\
-  _    S-grv  _     _       -       S-=     _        grv   _       S-,   S-.   S-/   _
-  _    _      _     _               _                _     _
+  XX   brdn     brup      mctl      sls       dtn       dnd       prev  pp      next  mute    vold      volu
+  XX   1        2         3         4         5         6         7     8       9     0       -         =      XX
+  XX   grv      S-grv     S-3       S-7       S-\       S-6       S-[   S-]     [     ]       XX        XX     XX
+  esc  S-1      S--       S-;       eql       S-4       S-2       S-9   S-0     XX    S-;     XX        XX
+  XX   S-5      S-/       S-8       S-=       \         XX        /     -       S-,   S-.     S-'       XX
+  XX   XX       XX        XX                  XX                  XX    XX
 )
 
 ;; Navigation layer: Vim-style navigation
@@ -85,15 +88,27 @@
 ;; not necessary, but is highly recommended for ease of understanding visually.
 ;; Aliases are referred to by `@<alias_name>`.
 (defalias
-  ;; Space tap-hold for navigation layer
-  ;; tap = space, hold (200ms) = navigation layer
-  spc_nav (tap-hold 200 200 spc (layer-while-held navigation))
+  ;; Left Command: tap = backspace, hold = symbol layer
+  lcmd (chord cmd-chord lmet)
+
+  ;; Right Command: normal command modifier
+  rcmd (chord cmd-chord rmet)
 
   ;; Layer switching
   std (layer-switch qwerty)
-  sym (layer-while-held symbol)
-  ;; swe (layer-while-held swedish)
+  swe (layer-while-held swedish)
 
+  ;; Swedish characters (macOS Option key combinations)
+  aa (macro A-a)           ;; å = Option+a
+  oo (macro A-u o)         ;; ö = Option+u, then o
+  ae (macro A-u a)         ;; ä = Option+u, then a
+)
+
+;; Chord definition for both command keys
+(defchords cmd-chord 150
+  (lmet) (tap-hold 150 150 bspc (layer-while-held symbol))
+  (rmet) rmet
+  (lmet rmet) (layer-while-held navigation)
 )
 
 ;; vim: set ft=lisp

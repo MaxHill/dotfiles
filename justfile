@@ -31,25 +31,20 @@ karabiner-restart:
 kanata-restart:
     @./install_scripts/keyboard/restart_daemon.sh kanata
 
-# Enable experimental 32-key split keyboard layout
+# Enable experimental homerow mods layout
 kanata-experimental:
-    @echo "Switching to experimental 32-key layout..."
-    @cp ~/.config/kanata/kanata.kbd ~/.config/kanata/kanata.kbd.backup
-    @cp ~/.config/kanata/kanata-32key-experimental.kbd ~/.config/kanata/kanata.kbd
+    @echo "Switching to experimental homerow mods layout..."
+    @sed -i '' 's|kanata\.kbd|kanata-homerow-experiment.kbd|' ~/Library/LaunchDaemons/local.kanata.plist
     @./install_scripts/keyboard/restart_daemon.sh kanata
-    @echo "✓ Experimental 32-key layout enabled"
+    @echo "✓ Experimental homerow mods layout enabled"
     @echo "To revert: just kanata-normal"
 
-# Restore normal kanata config from backup
+# Restore normal kanata config
 kanata-normal:
     @echo "Restoring normal config..."
-    @if [ -f ~/.config/kanata/kanata.kbd.backup ]; then \
-        cp ~/.config/kanata/kanata.kbd.backup ~/.config/kanata/kanata.kbd; \
-        ./install_scripts/keyboard/restart_daemon.sh kanata; \
-        echo "✓ Normal config restored"; \
-    else \
-        echo "✗ No backup found. Please restore manually from dotfiles repo."; \
-    fi
+    @sed -i '' 's|kanata-homerow-experiment\.kbd|kanata.kbd|' ~/Library/LaunchDaemons/local.kanata.plist
+    @./install_scripts/keyboard/restart_daemon.sh kanata
+    @echo "✓ Normal config restored"
 
 # Pause kanata daemon (stops the service temporarily)
 kanata-pause:
@@ -64,15 +59,15 @@ kanata-resume:
     @./install_scripts/keyboard/restart_daemon.sh kanata
     @echo "✓ Kanata daemon resumed"
 
-# Test experimental 32-key layout without replacing config (Ctrl+C to exit)
+# Test experimental homerow mods layout without replacing config (Ctrl+C to exit)
 kanata-test-experimental:
-    @echo "Testing experimental 32-key layout..."
+    @echo "Testing experimental homerow mods layout..."
     @echo "This will pause the daemon and run kanata in foreground."
     @echo "Press Ctrl+C to stop, then run 'just kanata-resume' to restore daemon."
     @echo ""
     @sudo launchctl bootout system/local.kanata 2>/dev/null || true
     @echo "Starting experimental config in debug mode..."
-    @sudo kanata --cfg ~/.config/kanata/kanata-32key-experimental.kbd
+    @sudo kanata --cfg ~/.config/kanata/kanata-homerow-experiment.kbd
 
 # View kanata logs in real-time
 kanata-logs:
@@ -82,7 +77,7 @@ kanata-logs:
 # View Karabiner daemon logs
 karabiner-logs:
     @echo "Karabiner daemon logs (Ctrl+C to exit):"
-    @tail -f /tmp/karabiner-daemon.err.log
+    tail -f /tmp/karabiner-daemon.err.log
 
 # View recent kanata errors
 kanata-errors:
@@ -105,5 +100,4 @@ dependencies:
 
 symlinks:
     ansible-playbook bootstrap.yml --tags "symlinks"
-
 

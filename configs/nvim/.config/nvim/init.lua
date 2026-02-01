@@ -433,6 +433,7 @@ vim.keymap.set('n', '<leader>sf', telescope.find_files, { desc = "[S]earch [F]il
 vim.keymap.set('n', '<leader>sh', telescope.help_tags, { desc = "[S]earch [H]elp" })
 vim.keymap.set('n', '<leader>sg', telescope.live_grep, { desc = "[S]earch [G]rep" })
 vim.keymap.set('n', '<leader>sp', telescope.builtin, { desc = "[S]earch [P]ickers" })
+vim.keymap.set('n', '<leader>/', telescope.lsp_document_symbols, { desc = "Search symbols in current file" })
 vim.keymap.set('n', '<leader>sd', function()
     telescope.find_files({ cwd = vim.fn.expand('%:p:h') })
 end, { desc = "[S]earch [D]irectory of current file" })
