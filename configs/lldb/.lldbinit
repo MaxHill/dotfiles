@@ -1,0 +1,42 @@
+# LLDB Configuration for better debugging experience with Zig
+# This file is automatically sourced when lldb starts
+
+# Display settings for better readability
+settings set term-width 120
+
+# Show disassembly when no source is available
+settings set target.process.stop-on-no-source true
+
+# Skip prologue for better breakpoint behavior
+settings set target.skip-prologue true
+
+# Better error messages
+settings set target.error-path stderr
+
+# Use colors for better visibility
+settings set use-color true
+
+# Show full paths in backtraces for clarity
+settings set frame-format "frame #${frame.index}: ${frame.pc}{ ${module.file.basename}\`${function.name-with-args}{${frame.no-debug}${function.pc-offset}}}\n"
+
+# Auto-confirm potentially dangerous operations
+settings set auto-confirm false
+
+# Zig-specific: Show all thread stops (useful for multi-threaded Zig programs)
+settings set target.process.stop-on-shared-library-events false
+
+# Memory settings
+settings set target.max-memory-read-size 2048
+settings set target.max-string-summary-length 512
+
+# Source map settings (helps with finding source files)
+settings set target.source-map ./ ./
+
+# Disable pagination for non-interactive use (good for DAP)
+settings set term-width 0
+
+# Better stepping behavior - step into Zig code, skip C runtime
+settings set target.process.thread.step-avoid-regexp "^std\.start|^_start|^__libc_start"
+
+# Print helpful message
+command script add -f lldb.command_script_import "print('LLDB initialized for Zig debugging')"

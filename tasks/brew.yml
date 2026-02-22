@@ -42,6 +42,10 @@
       - "watchexec"
       - "coreutils" # core BSD programs like date (aliased to gdate)
 
+      # Finance / Accounting
+      - "beancount"      # Double-entry accounting tool
+      - "fava"           # Web UI for beancount
+
       # Gleam
       - "gleam"
 

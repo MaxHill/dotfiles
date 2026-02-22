@@ -55,15 +55,15 @@
 ;;  - Activated by holding Left Cmd
 ;;  - Number row: 1-0 accessible
 ;;  - Tab row: ` ~ # & |  ->  ^ { } [ ]
-;;  - Home row: ! _ : = $  ->  @ ( ) ; :
-;;  - Bottom row: % ? * + \  ->  (unmapped) / - < > "
+;;  - Home row: ! _ % = $  ->  @ ( ) ; ?
+;;  - Bottom row: (unmapped) * + \  ->  (unmapped) / - < > "
 ;;  - All other keys unmapped (XX)
 (deflayer symbol
   XX   brdn     brup      mctl      sls       dtn       dnd       prev  pp      next  mute    vold      volu
   XX   1        2         3         4         5         6         7     8       9     0       -         =      XX
   XX   grv      S-grv     S-3       S-7       S-\       S-6       S-[   S-]     [     ]       XX        XX     XX
-  esc  S-1      S--       S-;       eql       S-4       S-2       S-9   S-0     XX    S-;     XX        XX
-  XX   S-5      S-/       S-8       S-=       \         XX        /     -       S-,   S-.     S-'       XX
+  esc  S-1      S--       S-5       eql       S-4       S-2       S-9   S-0     S-/   S-;     XX        XX
+  XX   XX       XX        S-8       S-=       \         XX        /     -       S-,   S-.     S-'       XX
   XX   XX       XX        XX                  XX                  XX    XX
 )
 

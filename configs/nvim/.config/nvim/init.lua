@@ -30,6 +30,8 @@ vim.pack.add({
     { src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim" },
     -- Harpoon 2
     { src = "https://github.com/ThePrimeagen/harpoon",                    version = "harpoon2" },
+    -- Tmux navigation
+    { src = "https://github.com/christoomey/vim-tmux-navigator" },
 })
 -- local packages
 vim.cmd.packadd('netcoredbg-macOS-arm64.nvim') -- Vendored version with improvements
@@ -72,6 +74,12 @@ vim.keymap.set("n", "<leader>j", function() harpoon:list():select(2) end, { desc
 vim.keymap.set("n", "<leader>k", function() harpoon:list():select(3) end, { desc = "Select Harpoon item 3" })
 vim.keymap.set("n", "<leader>l", function() harpoon:list():select(4) end, { desc = "Select Harpoon item 4" })
 
+-- Replace at specific harpoon positions
+vim.keymap.set("n", "<leader>ah", function() harpoon:list():replace_at(1) end, { desc = "Replace Harpoon item 1" })
+vim.keymap.set("n", "<leader>aj", function() harpoon:list():replace_at(2) end, { desc = "Replace Harpoon item 2" })
+vim.keymap.set("n", "<leader>ak", function() harpoon:list():replace_at(3) end, { desc = "Replace Harpoon item 3" })
+vim.keymap.set("n", "<leader>al", function() harpoon:list():replace_at(4) end, { desc = "Replace Harpoon item 4" })
+
 -- Find
 -- -----------------------------
 require('telescope').setup({
@@ -97,9 +105,11 @@ local languages = {
     require("user.languages.typescript"),
     require("user.languages.astro"),
     require("user.languages.css"),
+    require("user.languages.zig"),
     require("user.languages.ziggy"),
     require("user.languages.html"),
-    require("user.languages.md")
+    require("user.languages.md"),
+    require("user.languages.beancount")
 }
 
 -- Setup languages
@@ -169,7 +179,7 @@ conform.setup({
 -- -----------------------------
 require("nvim-treesitter.configs").setup({
     modules = {},
-    ensure_installed = { "lua", "c_sharp", "ziggy", "ziggy_schema", "superhtml", "astro", "markdown", "markdown_inline", "jsdoc" },
+    ensure_installed = { "lua", "c_sharp", "zig", "ziggy", "ziggy_schema", "superhtml", "astro", "markdown", "markdown_inline", "jsdoc" },
     sync_install = false,
     auto_install = true,
     ignore_install = {},
@@ -195,6 +205,9 @@ vim.filetype.add {
         shtml = 'superhtml',
         ziggy = 'ziggy',
         ['ziggy-schema'] = 'ziggy_schema',
+        zon = 'zon',
+        beancount = 'beancount',
+        bean = 'beancount',
     },
 }
 
