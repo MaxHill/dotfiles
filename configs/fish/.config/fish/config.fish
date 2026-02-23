@@ -82,7 +82,7 @@ alias vim="nvim"
 #  ------------------------------------------------------------------------ 
 function fish_prompt
     # Show current directory in ~ format
-    set_color cyan
+    set_color BEBEBE  # Muted gray from matteblack theme
     echo -n (pwd | sed "s|$HOME|~|")
     set_color normal
 
@@ -96,15 +96,18 @@ function fish_prompt
 
             # Check if working tree is dirty
             if test (git status --porcelain 2>/dev/null | wc -l) -gt 0
+                set_color D35F5F  # Red accent for dirty
                 echo -n " $branch*"
             else
+                set_color FFC107  # Yellow accent for clean
                 echo -n " $branch"
             end
+            set_color normal
         end
     end
 
     echo
-    set_color green
+    set_color BEBEBE  # Muted gray prompt
     echo -n "❯ "
     set_color normal
 end

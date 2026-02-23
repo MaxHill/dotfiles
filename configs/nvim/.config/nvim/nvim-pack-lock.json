@@ -30,6 +30,10 @@
       "rev": "9e25c98d4826998460926f8c5c2284848d80ae89",
       "src": "https://github.com/mason-org/mason.nvim"
     },
+    "matteblack.nvim": {
+      "rev": "a8a039f5d6189b28d76fa0221e64965efec7e996",
+      "src": "https://github.com/tahayvr/matteblack.nvim"
+    },
     "mini.comment": {
       "rev": "871746069a28e35d04a66f88bc0e6831779ccc40",
       "src": "https://github.com/echasnovski/mini.comment"
