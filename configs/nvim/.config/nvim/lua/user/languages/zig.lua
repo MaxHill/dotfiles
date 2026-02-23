@@ -39,12 +39,24 @@ end
 
 local function list_executables()
 	local dir = bin_dir()
-	local files = vim.fn.glob(dir .. "/*", false, true)
-
 	local exes = {}
-	for _, f in ipairs(files) do
-		if vim.fn.executable(f) == 1 and not f:match("%.pdb$") then
-			table.insert(exes, f)
+
+	local handle = vim.uv.fs_scandir(dir)
+	if not handle then
+		return exes
+	end
+
+	while true do
+		local name, type = vim.uv.fs_scandir_next(handle)
+		if not name then
+			break
+		end
+
+		if type == "file" and not name:match("%.pdb$") then
+			local full_path = dir .. "/" .. name
+			if vim.fn.executable(full_path) == 1 then
+				table.insert(exes, full_path)
+			end
 		end
 	end
 
@@ -75,7 +87,7 @@ local function zig_build(target, cb)
 		table.insert(cmd, target)
 	end
 
-	vim.system(cmd, { cwd = root() }, function(obj)
+	vim.system(cmd, { cwd = root(), text = true }, function(obj)
 		vim.schedule(function()
 			if obj.code == 0 then
 				vim.notify("Build succeeded")
@@ -83,7 +95,11 @@ local function zig_build(target, cb)
 					cb(true)
 				end
 			else
-				vim.notify("Build failed", vim.log.levels.ERROR)
+				local error_msg = "Build failed"
+				if obj.stderr and obj.stderr ~= "" then
+					error_msg = error_msg .. ":\n" .. obj.stderr
+				end
+				vim.notify(error_msg, vim.log.levels.ERROR)
 				if cb then
 					cb(false)
 				end
@@ -92,10 +108,10 @@ local function zig_build(target, cb)
 	end)
 end
 
-local function input_args()
+local input_args = vim.schedule_wrap(function()
 	local s = vim.fn.input("Arguments: ")
 	return s == "" and {} or vim.split(s, " ")
-end
+end)
 
 M.setup = function()
 	local mason_utils = require("user.mason")
