@@ -41,6 +41,7 @@
       - "fd"
       - "watchexec"
       - "coreutils" # core BSD programs like date (aliased to gdate)
+      - "mise" # Version manager for dev tools
 
       # Finance / Accounting
       - "beancount"      # Double-entry accounting tool
@@ -122,5 +123,14 @@
     - dependencies 
     - brew
     - brew-cask
+
+- name: Uninstall dotnet packages from brew (now managed by mise)
+  shell: brew uninstall --ignore-dependencies dotnet dotnet@6 dotnet@8 dotnet@9 dotnet-sdk6 dotnet-sdk6-0-400 dotnet-sdk8 dotnet-sdk8-0-400 2>/dev/null || true
+  when: ansible_distribution == "MacOSX"
+  tags:
+    - dependencies
+    - brew
+    - brew-cleanup
+    - dotnet-migration
 
 

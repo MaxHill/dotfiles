@@ -1,0 +1,10 @@
+# Global mise configuration
+# This file defines default tool versions across all projects
+
+[tools]
+# .NET SDK 8 as default
+dotnet = "8"
+
+[settings]
+# Enable experimental features
+experimental = true

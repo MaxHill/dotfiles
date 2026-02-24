@@ -124,9 +124,12 @@ set -x PATH /usr/local/opt/curl/bin $PATH
 # Add /Applications to path
 set -x PATH $PATH /Applications
 
-# Add .NET SDKs from Homebrew
-set -x PATH /opt/homebrew/opt/dotnet@6/bin $PATH
-set -x PATH /opt/homebrew/opt/dotnet@8/bin $PATH
+# Activate mise for version management
+if command -sq mise
+    mise activate fish | source
+end
+
+# .NET environment variables
 set -x ASPNETCORE_ENVIRONMENT "Development"
 set -x ASPNETCORE_URLS "https://localhost:5000/"
 

@@ -22,7 +22,8 @@ vim.pack.add({
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	-- DAP
 	{ src = "https://github.com/mfussenegger/nvim-dap" },
-	{ src = "https://github.com/igorlfs/nvim-dap-view" },
+	{ src = "https://github.com/rcarriga/nvim-dap-ui" },
+	{ src = "https://github.com/nvim-neotest/nvim-nio" }, -- Required dependency for nvim-dap-ui
 	-- Dependencies
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	-- Telescope
@@ -345,63 +346,65 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Dap
 -- -----------------------------
 local dap = require("dap")
-local dap_view = require("dap-view")
-dap_view.setup({
-	windows = {
-		terminal = {
-			hide = { "coreclr" }, -- Don't hide for any adapters
+local dapui = require("dapui")
+
+-- Minimal UI setup from article
+dapui.setup({
+	expand_lines = true,
+	controls = { enabled = false }, -- no extra play/step buttons
+	floating = { border = "rounded" },
+	render = {
+		max_type_length = 60,
+		max_value_lines = 200,
+	},
+	-- Layout with scopes and console output at the bottom
+	layouts = {
+		{
+			elements = {
+				{ id = "scopes", size = 0.6 }, -- 60% of panel for scopes (variables)
+				{ id = "console", size = 0.4 }, -- 40% of panel for console output
+			},
+			size = 20, -- height in lines (increased from 15 to accommodate both)
+			position = "bottom",
 		},
 	},
 })
 
-dap.defaults.fallback.external_terminal = {
-	command = "/usr/bin/open",
-	args = { "-a", "Terminal" },
-}
-
-dap.listeners.before.attach.dapui_config = function()
-	dap_view.open()
+-- Auto-open/close UI (article's approach)
+dap.listeners.after.event_initialized["dapui_config"] = function()
+	dapui.open()
 end
-dap.listeners.before.launch.dapui_config = function()
-	dap_view.open()
+dap.listeners.before.event_terminated["dapui_config"] = function()
+	dapui.close()
 end
-dap.listeners.before.event_terminated.dapui_config = function()
-	dap_view.close()
-end
-dap.listeners.before.event_exited.dapui_config = function()
-	dap_view.close()
+dap.listeners.before.event_exited["dapui_config"] = function()
+	dapui.close()
 end
 
+-- Keymaps
 vim.keymap.set("n", "<leader>du", function()
-	dap_view.toggle()
-end)
+	dapui.toggle()
+end, { noremap = true, silent = true, desc = "Toggle DAP UI" })
+
+vim.keymap.set({ "n", "v" }, "<leader>dw", function()
+	require("dapui").eval(nil, { enter = true })
+end, { noremap = true, silent = true, desc = "Add word under cursor to Watches" })
+
+vim.keymap.set({ "n", "v" }, "<leader>dh", function()
+	require("dapui").eval()
+end, {
+	noremap = true,
+	silent = true,
+	desc = "Hover/eval value under cursor (quick inspection)",
+})
+
+-- Standard DAP keymaps (unchanged)
 vim.keymap.set("n", "<space>db", dap.toggle_breakpoint)
 vim.keymap.set("n", "<leader>dc", dap.continue)
 vim.keymap.set("n", "<leader>di", dap.step_into)
 vim.keymap.set("n", "<leader>do", dap.step_over)
 vim.keymap.set("n", "<space>dC", dap.run_to_cursor)
 vim.keymap.set("n", "<space>dT", dap.terminate)
-
-vim.keymap.set("n", "<leader>dw", function()
-	dap_view.add_expr(vim.fn.expand("<cword>"))
-end)
-
-vim.keymap.set("n", "<leader>df", function()
-	for _, win in ipairs(vim.api.nvim_list_wins()) do
-		local buf = vim.api.nvim_win_get_buf(win)
-		local ft = vim.api.nvim_buf_get_option(buf, "filetype")
-		if ft == "dap-view" then
-			local current_height = vim.api.nvim_win_get_height(win)
-			local max_height = vim.o.lines - 2
-			if current_height >= max_height - 5 then
-				vim.cmd("wincmd =")
-			else
-				vim.api.nvim_win_set_height(win, max_height)
-			end
-			return
-		end
-	end
-end)
 
 require("netcoredbg-macOS-arm64").setup(require("dap"))
 
