@@ -141,6 +141,16 @@ for _, language in pairs(languages) do
 	end
 end
 
+-- Build DAP layout preference map from languages
+local dap_layout_map = {}
+for _, language in pairs(languages) do
+	if language.dap_layout and language.filetypes then
+		for _, ft in ipairs(language.filetypes) do
+			dap_layout_map[ft] = language.dap_layout
+		end
+	end
+end
+
 -- Mason (needed for both LSP and formatters)
 -- -----------------------------
 require("mason").setup()
@@ -357,22 +367,35 @@ dapui.setup({
 		max_type_length = 60,
 		max_value_lines = 200,
 	},
-	-- Layout with scopes and console output at the bottom
+	-- Layout 1: Default for most languages (console + scopes)
+	-- Layout 2: REPL-based for .NET, Go (repl + scopes)
 	layouts = {
+		-- Layout 1: Default (console-based output)
 		{
 			elements = {
-				{ id = "scopes", size = 0.6 }, -- 60% of panel for scopes (variables)
-				{ id = "console", size = 0.4 }, -- 40% of panel for console output
+				{ id = "scopes", size = 0.6 }, -- 60% for variables
+				{ id = "console", size = 0.4 }, -- 40% for console output
 			},
-			size = 20, -- height in lines (increased from 15 to accommodate both)
+			size = 20,
+			position = "bottom",
+		},
+		-- Layout 2: REPL-based (for .NET, Go)
+		{
+			elements = {
+				{ id = "scopes", size = 0.6 }, -- 60% for variables
+				{ id = "repl", size = 0.4 }, -- 40% for REPL output
+			},
+			size = 20,
 			position = "bottom",
 		},
 	},
 })
 
--- Auto-open/close UI (article's approach)
+-- Auto-open/close UI (layout based on language preference)
 dap.listeners.after.event_initialized["dapui_config"] = function()
-	dapui.open()
+	local ft = vim.bo.filetype
+	local preferred_layout = dap_layout_map[ft] or 1  -- Default to layout 1 (console)
+	dapui.open({ layout = preferred_layout })
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
 	dapui.close()

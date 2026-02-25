@@ -3,6 +3,9 @@ require("user.types")
 ---@type Language
 local M = {}
 
+-- Prefer REPL layout for Go debugging
+M.dap_layout = 2
+
 M.lsps = {
     {
         mason_name = "gopls",

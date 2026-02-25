@@ -3,6 +3,9 @@ require("user.types")
 ---@type Language
 local M = {}
 
+-- Prefer REPL layout for C# debugging
+M.dap_layout = 2
+
 require("omnisharp_extended")
 
 M.lsps = {
@@ -71,10 +74,11 @@ local function find_project_root()
     return vim.fn.getcwd()  -- fallback to cwd if not found
 end
 
--- DAP keymap override for C# files
+-- DAP keymap override for C# files (build before debugging)
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "cs",
     callback = function()
+        -- Override <leader>dc to build then debug
         vim.keymap.set("n", "<leader>dc", function()
             local dap = require('dap')
             local cwd = find_project_root()
@@ -97,6 +101,7 @@ vim.api.nvim_create_autocmd("FileType", {
                 end,
                 on_exit = function(_, code)
                     if code == 0 then
+                        -- Just start debugging, listener will open correct layout
                         dap.continue()
                     else
                         vim.notify("Build failed:\n" .. table.concat(output, "\n"), vim.log.levels.ERROR)

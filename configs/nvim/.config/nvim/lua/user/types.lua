@@ -14,3 +14,4 @@
 ---@field filetypes? string[] Filetypes this language applies to (for conform mapping)
 ---@field setup? function Optional setup function to run for this language
 ---@field parsers? table Optional treesitter parsers
+---@field dap_layout? integer Preferred DAP UI layout (1=console, 2=repl). Defaults to 1 if not specified.

@@ -151,9 +151,9 @@ M.setup = function(dap)
             name = "NetCoreDbg: Launch",
             request = "launch",
             console = "internalConsole",
-             cwd = function()
-                 local file_dir = vim.fn.expand("%:p:h")
-                 local csproj = find_nearest_csproj(file_dir)
+            cwd = function()
+                local file_dir = vim.fn.expand("%:p:h")
+                local csproj = find_nearest_csproj(file_dir)
                 if not csproj then
                     local cwd_fallback = vim.fn.getcwd()
                     debug_log("[dap-cs] No csproj found, using cwd: " .. cwd_fallback)
@@ -174,9 +174,9 @@ M.setup = function(dap)
 
                 return final_cwd
             end,
-             program = function()
-                 local file_dir = vim.fn.expand("%:p:h")
-                 local csproj = find_nearest_csproj(file_dir)
+            program = function()
+                local file_dir = vim.fn.expand("%:p:h")
+                local csproj = find_nearest_csproj(file_dir)
                 if not csproj then
                     debug_log("[dap-cs] Could not find .csproj, asking for DLL path")
                     return vim.fn.input("Could not find .csproj. Path to dll: ", "", "file")
@@ -191,9 +191,9 @@ M.setup = function(dap)
 
                 return vim.fn.input("Could not find dll. Path: ", "", "file")
             end,
-             env = function()
-                 local file_dir = vim.fn.expand("%:p:h")
-                 local csproj = find_nearest_csproj(file_dir)
+            env = function()
+                local file_dir = vim.fn.expand("%:p:h")
+                local csproj = find_nearest_csproj(file_dir)
                 if not csproj then
                     return { ASPNETCORE_ENVIRONMENT = "Development" }
                 end
