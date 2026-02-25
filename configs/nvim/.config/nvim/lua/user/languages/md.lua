@@ -1,17 +1,6 @@
 ---@type Language
 local M = {}
 
-M.parsers = {
-    mdx = {
-        install_info = {
-            url = "https://github.com/pynappo/tree-sitter-mdx",
-            files = { "src/parser.c", "src/scanner.c" },
-            branch = "main",
-        },
-        filetype = "mdx",
-    }
-}
-
 M.lsps = {
     {
         mason_name = "marksman",

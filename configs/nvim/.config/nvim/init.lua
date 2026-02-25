@@ -231,17 +231,6 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-
--- Install and configure each language's parsers
-for _, language in pairs(languages) do
-	if type(language.parsers) == "table" then
-		for name, config in pairs(language.parsers) do
-			parser_config[name] = config
-		end
-	end
-end
-
 vim.filetype.add({
 	extension = {
 		mdx = "mdx",
