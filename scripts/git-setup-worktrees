@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+
+source_branch="${1:-origin/main}"
+
+# Ensure we're in a git repo with .bare
+if [ ! -d ".bare" ]; then
+    echo "Error: .bare directory not found"
+    exit 1
+fi
+
+git fetch --all
+
+# Create main worktree (readonly, detached)
+if [ ! -d "main" ]; then
+    echo "Creating main worktree (detached, readonly)..."
+    git worktree add --detach main "$source_branch"
+fi
+
+if [ ! -d "work" ]; then
+    echo "Creating work worktree"
+    git worktree add --detach work "$source_branch"
+fi
+
+if [ ! -d "review" ]; then
+    echo "Creating review worktree"
+    git worktree add --detach review "$source_branch"
+fi
+
+
+if [ ! -f "mise.local.toml" ]; then
+    echo "Creating mise file"
+    touch mise.local.toml
+fi

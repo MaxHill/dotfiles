@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [ -z "$1" ]; then
+  echo "Error: Branch name required"
+  echo "Usage: git-nb <branch-name> [source-branch]"
+  exit 1
+fi
+
+source_branch="${2:-origin/main}"
+
+git switch -c "$1" "$source_branch"
