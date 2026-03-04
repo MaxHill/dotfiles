@@ -8,6 +8,7 @@ require("user.types")
 -- -----------------------------
 vim.pack.add({
 	{ src = "https://github.com/tahayvr/matteblack.nvim" },
+	{ src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
 	{ src = "https://github.com/echasnovski/mini.surround" },
 	{ src = "https://github.com/echasnovski/mini.comment" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
@@ -451,8 +452,14 @@ end, { silent = true })
 
 -- Colors
 -- -----------------------------
-vim.cmd.packadd("matteblack.nvim")
-require("matteblack").colorscheme()
+-- vim.cmd.packadd("matteblack.nvim")
+-- require("matteblack").colorscheme()
+
+vim.cmd.packadd("rose-pine")
+require("rose-pine").setup({
+	variant = "dawn", -- 'auto', 'main', 'moon', or 'dawn'
+})
+vim.cmd("colorscheme rose-pine")
 
 vim.cmd(":hi statusline guibg=NONE")
 

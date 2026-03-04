@@ -1,5 +1,6 @@
 title = " "
 font-family = JetBrains Mono
-theme = matteblack
+theme = rosepine-dawn
+# theme = matteblack
 font-size = 16
 adjust-cell-height = 30%

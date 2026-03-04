@@ -87,9 +87,6 @@ outer.right =      0
 # end tell'
 # '''
 
-# Open qutebrowser with cmd+b (opens new window if already running)
-cmd-b = 'exec-and-forget open -na qutebrowser'
-
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
@@ -142,10 +139,10 @@ alt-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
 alt-shift-0 = 'move-node-to-workspace 10' 
 # alt-shift-a = 'move-node-to-workspace A' # Need this to be able to type å
 # alt-shift-a = 'move-node-to-workspace A'
-alt-shift-s = 'move-node-to-workspace S'
-alt-shift-d = 'move-node-to-workspace D'
-alt-shift-f = 'move-node-to-workspace F'
-alt-shift-g = 'move-node-to-workspace G'
+alt-shift-s = ['move-node-to-workspace S', 'workspace S']
+alt-shift-d = ['move-node-to-workspace D', 'workspace D']
+alt-shift-f = ['move-node-to-workspace F', 'workspace F']
+alt-shift-g = ['move-node-to-workspace G', 'workspace G']
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
