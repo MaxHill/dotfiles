@@ -16,6 +16,16 @@ M.lsps = {
             cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
             root_markers = { "*.csproj", "*.sln", ".git" },
             filetypes = { "cs" },
+            -- Custom on_attach to disable semantic tokens
+            on_attach = function(client, bufnr)
+                -- Disable semantic tokens to prevent flickering with Tree-sitter highlights
+                client.server_capabilities.semanticTokensProvider = nil
+                
+                -- Call the global on_attach (will be set in init.lua)
+                if _G.default_on_attach then
+                    _G.default_on_attach(client, bufnr)
+                end
+            end,
             handlers = {
                 ["textDocument/definition"] = function(...)
                     return require("omnisharp_extended").definition_handler(...)

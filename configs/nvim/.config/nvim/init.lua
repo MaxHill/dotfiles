@@ -265,6 +265,9 @@ function on_attach(client, bufnr)
 	print("LSP attached: " .. client.name)
 end
 
+-- Make on_attach available globally for language configs
+_G.default_on_attach = on_attach
+
 vim.lsp.config("*", {
 	root_markers = { ".git", "package.json" },
 	capabilities = (function()
@@ -283,7 +286,10 @@ for _, language in pairs(languages) do
 	if type(language.lsps) == "table" then
 		for _, lsp in pairs(language.lsps) do
 			if lsp.config then
-				lsp.config.on_attach = on_attach
+				-- If the language config doesn't provide on_attach, use the default
+				if not lsp.config.on_attach then
+					lsp.config.on_attach = on_attach
+				end
 				vim.lsp.config(lsp.lsp_name, lsp.config)
 			else
 				vim.lsp.config(lsp.lsp_name, { on_attach = on_attach })
