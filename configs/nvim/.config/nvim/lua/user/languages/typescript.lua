@@ -12,14 +12,23 @@ M.lsps = {
             single_file_support = false,
             root_markers = { "tsconfig.json", "package.json", "jsconfig.json" },
             root_dir = function(bufnr, on_dir)
+                local file_path = vim.api.nvim_buf_get_name(bufnr)
+                
                 -- Check if this is a Deno project
-                local is_deno = vim.fs.root(bufnr, { "deno.json", "deno.jsonc" }) ~= nil
-                if is_deno then
-                    -- This is a Deno project, don't use ts_ls
-                    return nil
+                local deno_root = vim.fs.root(bufnr, { "deno.json", "deno.jsonc" })
+                
+                if deno_root then
+                    -- In a project with deno.json - check if file is in build/ or is a build script
+                    local rel_path = file_path:sub(#deno_root + 2) -- +2 to skip the trailing slash
+                    local is_build_file = rel_path:match("^build/") or rel_path == "dev.ts" or rel_path == "build.ts"
+                    
+                    if is_build_file then
+                        -- This is a Deno build file, don't use ts_ls
+                        return nil
+                    end
                 end
                 
-                -- Not a Deno project, find Node.js root
+                -- Not a Deno file, find Node.js root
                 local root = vim.fs.root(bufnr, { "tsconfig.json", "package.json", "jsconfig.json" })
                 return root and on_dir(root)
             end,
@@ -32,15 +41,24 @@ M.lsps = {
             single_file_support = false,
             root_markers = { "deno.json", "deno.jsonc" },
             root_dir = function(bufnr, on_dir)
-                -- Only attach if this IS a Deno project
-                local is_deno = vim.fs.root(bufnr, { "deno.json", "deno.jsonc" }) ~= nil
-                if not is_deno then
+                local file_path = vim.api.nvim_buf_get_name(bufnr)
+                
+                -- Find Deno root
+                local deno_root = vim.fs.root(bufnr, { "deno.json", "deno.jsonc" })
+                if not deno_root then
                     return nil
                 end
                 
-                -- Find Deno root
-                local root = vim.fs.root(bufnr, { "deno.json", "deno.jsonc" })
-                return root and on_dir(root)
+                -- Only attach to build scripts (build/, dev.ts, build.ts)
+                local rel_path = file_path:sub(#deno_root + 2) -- +2 to skip the trailing slash
+                local is_build_file = rel_path:match("^build/") or rel_path == "dev.ts" or rel_path == "build.ts"
+                
+                if not is_build_file then
+                    -- Not a Deno build file, don't use denols
+                    return nil
+                end
+                
+                return on_dir(deno_root)
             end,
         }
     },
