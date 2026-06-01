@@ -1,0 +1,39 @@
+{
+  "defaultPolicy": {
+    "tools": "allow",
+    "bash": "allow",
+    "mcp": "allow",
+    "skills": "allow",
+    "special": "allow"
+  },
+
+  "tools": {
+    "*": "allow"
+  },
+
+  "mcp": {
+    "*": "allow"
+  },
+
+  "skills": {
+    "*": "allow"
+  },
+
+  "bash": {
+    "rm -rf *": "deny",
+    "dd *": "deny",
+    "mkfs*": "deny",
+    "shutdown *": "deny",
+    "reboot *": "deny",
+    "curl * | sh": "deny",
+    "wget * | sh": "deny",
+    "chmod -R 777 *": "deny",
+    "sudo *": "ask",
+    "git push *": "ask",
+    "git reset --hard *": "ask"
+  },
+
+  "special": {
+    "external_directory": "ask"
+  }
+}
