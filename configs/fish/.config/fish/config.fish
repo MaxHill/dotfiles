@@ -133,6 +133,8 @@ end
 set -x ASPNETCORE_ENVIRONMENT "Development"
 set -x ASPNETCORE_URLS "https://localhost:5000/"
 
+# Default editor
+set -gx EDITOR nvim
 
 # Setup GO
 set -x GOPATH $HOME/go
