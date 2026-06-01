@@ -15,6 +15,25 @@
         "@playwright/mcp@latest"
       ],
       "enabled": true
+    },
+    "chrome": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "chrome-local-mcp"
+      ],
+      "enabled": true
+    },
+    "figma": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "figma-developer-mcp",
+        "--stdio"
+      ],
+      "enabled": true
     }
   }
 }
