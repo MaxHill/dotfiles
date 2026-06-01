@@ -34,6 +34,8 @@ vim.pack.add({
 	{ src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
 	-- Tmux navigation
 	{ src = "https://github.com/christoomey/vim-tmux-navigator" },
+	-- Markdown preview
+	{ src = "https://github.com/iamcco/markdown-preview.nvim" },
 })
 -- local packages
 vim.cmd.packadd("netcoredbg-macOS-arm64.nvim") -- Vendored version with improvements
