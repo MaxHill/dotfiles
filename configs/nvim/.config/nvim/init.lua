@@ -458,14 +458,14 @@ end, { silent = true })
 
 -- Colors
 -- -----------------------------
--- vim.cmd.packadd("matteblack.nvim")
--- require("matteblack").colorscheme()
+vim.cmd.packadd("matteblack.nvim")
+require("matteblack").colorscheme()
 
-vim.cmd.packadd("rose-pine")
-require("rose-pine").setup({
-	variant = "dawn", -- 'auto', 'main', 'moon', or 'dawn'
-})
-vim.cmd("colorscheme rose-pine")
+-- vim.cmd.packadd("rose-pine")
+-- require("rose-pine").setup({
+-- 	variant = "dawn", -- 'auto', 'main', 'moon', or 'dawn'
+-- })
+-- vim.cmd("colorscheme rose-pine")
 
 vim.cmd(":hi statusline guibg=NONE")
 
