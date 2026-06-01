@@ -12,5 +12,8 @@ Brewfile.lock.json
 configs/vale/Library/Application Support/vale/styles/*
 !configs/vale/Library/Application Support/vale/styles/config/
 
+# Secrets (not committed)
+configs/fish/.config/fish/conf.d/secrets.fish
+
 # Local Netlify folder
 .netlify
