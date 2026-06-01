@@ -23,4 +23,8 @@ tscommand*.txt
 npm-debug.log
 node_modules
 
-.tmux_sessionizer
+# Project-specific tmux session configuration
+/.tmux-sessionizer
+
+# Local mise configuration
+mise.local.toml

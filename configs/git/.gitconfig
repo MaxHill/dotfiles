@@ -6,8 +6,10 @@
 	user = maxhill
 [core]
 	editor = /usr/bin/vim
+	excludesfile = ~/.gitignore_global
 [push]
 	default = current
+	autoSetupRemote = true
 [branch]
 	autosetuprebase = always
 [pull]
