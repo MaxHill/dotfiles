@@ -1,13 +1,14 @@
 {
   "defaultProvider": "github-copilot",
-  "defaultModel": "claude-opus-4.7",
+  "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "medium",
   "packages": [
     "npm:@eko24ive/pi-ask",
     "npm:pi-fast-subagent@0.9.3",
     "npm:pi-web-access",
     "npm:pi-plan-mode",
-    "npm:pi-permission-system"
+    "npm:pi-permission-system",
+    "npm:pi-mcp-adapter"
   ],
   "lastChangelogVersion": "0.78.0",
   "hideThinkingBlock": true

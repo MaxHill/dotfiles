@@ -132,6 +132,7 @@ local languages = {
 	require("user.languages.css"),
 	require("user.languages.zig"),
 	require("user.languages.ziggy"),
+	require("user.languages.ocaml"),
 	require("user.languages.html"),
 	require("user.languages.md"),
 	require("user.languages.beancount"),
@@ -220,6 +221,8 @@ require("nvim-treesitter.configs").setup({
 		"zig",
 		"ziggy",
 		"ziggy_schema",
+		"ocaml",
+		"ocaml_interface",
 		"superhtml",
 		"astro",
 		"markdown",
@@ -263,8 +266,14 @@ function on_attach(client, bufnr)
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action" })
 	vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "[G]et [L]ine diagnostics" })
 
-	-- Show when LSP attaches
-	print("LSP attached: " .. client.name)
+	-- Enable inlay hints for servers that support them
+	if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint and vim.lsp.inlay_hint.enable then
+		local ok = pcall(vim.lsp.inlay_hint.enable, true, { bufnr = bufnr })
+		if not ok then
+			pcall(vim.lsp.inlay_hint.enable, bufnr, true)
+		end
+	end
+
 end
 
 -- Make on_attach available globally for language configs
