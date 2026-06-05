@@ -30,5 +30,8 @@ fi
 
 if [ ! -f "mise.local.toml" ]; then
     echo "Creating mise file"
-    touch mise.local.toml
+    cat > mise.local.toml <<'EOF'
+[tasks.build]
+run = "echo 'TODO: define build task in mise.local.toml'; exit 0"
+EOF
 fi

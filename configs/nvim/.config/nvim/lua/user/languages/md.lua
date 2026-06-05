@@ -62,8 +62,6 @@ M.setup = function()
             -- Auto-wrap lines as you type
             vim.bo.textwidth = 75
             vim.bo.formatoptions = "tcqjn"  -- t: auto-wrap text, c: auto-wrap comments, q: allow formatting with gq, j: remove comment leader when joining, n: recognize numbered lists
-            
-            -- Markdown preview keymap
             vim.keymap.set("n", "<leader>x", ":MarkdownPreviewToggle<CR>", { buffer = true, desc = "Toggle markdown preview" })
         end,
     })
@@ -78,8 +76,6 @@ M.setup = function()
             -- Auto-wrap lines as you type
             vim.bo.textwidth = 75
             vim.bo.formatoptions = "tcqjn"
-            
-            -- Markdown preview keymap (also available for mdx)
             vim.keymap.set("n", "<leader>x", ":MarkdownPreviewToggle<CR>", { buffer = true, desc = "Toggle markdown preview" })
         end,
     })

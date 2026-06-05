@@ -88,6 +88,8 @@ end
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "cs",
     callback = function()
+        vim.cmd.compiler("dotnet")
+
         -- Override <leader>dc to build then debug
         vim.keymap.set("n", "<leader>dc", function()
             local dap = require('dap')

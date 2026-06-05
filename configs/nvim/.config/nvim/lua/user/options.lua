@@ -36,6 +36,7 @@ vim.opt.termguicolors = true -- Better color support
 vim.o.signcolumn = "yes"
 
 vim.o.winborder = "rounded"
+vim.opt.makeprg = "mise run build"
 
 -- Folding settings
 vim.opt.foldmethod = "expr"

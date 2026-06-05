@@ -483,7 +483,35 @@ vim.cmd(":hi statusline guibg=NONE")
 -- -----------------------------
 -- Keymaps
 -- -----------------------------
+local function find_mise_root(path)
+	if not path or path == "" then
+		return vim.uv.cwd()
+	end
+
+	local config = vim.fs.find({ "mise.local.toml", "mise.toml" }, {
+		path = vim.fs.dirname(path),
+		upward = true,
+	})[1]
+
+	return config and vim.fs.dirname(config) or vim.fn.fnamemodify(path, ":p:h")
+end
+
+local function run_mise_task(task)
+	local root = find_mise_root(vim.api.nvim_buf_get_name(0))
+	vim.cmd("belowright 15new")
+	vim.fn.termopen({ "mise", "-C", root, "run", task })
+	vim.cmd.startinsert()
+end
+
 vim.keymap.set("n", "<leader>o", ":update<CR> :source<CR>")
+vim.keymap.set("n", "<leader>x", ":make<CR>", { desc = "Run :make" })
+vim.keymap.set("n", "<leader>mb", ":make<CR>", { desc = "Mise build" })
+vim.keymap.set("n", "<leader>mr", function()
+	run_mise_task("run")
+end, { desc = "Mise run" })
+vim.keymap.set("n", "<leader>mt", function()
+	run_mise_task("test")
+end, { desc = "Mise test" })
 
 -- Copy/cut
 vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yank" })
@@ -541,5 +569,64 @@ autocmd("TextYankPost", {
 			higroup = "IncSearch",
 			timeout = 70,
 		})
+	end,
+})
+
+-- Run :make from the nearest mise root
+local make_group = augroup("MakeQuickfix", {})
+autocmd({ "BufEnter", "BufFilePost" }, {
+	group = make_group,
+	pattern = "*",
+	callback = function(args)
+		if vim.bo[args.buf].buftype ~= "" then
+			return
+		end
+
+		local path = vim.api.nvim_buf_get_name(args.buf)
+		if path == "" then
+			return
+		end
+
+		local root = find_mise_root(path)
+		vim.b[args.buf].make_root = root
+		vim.api.nvim_set_option_value(
+			"makeprg",
+			string.format("mise -C %s run --raw build", vim.fn.shellescape(root)),
+			{ buf = args.buf }
+		)
+
+		local errorformat = vim.api.nvim_get_option_value("errorformat", { buf = args.buf })
+		local mise_ignored_output = ",%-G[build] $ %.%#,%-G[build] ERROR %.%#"
+		if not errorformat:find("%%%-G%[build%] %$ %%.%%#", 1) then
+			vim.api.nvim_set_option_value("errorformat", errorformat .. mise_ignored_output, { buf = args.buf })
+		end
+	end,
+})
+
+autocmd("QuickFixCmdPre", {
+	group = make_group,
+	pattern = "make",
+	callback = function()
+		local root = vim.b.make_root
+		if not root or root == "" then
+			return
+		end
+
+		vim.w.make_prev_cwd = vim.fn.getcwd(0)
+		vim.cmd.lcd(vim.fn.fnameescape(root))
+	end,
+})
+
+-- Open quickfix after :make when there are entries
+autocmd("QuickFixCmdPost", {
+	group = make_group,
+	pattern = "make",
+	callback = function()
+		local prev_cwd = vim.w.make_prev_cwd
+		if prev_cwd and prev_cwd ~= "" then
+			vim.cmd.lcd(vim.fn.fnameescape(prev_cwd))
+			vim.w.make_prev_cwd = nil
+		end
+		vim.cmd.cwindow()
 	end,
 })
