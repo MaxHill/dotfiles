@@ -7,6 +7,7 @@
 [core]
 	editor = /usr/bin/vim
 	excludesfile = ~/.gitignore_global
+	pager = delta
 [push]
 	default = current
 	autoSetupRemote = true
@@ -31,5 +32,41 @@
 
 [credential]
 	helper = osxkeychain
-[coderabbit]
-	machineId = cli/6830963b970e47eda9363b40d1e3de66
+
+# Better built-in diff readability (no external tools)
+[color]
+	ui = auto
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+
+[diff]
+	algorithm = histogram
+	colorMoved = zebra
+	colorMovedWS = allow-indentation-change
+	tool = nvimdiff
+
+[difftool]
+	prompt = false
+[difftool "nvimdiff"]
+	cmd = "/opt/homebrew/bin/nvim -d \"$LOCAL\" \"$REMOTE\""
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	line-numbers = true
+	side-by-side = true
+	syntax-theme = OneHalfDark
+
+[merge]
+	conflictstyle = zdiff3
+
+[alias]
+	lg = log --graph --decorate --oneline
+	dv = difftool -y
+	dvd = difftool -y -d --find-renames

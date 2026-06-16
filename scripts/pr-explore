@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# git pr explore [range]
+# Example:
+#   git pr explore
+#   git pr explore origin/master...HEAD
+
+range="${1:-origin/master...HEAD}"
+
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "Error: not inside a git repository" >&2
+  exit 1
+fi
+
+if ! command -v diffnav >/dev/null 2>&1; then
+  echo "Error: diffnav is required" >&2
+  echo "Install: brew install dlvhdr/formulae/diffnav" >&2
+  exit 1
+fi
+
+# Rename detection helps review moved files.
+# -M enables rename detection and preserves better file association.
+git diff -M "$range" | diffnav

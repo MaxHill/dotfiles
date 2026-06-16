@@ -136,6 +136,9 @@ set -x ASPNETCORE_URLS "https://localhost:5000/"
 # Default editor
 set -gx EDITOR nvim
 
+# Pager defaults for readable colored diffs/logs
+set -gx LESS "-R -F -X -S"
+
 # Setup GO
 set -x GOPATH $HOME/go
 set -x PATH $PATH /usr/local/go/bin $GOPATH/bin

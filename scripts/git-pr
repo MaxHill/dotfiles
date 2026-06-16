@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage:
+  git pr checkout
+  git pr explore [range]
+  git pr explore-vim [-i|--inline] [range]
+  git pr approve [message]
+  git pr comment <message>
+EOF
+}
+
+run_script_subcommand() {
+  local script_dir
+  script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+  "$script_dir/$1" "${@:2}"
+}
+
+subcommand="${1:-}"
+if [ -z "$subcommand" ]; then
+  usage >&2
+  exit 1
+fi
+shift || true
+
+case "$subcommand" in
+  checkout)
+    run_script_subcommand pr-checkout "$@"
+    ;;
+  explore)
+    run_script_subcommand pr-explore "$@"
+    ;;
+  explore-vim)
+    run_script_subcommand pr-explore-vim "$@"
+    ;;
+  approve)
+    if ! command -v gh >/dev/null 2>&1; then
+      echo "Error: gh is required" >&2
+      exit 1
+    fi
+    if [ "$#" -gt 0 ]; then
+      gh pr review --approve -b "$*"
+    else
+      gh pr review --approve
+    fi
+    ;;
+  comment)
+    if ! command -v gh >/dev/null 2>&1; then
+      echo "Error: gh is required" >&2
+      exit 1
+    fi
+    if [ "$#" -eq 0 ]; then
+      echo "Error: missing comment body" >&2
+      usage >&2
+      exit 1
+    fi
+    gh pr review --comment -b "$*"
+    ;;
+  *)
+    echo "Error: unknown subcommand '$subcommand'" >&2
+    usage >&2
+    exit 1
+    ;;
+esac

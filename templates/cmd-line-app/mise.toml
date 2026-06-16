@@ -1,0 +1,11 @@
+[tools]
+opam = "2.5.1"
+
+[env]
+
+[tasks]
+build = "mise exec -- opam exec --switch=. -- dune build"
+run = "mise exec -- opam exec --switch=. -- dune exec ./bin/main.exe -- greet \"Max Hill\" --greeting=Howdy"
+run2 = "mise exec -- opam exec --switch=. -- dune exec ./bin/main.exe -- --help"
+test = "mise exec -- opam exec --switch=. -- dune runtest"
+

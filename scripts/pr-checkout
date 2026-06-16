@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v gh >/dev/null 2>&1; then
+  echo "Error: gh is required" >&2
+  exit 1
+fi
+
+if ! command -v fzf >/dev/null 2>&1; then
+  echo "Error: fzf is required" >&2
+  exit 1
+fi
+
+if ! command -v bat >/dev/null 2>&1; then
+  echo "Error: bat is required" >&2
+  exit 1
+fi
+
+selected_pr="$({ gh pr list --json number,title,author --jq '.[] | "\(.number)\t@\(.author.login)\t\(.title)"'; } | \
+  SHELL=/bin/bash fzf --with-nth=1,2,3 --delimiter='\t' --preview 'gh pr view {1} | bat --language=markdown --style=plain --color=always' | \
+  cut -f1)"
+
+if [ -z "${selected_pr:-}" ]; then
+  exit 0
+fi
+
+gh pr checkout "$selected_pr"

@@ -11,7 +11,7 @@
   community.general.homebrew_tap:
     name:
       - "homebrew/bundle"
-      - "cargo-lambda/cargo-lambda"
+      - "dlvhdr/formulae"
     state: present
   tags:
     - dependencies 
@@ -26,6 +26,8 @@
       - "trash" # rm, but put in the trash rather than completely delete
       - "bat" # better cat
       - "git" # Git version control (latest version)
+      - "git-delta" # Better git diffs in terminal
+      - "diffnav" # Interactive git diff navigator with file tree
       - "grep" # grep (latest)
       - "neovim" # A better vim
       - "tmux" # terminal multiplexer
@@ -72,7 +74,6 @@
       # Rust
       - "rustup" # Rust language and dev env
       - "rust-analyzer" # Language server for rust
-      - "cargo-lambda" # To cross compile lambda functions
 
       # Js
       - "deno"

@@ -1,0 +1,5 @@
+(executable
+ (public_name sync-simulator)
+ (name main)
+ (libraries sync_simulator cmdliner logs logs.fmt fmt))
+
