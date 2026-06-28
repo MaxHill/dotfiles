@@ -69,6 +69,7 @@ M.lsps = {
 }
 
 M.filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact", "svelte" }
+M.treesitter_parsers = { "typescript", "tsx", "javascript", "jsdoc", "svelte" }
 
 M.formatters = {
     {

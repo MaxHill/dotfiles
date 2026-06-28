@@ -22,6 +22,7 @@ M.lsps = {
 }
 
 M.filetypes = { "markdown", "md", "mdx" }
+M.treesitter_parsers = { "markdown", "markdown_inline" }
 
 M.formatters = {
     {

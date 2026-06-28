@@ -15,6 +15,7 @@ M.lsps = {
 }
 
 M.filetypes = { "css", "scss", "less" }
+M.treesitter_parsers = { "css", "scss" }
 
 M.formatters = {
     {

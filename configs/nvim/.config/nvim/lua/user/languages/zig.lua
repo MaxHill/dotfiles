@@ -14,6 +14,7 @@ M.lsps = {
 }
 
 M.filetypes = { "zig", "zon" }
+M.treesitter_parsers = { "zig" }
 
 M.formatters = {
 	{

@@ -16,8 +16,34 @@ if ! command -v bat >/dev/null 2>&1; then
   exit 1
 fi
 
-selected_pr="$({ gh pr list --json number,title,author --jq '.[] | "\(.number)\t@\(.author.login)\t\(.title)"'; } | \
-  SHELL=/bin/bash fzf --with-nth=1,2,3 --delimiter='\t' --preview 'gh pr view {1} | bat --language=markdown --style=plain --color=always' | \
+term_cols="$(tput cols 2>/dev/null || echo 120)"
+if [ "$term_cols" -lt 140 ]; then
+  preview_window="down,55%,border-top,wrap"
+else
+  preview_window="right,60%,border-left,wrap"
+fi
+
+selected_pr="$({ gh pr list --json number,title,author,isDraft,createdAt,reviewDecision --jq '
+  def age(ts):
+    ((now - (ts | fromdateiso8601)) / 60) as $m |
+    if $m < 60 then "\($m|floor)m"
+    elif $m < 1440 then "\(($m/60)|floor)h"
+    elif $m < 10080 then "\(($m/1440)|floor)d"
+    elif $m < 43200 then "\(($m/10080)|floor)w"
+    elif $m < 525600 then "\(($m/43200)|floor)mo"
+    else "\(($m/525600)|floor)y"
+    end;
+  def approval(decision):
+    if decision == "APPROVED" then "✓"
+    elif decision == "CHANGES_REQUESTED" then "✗"
+    else "·"
+    end;
+  .[] | "\(.number)\t\(if .isDraft then "D" else "R" end)\t\(approval(.reviewDecision))\t\(age(.createdAt))\t@\(.author.login)\t\(.title)"'; } | \
+  SHELL=/bin/bash fzf --with-nth=1,2,3,4,5,6 --delimiter='\t' \
+    --header='st: D=draft R=ready  rv: ✓=approved ✗=changes ·=none  scroll: ctrl-d/u, shift-j/k' \
+    --bind="ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up,J:preview-down,K:preview-up" \
+    --preview 'gh pr view {1} | bat --language=markdown --style=plain --color=always' \
+    --preview-window "$preview_window" | \
   cut -f1)"
 
 if [ -z "${selected_pr:-}" ]; then

@@ -28,6 +28,7 @@
       - "git" # Git version control (latest version)
       - "git-delta" # Better git diffs in terminal
       - "diffnav" # Interactive git diff navigator with file tree
+      - "prr" # Mailing-list style PR review for GitHub
       - "grep" # grep (latest)
       - "neovim" # A better vim
       - "tmux" # terminal multiplexer
@@ -84,6 +85,8 @@
       # Neo-vim
       - "ripgrep" # Used for telescope fuzzy finder
       - "stylua" # Formatter for lua
+      - "tree-sitter" # Required by nvim-treesitter parser builds
+      - "tree-sitter-cli" # CLI required by nvim-treesitter (main branch)
     state: latest
   tags:
     - dependencies 
@@ -133,5 +136,3 @@
     - brew
     - brew-cleanup
     - dotnet-migration
-
-

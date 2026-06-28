@@ -9,6 +9,7 @@ M.lsps = {
 }
 
 M.filetypes = { "astro" }
+M.treesitter_parsers = { "astro" }
 
 M.formatters = {
     {

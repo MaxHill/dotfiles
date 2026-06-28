@@ -7,7 +7,7 @@ require("user.types")
 -- Plugins
 -- -----------------------------
 vim.pack.add({
-	{ src = "https://github.com/tahayvr/matteblack.nvim" },
+	{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
 	{ src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
 	{ src = "https://github.com/echasnovski/mini.surround" },
 	{ src = "https://github.com/echasnovski/mini.comment" },
@@ -36,6 +36,8 @@ vim.pack.add({
 	{ src = "https://github.com/christoomey/vim-tmux-navigator" },
 	-- Markdown preview
 	{ src = "https://github.com/iamcco/markdown-preview.nvim" },
+	-- PR review file syntax/highlighting/folding (*.prr)
+	{ src = "https://github.com/danobi/prr" },
 })
 -- local packages
 vim.cmd.packadd("netcoredbg-macOS-arm64.nvim") -- Vendored version with improvements
@@ -131,11 +133,11 @@ local languages = {
 	require("user.languages.astro"),
 	require("user.languages.css"),
 	require("user.languages.zig"),
-	require("user.languages.ziggy"),
 	require("user.languages.ocaml"),
 	require("user.languages.html"),
 	require("user.languages.md"),
 	require("user.languages.beancount"),
+	require("user.languages.git"),
 }
 
 -- Setup languages
@@ -144,6 +146,42 @@ for _, language in pairs(languages) do
 		language.setup()
 	end
 end
+
+-- Treesitter (Neovim native)
+-- -----------------------------
+local treesitter_install = require("user.treesitter_install")
+local treesitter_filetypes = {}
+local treesitter_parsers = {}
+
+for _, language in pairs(languages) do
+	if type(language.filetypes) == "table" then
+		for _, filetype in ipairs(language.filetypes) do
+			treesitter_filetypes[filetype] = true
+		end
+	end
+
+	if type(language.treesitter_parsers) == "table" then
+		for _, parser in ipairs(language.treesitter_parsers) do
+			treesitter_parsers[parser] = true
+		end
+	end
+end
+
+local treesitter_patterns = {}
+for filetype, _ in pairs(treesitter_filetypes) do
+	table.insert(treesitter_patterns, filetype)
+end
+
+if #treesitter_patterns > 0 then
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = treesitter_patterns,
+		callback = function(args)
+			pcall(vim.treesitter.start, args.buf)
+		end,
+	})
+end
+
+treesitter_install.ensure_installed(vim.tbl_keys(treesitter_parsers))
 
 -- Build DAP layout preference map from languages
 local dap_layout_map = {}
@@ -211,38 +249,10 @@ conform.setup({
 	notify_no_formatters = false, -- Less noisy for languages without formatters
 })
 
--- Treesitter
--- -----------------------------
-require("nvim-treesitter.configs").setup({
-	modules = {},
-	ensure_installed = {
-		"lua",
-		"c_sharp",
-		"zig",
-		"ziggy",
-		"ziggy_schema",
-		"ocaml",
-		"ocaml_interface",
-		"superhtml",
-		"astro",
-		"markdown",
-		"markdown_inline",
-		"jsdoc",
-	},
-	sync_install = false,
-	auto_install = true,
-	ignore_install = {},
-	highlight = {
-		enable = true,
-	},
-})
-
 vim.filetype.add({
 	extension = {
 		mdx = "mdx",
 		shtml = "superhtml",
-		ziggy = "ziggy",
-		["ziggy-schema"] = "ziggy_schema",
 		zon = "zon",
 		beancount = "beancount",
 		bean = "beancount",
@@ -469,14 +479,18 @@ end, { silent = true })
 
 -- Colors
 -- -----------------------------
-vim.cmd.packadd("matteblack.nvim")
-require("matteblack").colorscheme()
-
--- vim.cmd.packadd("rose-pine")
--- require("rose-pine").setup({
--- 	variant = "dawn", -- 'auto', 'main', 'moon', or 'dawn'
--- })
--- vim.cmd("colorscheme rose-pine")
+vim.cmd.packadd("catppuccin")
+require("catppuccin").setup({
+	flavour = "mocha",
+	color_overrides = {
+		mocha = {
+			base = "#11111b",
+			mantle = "#0b0b12",
+			crust = "#05050a",
+		},
+	},
+})
+vim.cmd("colorscheme catppuccin")
 
 vim.cmd(":hi statusline guibg=NONE")
 

@@ -5,11 +5,54 @@ usage() {
   cat <<'EOF'
 Usage:
   git pr checkout
+  git pr list
   git pr explore [range]
   git pr explore-vim [-i|--inline] [range]
-  git pr approve [message]
-  git pr comment <message>
+  git pr status
+  git pr edit
+  git pr submit
+
+Docs:
+  https://doc.dxuuu.xyz/prr/index.html
 EOF
+}
+
+require_cmd() {
+  if ! command -v "$1" >/dev/null 2>&1; then
+    echo "Error: $1 is required" >&2
+    exit 1
+  fi
+}
+
+ensure_prr_config() {
+  local config_home config_file token data_home workdir
+
+  config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+  config_file="$config_home/prr/config.toml"
+
+  if [ -f "$config_file" ]; then
+    return 0
+  fi
+
+  token="$(gh auth token 2>/dev/null || true)"
+  if [ -z "$token" ]; then
+    echo "Error: prr config is missing ($config_file) and no gh auth token found." >&2
+    echo "Run: gh auth login" >&2
+    return 1
+  fi
+
+  data_home="${XDG_DATA_HOME:-$HOME/.local/share}"
+  workdir="$data_home/prr"
+
+  mkdir -p "$config_home/prr" "$workdir"
+
+  cat > "$config_file" <<EOF
+[prr]
+token = "$token"
+workdir = "$workdir"
+EOF
+
+  echo "Initialized prr config: $config_file" >&2
 }
 
 run_script_subcommand() {
@@ -18,11 +61,42 @@ run_script_subcommand() {
   "$script_dir/$1" "${@:2}"
 }
 
+current_pr_handle() {
+  local pr_number repo
+
+  pr_number="$(gh pr view --json number --jq '.number' 2>/dev/null || true)"
+  if [ -z "$pr_number" ] || [ "$pr_number" = "null" ]; then
+    echo "Error: no PR found for current branch" >&2
+    echo "Tip: run in a checked-out PR branch (or use: git pr checkout)" >&2
+    exit 1
+  fi
+
+  repo="$(gh repo view --json nameWithOwner --jq '.nameWithOwner' 2>/dev/null || true)"
+  if [ -z "$repo" ] || [ "$repo" = "null" ]; then
+    echo "Error: could not determine repository owner/name" >&2
+    exit 1
+  fi
+
+  printf '%s/%s\n' "$repo" "$pr_number"
+}
+
+has_local_review() {
+  local handle
+  handle="$1"
+  prr status --no-titles 2>/dev/null | awk -v h="$handle" '$1 == h { found=1 } END { exit(found ? 0 : 1) }'
+}
+
 subcommand="${1:-}"
 if [ -z "$subcommand" ]; then
   usage >&2
   exit 1
 fi
+
+if [ "$subcommand" = "help" ]; then
+  usage
+  exit 0
+fi
+
 shift || true
 
 case "$subcommand" in
@@ -35,28 +109,39 @@ case "$subcommand" in
   explore-vim)
     run_script_subcommand pr-explore-vim "$@"
     ;;
-  approve)
-    if ! command -v gh >/dev/null 2>&1; then
-      echo "Error: gh is required" >&2
-      exit 1
-    fi
-    if [ "$#" -gt 0 ]; then
-      gh pr review --approve -b "$*"
+  list)
+    gh pr list "$@"
+    ;;
+  status)
+    require_cmd gh
+    require_cmd prr
+    ensure_prr_config
+    handle="$(current_pr_handle)"
+    if has_local_review "$handle"; then
+      printf 'Current PR: %s\n' "$handle"
+      prr status --no-titles | awk -v h="$handle" '$1 == h { print }'
     else
-      gh pr review --approve
+      printf 'Current PR: %s\n' "$handle"
+      echo "Status: NOT DOWNLOADED"
+      echo "Run: git pr edit"
     fi
     ;;
-  comment)
-    if ! command -v gh >/dev/null 2>&1; then
-      echo "Error: gh is required" >&2
-      exit 1
+  edit)
+    require_cmd gh
+    require_cmd prr
+    ensure_prr_config
+    handle="$(current_pr_handle)"
+    if ! has_local_review "$handle"; then
+      prr get "$handle" >/dev/null
     fi
-    if [ "$#" -eq 0 ]; then
-      echo "Error: missing comment body" >&2
-      usage >&2
-      exit 1
-    fi
-    gh pr review --comment -b "$*"
+    prr edit "$handle"
+    ;;
+  submit)
+    require_cmd gh
+    require_cmd prr
+    ensure_prr_config
+    handle="$(current_pr_handle)"
+    prr submit "$handle"
     ;;
   *)
     echo "Error: unknown subcommand '$subcommand'" >&2

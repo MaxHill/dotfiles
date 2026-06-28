@@ -65,6 +65,7 @@ M.lsps = {
 }
 
 M.filetypes = { "cs" }
+M.treesitter_parsers = { "c_sharp" }
 
 M.formatters = {
     {

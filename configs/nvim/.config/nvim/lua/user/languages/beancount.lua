@@ -15,6 +15,7 @@ M.lsps = {
 }
 
 M.filetypes = { "beancount" }
+M.treesitter_parsers = { "beancount" }
 
 M.formatters = {
     {

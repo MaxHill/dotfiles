@@ -6,7 +6,7 @@ set -euo pipefail
 #   git pr explore
 #   git pr explore origin/master...HEAD
 
-range="${1:-origin/master...HEAD}"
+range="${1:-origin/main...HEAD}"
 
 if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   echo "Error: not inside a git repository" >&2

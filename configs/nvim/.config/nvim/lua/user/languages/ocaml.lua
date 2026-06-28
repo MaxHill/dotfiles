@@ -120,6 +120,7 @@ M.lsps = {
 }
 
 M.filetypes = { "ocaml" }
+M.treesitter_parsers = { "ocaml", "ocaml_interface" }
 
 M.formatters = {
 	{

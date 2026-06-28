@@ -20,6 +20,7 @@ M.lsps = {
 }
 
 M.filetypes = { "lua" }
+M.treesitter_parsers = { "lua" }
 
 M.formatters = {
     {

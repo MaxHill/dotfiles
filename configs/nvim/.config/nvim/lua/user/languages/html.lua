@@ -1,6 +1,9 @@
 ---@type Language
 local M = {}
 
+M.filetypes = { "superhtml" }
+M.treesitter_parsers = { "superhtml", "html" }
+
 M.lsps = {
     {
         mason_name = "superhtml",

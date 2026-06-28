@@ -14,6 +14,7 @@ M.lsps = {
 }
 
 M.filetypes = { "go" }
+M.treesitter_parsers = { "go" }
 
 M.formatters = {
     {
