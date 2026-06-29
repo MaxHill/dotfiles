@@ -15,6 +15,7 @@ vim.pack.add({
 	{ src = "https://github.com/Saghen/blink.cmp", version = "v1.6.0" },
 	{ src = "https://github.com/L3MON4D3/LuaSnip" },
 	{ src = "https://github.com/danymat/neogen" },
+	{ src = "https://github.com/NeogitOrg/neogit" },
 	-- LSP
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
@@ -30,6 +31,7 @@ vim.pack.add({
 	-- Telescope
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim" },
+	{ src = "https://github.com/sindrets/diffview.nvim" },
 	-- Harpoon 2
 	{ src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
 	-- Tmux navigation
@@ -69,6 +71,24 @@ require("neogen").setup({
 })
 
 vim.keymap.set("n", "<leader>dg", require("neogen").generate, { desc = "Generate documentation" })
+
+-- Neogit
+local neogit = require("neogit")
+neogit.setup({
+	kind = "tab",
+	integrations = {
+		diffview = true,
+	},
+	diff_viewer = "diffview",
+})
+
+vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<CR>", { desc = "Neogit status" })
+vim.keymap.set("n", "<leader>gc", function()
+	neogit.open({ "commit" })
+end, { desc = "Neogit commit" })
+vim.keymap.set("n", "<leader>gp", function()
+	neogit.open({ "push" })
+end, { desc = "Neogit push" })
 
 -- Harpoon 2
 local harpoon = require("harpoon")

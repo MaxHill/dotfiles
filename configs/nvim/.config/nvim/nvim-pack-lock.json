@@ -17,6 +17,10 @@
       "rev": "9b8fa5e0b78168f68bee9bf886dc20f287c61e02",
       "src": "https://github.com/stevearc/conform.nvim"
     },
+    "diffview.nvim": {
+      "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
+      "src": "https://github.com/sindrets/diffview.nvim"
+    },
     "github-nvim-theme": {
       "rev": "c106c9472154d6b2c74b74565616b877ae8ed31d",
       "src": "https://github.com/projekt0n/github-nvim-theme"
@@ -65,6 +69,10 @@
     "neogen": {
       "rev": "d7f9461727751fb07f82011051338a9aba07581d",
       "src": "https://github.com/danymat/neogen"
+    },
+    "neogit": {
+      "rev": "43ea1a0854052e583f647e0b35879f0158a70a78",
+      "src": "https://github.com/NeogitOrg/neogit"
     },
     "nvim-dap": {
       "rev": "a479e25ed5b5d331fb46ee4b9e160ff02ac64310",
