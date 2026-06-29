@@ -82,7 +82,7 @@ alias vim="nvim"
 #  ------------------------------------------------------------------------ 
 function fish_prompt
     # Show current directory in ~ format
-    set_color 575279  # Text from rosé pine dawn
+    set_color d4be98  # Gruvbox Material foreground
     echo -n (pwd | sed "s|$HOME|~|")
     set_color normal
 
@@ -96,10 +96,10 @@ function fish_prompt
 
             # Check if working tree is dirty
             if test (git status --porcelain 2>/dev/null | wc -l) -gt 0
-                set_color b4637a  # Love (red) for dirty
+                set_color ea6962  # Red for dirty
                 echo -n " $branch*"
             else
-                set_color 286983  # Pine (teal) for clean
+                set_color a9b665  # Green for clean
                 echo -n " $branch"
             end
             set_color normal
@@ -107,7 +107,7 @@ function fish_prompt
     end
 
     echo
-    set_color 907aa9  # Iris (purple) for prompt
+    set_color d8a657  # Yellow for prompt
     echo -n "❯ "
     set_color normal
 end

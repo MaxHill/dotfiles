@@ -9,6 +9,7 @@ require("user.types")
 vim.pack.add({
 	{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
 	{ src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
+	{ src = "https://github.com/sainnhe/gruvbox-material" },
 	{ src = "https://github.com/echasnovski/mini.surround" },
 	{ src = "https://github.com/echasnovski/mini.comment" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
@@ -131,7 +132,10 @@ end, { desc = "Replace Harpoon item 4" })
 -- -----------------------------
 require("telescope").setup({
 	defaults = {
-		-- Add any custom defaults here
+		layout_strategy = "bottom_pane",
+		layout_config = {
+			height = 0.4,
+		},
 	},
 	extensions = {
 		fzf = {
@@ -499,18 +503,11 @@ end, { silent = true })
 
 -- Colors
 -- -----------------------------
-vim.cmd.packadd("catppuccin")
-require("catppuccin").setup({
-	flavour = "mocha",
-	color_overrides = {
-		mocha = {
-			base = "#11111b",
-			mantle = "#0b0b12",
-			crust = "#05050a",
-		},
-	},
-})
-vim.cmd("colorscheme catppuccin")
+vim.cmd.packadd("gruvbox-material")
+vim.g.gruvbox_material_background = "hard"
+vim.g.gruvbox_material_foreground = "material"
+vim.g.gruvbox_material_enable_italic = 1
+vim.cmd("colorscheme gruvbox-material")
 
 vim.cmd(":hi statusline guibg=NONE")
 
