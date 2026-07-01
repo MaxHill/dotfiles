@@ -1,0 +1,20 @@
+- name: Ensure user LaunchAgents directory exists
+  file:
+    path: "{{ lookup('env', 'HOME') }}/Library/LaunchAgents"
+    state: directory
+    mode: "0755"
+  when: ansible_distribution == "MacOSX"
+  tags:
+    - launchagents
+    - mhc
+    - mac
+
+- name: Reload mhc chron launch agent
+  shell: launchctl bootout gui/$(id -u) "{{ lookup('env', 'HOME') }}/Library/LaunchAgents/local.mhc.chron.plist" 2>/dev/null || true; launchctl bootstrap gui/$(id -u) "{{ lookup('env', 'HOME') }}/Library/LaunchAgents/local.mhc.chron.plist"; launchctl enable gui/$(id -u)/local.mhc.chron; launchctl kickstart -k gui/$(id -u)/local.mhc.chron
+  when:
+    - ansible_distribution == "MacOSX"
+    - lookup('fileglob', lookup('env', 'HOME') + '/Library/LaunchAgents/local.mhc.chron.plist') | length > 0
+  tags:
+    - launchagents
+    - mhc
+    - mac

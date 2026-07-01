@@ -6,9 +6,31 @@
     - settings
     - shell
 
-- name: Change user shell to  fish
+- name: Get current user shell on macOS
+  command: "dscl . -read /Users/{{ the_user }} UserShell"
+  changed_when: false
+  register: current_user_shell
+  when: ansible_distribution == "MacOSX"
+  tags:
+    - settings
+    - shell
+
+- name: Change user shell to fish on macOS
   become: yes
-  user: name={{the_user}} shell={{ fish_path.stdout }}
+  command: "dscl . -create /Users/{{ the_user }} UserShell {{ fish_path.stdout }}"
+  when:
+    - ansible_distribution == "MacOSX"
+    - fish_path.stdout not in current_user_shell.stdout
+  tags:
+    - settings
+    - shell
+
+- name: Change user shell to fish on Linux
+  become: yes
+  user:
+    name: "{{ the_user }}"
+    shell: "{{ fish_path.stdout }}"
+  when: ansible_distribution != "MacOSX"
   tags:
     - settings
     - shell

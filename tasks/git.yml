@@ -1,7 +1,8 @@
 - name: Set git credentials helper
   community.general.git_config:
-    name: credentials.helpers
+    name: credential.helper
     value: osxkeychain
+    scope: global
   when: ansible_distribution == "MacOSX"
   tags:
     - settings
@@ -9,8 +10,9 @@
 
 - name: Set git credentials helper in Linux
   community.general.git_config:
-    name: credentials.helpers
+    name: credential.helper
     value: store
+    scope: global
   when: ansible_distribution == "Ubuntu"
   tags:
     - settings

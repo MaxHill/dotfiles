@@ -45,6 +45,7 @@
       - "watchexec"
       - "coreutils" # core BSD programs like date (aliased to gdate)
       - "mise" # Version manager for dev tools
+      - "nom" # Terminal RSS reader
 
       # Finance / Accounting
       - "beancount"      # Double-entry accounting tool
@@ -121,7 +122,7 @@
       - "docker" 
       # window manager
       - "nikitabobko/tap/aerospace"
-    state: latest
+    state: present
   when: ansible_distribution == "MacOSX"
   tags:
     - dependencies 
