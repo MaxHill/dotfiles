@@ -1,0 +1,8 @@
+# Pi credentials and machine-local state
+.pi/agent/auth.json
+.pi/agent/trust.json
+.pi/agent/models-store.json
+.pi/agent/sessions/
+
+# Package installations are restored from settings.json
+.pi/agent/npm/
