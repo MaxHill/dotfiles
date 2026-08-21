@@ -307,7 +307,6 @@ function on_attach(client, bufnr)
 			pcall(vim.lsp.inlay_hint.enable, bufnr, true)
 		end
 	end
-
 end
 
 -- Make on_attach available globally for language configs
@@ -435,7 +434,7 @@ dapui.setup({
 -- Auto-open/close UI (layout based on language preference)
 dap.listeners.after.event_initialized["dapui_config"] = function()
 	local ft = vim.bo.filetype
-	local preferred_layout = dap_layout_map[ft] or 1  -- Default to layout 1 (console)
+	local preferred_layout = dap_layout_map[ft] or 1 -- Default to layout 1 (console)
 	dapui.open({ layout = preferred_layout })
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
@@ -471,6 +470,45 @@ vim.keymap.set("n", "<space>dC", dap.run_to_cursor)
 vim.keymap.set("n", "<space>dT", dap.terminate)
 
 require("netcoredbg-macOS-arm64").setup(require("dap"))
+
+vim.keymap.set("x", "<leader>a", function()
+	local selection = vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."), { type = vim.fn.mode() })
+	local path =
+		vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p"):gsub("&", "&amp;"):gsub("<", "&lt;"):gsub(">", "&gt;")
+	local prompt = table.concat(
+		vim.list_extend({
+			"<source-file>" .. path .. "</source-file>",
+			"<selected-code>",
+		}, vim.list_extend(selection, { "</selected-code>", "", "" })),
+		"\n"
+	)
+	local command = "pi --model claude-sonnet-4.5 --thinking off --no-session --no-extensions --no-skills"
+		.. " --no-context-files --no-prompt-templates --no-themes"
+	local pane = vim.trim(vim.fn.system({
+		"tmux",
+		"split-window",
+		"-h",
+		"-l",
+		"30%",
+		"-d",
+		"-P",
+		"-F",
+		"#{pane_id}",
+		command,
+	}))
+
+	if vim.v.shell_error ~= 0 or pane == "" then
+		vim.notify("Failed to open Pi pane", vim.log.levels.ERROR)
+		return
+	end
+
+	local buffer = "pi-prompt-" .. vim.fn.getpid()
+	vim.fn.system({ "tmux", "set-buffer", "-b", buffer, prompt })
+	vim.defer_fn(function()
+		vim.fn.system({ "tmux", "paste-buffer", "-p", "-b", buffer, "-d", "-t", pane })
+		vim.fn.system({ "tmux", "select-pane", "-t", pane })
+	end, 1000)
+end, { desc = "Ask Pi about selection" })
 
 -- Snippets
 -- -----------------------------
@@ -509,7 +547,36 @@ vim.g.gruvbox_material_foreground = "material"
 vim.g.gruvbox_material_enable_italic = 1
 vim.cmd("colorscheme gruvbox-material")
 
-vim.cmd(":hi statusline guibg=NONE")
+local function apply_oled_background()
+	local black = "#000000"
+	local groups = {
+		"Normal",
+		"NormalNC",
+		"SignColumn",
+		"EndOfBuffer",
+		"LineNr",
+		"CursorLineNr",
+		"NormalFloat",
+		"FloatBorder",
+		"Pmenu",
+		"StatusLine",
+		"StatusLineNC",
+		"TabLine",
+		"TabLineFill",
+	}
+
+	for _, group in ipairs(groups) do
+		vim.api.nvim_set_hl(0, group, { bg = black })
+	end
+
+	vim.api.nvim_set_hl(0, "TabLineSel", { bg = "#d8a657", fg = black, bold = true })
+end
+
+apply_oled_background()
+vim.api.nvim_create_autocmd("ColorScheme", {
+	pattern = "gruvbox-material",
+	callback = apply_oled_background,
+})
 
 -- -----------------------------
 -- Keymaps
@@ -536,7 +603,7 @@ end
 
 vim.keymap.set("n", "<leader>o", ":update<CR> :source<CR>")
 vim.keymap.set("n", "<leader>x", ":make<CR>", { desc = "Run :make" })
-vim.keymap.set("n", "<leader>mb", ":make<CR>", { desc = "Mise build" })
+vim.keymap.set("n", "<leader>mb", ":make build<CR>", { desc = "Mise build" })
 vim.keymap.set("n", "<leader>mr", function()
 	run_mise_task("run")
 end, { desc = "Mise run" })
@@ -603,61 +670,13 @@ autocmd("TextYankPost", {
 	end,
 })
 
--- Run :make from the nearest mise root
 local make_group = augroup("MakeQuickfix", {})
-autocmd({ "BufEnter", "BufFilePost" }, {
-	group = make_group,
-	pattern = "*",
-	callback = function(args)
-		if vim.bo[args.buf].buftype ~= "" then
-			return
-		end
-
-		local path = vim.api.nvim_buf_get_name(args.buf)
-		if path == "" then
-			return
-		end
-
-		local root = find_mise_root(path)
-		vim.b[args.buf].make_root = root
-		vim.api.nvim_set_option_value(
-			"makeprg",
-			string.format("mise -C %s run --raw build", vim.fn.shellescape(root)),
-			{ buf = args.buf }
-		)
-
-		local errorformat = vim.api.nvim_get_option_value("errorformat", { buf = args.buf })
-		local mise_ignored_output = ",%-G[build] $ %.%#,%-G[build] ERROR %.%#"
-		if not errorformat:find("%%%-G%[build%] %$ %%.%%#", 1) then
-			vim.api.nvim_set_option_value("errorformat", errorformat .. mise_ignored_output, { buf = args.buf })
-		end
-	end,
-})
-
-autocmd("QuickFixCmdPre", {
-	group = make_group,
-	pattern = "make",
-	callback = function()
-		local root = vim.b.make_root
-		if not root or root == "" then
-			return
-		end
-
-		vim.w.make_prev_cwd = vim.fn.getcwd(0)
-		vim.cmd.lcd(vim.fn.fnameescape(root))
-	end,
-})
 
 -- Open quickfix after :make when there are entries
 autocmd("QuickFixCmdPost", {
 	group = make_group,
 	pattern = "make",
 	callback = function()
-		local prev_cwd = vim.w.make_prev_cwd
-		if prev_cwd and prev_cwd ~= "" then
-			vim.cmd.lcd(vim.fn.fnameescape(prev_cwd))
-			vim.w.make_prev_cwd = nil
-		end
 		vim.cmd.cwindow()
 	end,
 })

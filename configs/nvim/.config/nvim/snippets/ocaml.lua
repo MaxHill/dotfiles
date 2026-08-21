@@ -120,4 +120,20 @@ let%hegel_test {} tc =
       }
     )
   ),
+
+  s(
+    "etest",
+    fmt(
+      [[
+let%expect_test "{}" =
+  {}
+  [%expect {{| |}}]
+;;
+]],
+      {
+        i(1),
+        i(2),
+      }
+    )
+  ),
 }

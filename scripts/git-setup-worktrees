@@ -27,11 +27,29 @@ if [ ! -d "review" ]; then
     git worktree add --detach review "$source_branch"
 fi
 
+if [ ! -d "fuzz" ]; then
+    echo "Creating fuzz worktree"
+    git worktree add --detach fuzz "$source_branch"
+fi
+
+if [ ! -d "scratch" ]; then
+    echo "Creating scratch worktree"
+    git worktree add --detach scratch "$source_branch"
+fi
+
+
+if [ ! -f "make.ts" ]; then
+    echo "Creating make.ts file"
+    touch make.ts 
+fi
 
 if [ ! -f "mise.local.toml" ]; then
     echo "Creating mise file"
     cat > mise.local.toml <<'EOF'
 [tasks.build]
+test = "echo 'TODO: define build task in mise.local.toml'; exit 0"
 run = "echo 'TODO: define build task in mise.local.toml'; exit 0"
+deploy = "echo 'TODO: define build task in mise.local.toml'; exit 0"
+fuzz = "echo 'TODO: define build task in mise.local.toml'; exit 0"
 EOF
 fi

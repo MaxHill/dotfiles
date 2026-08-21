@@ -1,5 +1,6 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR --export --path RIPGREP_CONFIG_PATH:/Users/8717/\x2eripgreprc
+SETUVAR --export SOPS_AGE_KEY_FILE:/Users/8717/\x2econfig/sops/age/keys\x2etxt
 SETUVAR __fish_initialized:4300
 SETUVAR fish_user_paths:/Applications/Ghostty\x2eapp/Contents/MacOS

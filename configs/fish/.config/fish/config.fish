@@ -133,6 +133,9 @@ end
 set -x ASPNETCORE_ENVIRONMENT "Development"
 set -x ASPNETCORE_URLS "https://localhost:5000/"
 
+# SOPS
+set -Ux SOPS_AGE_KEY_FILE $HOME/.config/sops/age/keys.txt
+
 # Default editor
 set -gx EDITOR nvim
 
@@ -153,3 +156,12 @@ set -Ux RIPGREP_CONFIG_PATH ~/.ripgreprc
 set -x PATH $PATH /opt/homebrew/bin
 
 set -gx PATH /Users/8717/.local/bin $PATH
+
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+test -r '/Users/8717/.opam/opam-init/init.fish' && source '/Users/8717/.opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true
+# END opam configuration

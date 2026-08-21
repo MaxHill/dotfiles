@@ -1,14 +1,16 @@
 {
-  "mcpServers": {
-    "chrome": {
-      "command": "npx",
-      "args": ["-y", "chrome-local-mcp"],
-      "lifecycle": "lazy"
-    },
-    "figma": {
-      "command": "npx",
-      "args": ["-y", "figma-developer-mcp", "--stdio"],
-      "lifecycle": "lazy"
+  "mcp": {
+    "playwright": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@playwright/mcp@0.0.79",
+        "--executable-path",
+        "/usr/bin/chromium"
+      ],
+      "enabled": true,
+      "timeout": 30000
     }
   }
 }

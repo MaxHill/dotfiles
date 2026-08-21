@@ -18,3 +18,5 @@ feeds:
     name: glfmn
   - url: https://piccalil.li/feed.xml
     name: Piccalilli
+  - url: https://neugierig.org/software/blog/atom.xml
+    name: neugierig

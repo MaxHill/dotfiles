@@ -1,7 +1,7 @@
 # Gruvbox Material Dark Hard for Ghostty
 # https://github.com/sainnhe/gruvbox-material
 
-palette = 0=#1d2021
+palette = 0=#000000
 palette = 1=#ea6962
 palette = 2=#a9b665
 palette = 3=#d8a657
@@ -19,11 +19,11 @@ palette = 13=#d3869b
 palette = 14=#89b482
 palette = 15=#ddc7a1
 
-background = #1d2021
+background = #000000
 foreground = #d4be98
 
 cursor-color = #d4be98
-cursor-text = #1d2021
+cursor-text = #000000
 
-selection-background = #3c3836
+selection-background = #2a2a2a
 selection-foreground = #ddc7a1
