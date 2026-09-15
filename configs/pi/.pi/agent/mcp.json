@@ -1,5 +1,16 @@
 {
   "mcp": {
+    "startup": "eager",
+    "chrome": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "chrome-local-mcp"
+      ],
+      "enabled": true,
+      "timeout": 30000
+    },
     "playwright": {
       "type": "local",
       "command": [
@@ -7,7 +18,7 @@
         "-y",
         "@playwright/mcp@0.0.79",
         "--executable-path",
-        "/usr/bin/chromium"
+        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
       ],
       "enabled": true,
       "timeout": 30000

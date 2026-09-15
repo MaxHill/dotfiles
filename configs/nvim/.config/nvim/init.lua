@@ -547,7 +547,7 @@ vim.g.gruvbox_material_foreground = "material"
 vim.g.gruvbox_material_enable_italic = 1
 vim.cmd("colorscheme gruvbox-material")
 
-local function apply_oled_background()
+local function apply_black_background()
 	local black = "#000000"
 	local groups = {
 		"Normal",
@@ -572,10 +572,10 @@ local function apply_oled_background()
 	vim.api.nvim_set_hl(0, "TabLineSel", { bg = "#d8a657", fg = black, bold = true })
 end
 
-apply_oled_background()
+apply_black_background()
 vim.api.nvim_create_autocmd("ColorScheme", {
 	pattern = "gruvbox-material",
-	callback = apply_oled_background,
+	callback = apply_black_background,
 })
 
 -- -----------------------------

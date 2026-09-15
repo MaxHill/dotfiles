@@ -1,11 +1,13 @@
 {
-  "lastChangelogVersion": "0.84.1",
+  "lastChangelogVersion": "0.85.1",
   "theme": "dark",
   "defaultProvider": "github-copilot",
-  "defaultModel": "gpt-5.3-codex",
+  "defaultModel": "mai-code-1.1-flash",
   "defaultThinkingLevel": "medium",
   "packages": [
     "git:github.com/MaxHill/pi-web-tools",
-    "git:github.com/MaxHill/pi-mcp"
-  ]
+    "git:github.com/MaxHill/pi-mcp",
+    "npm:@plannotator/pi-extension"
+  ],
+  "hideThinkingBlock": true
 }
