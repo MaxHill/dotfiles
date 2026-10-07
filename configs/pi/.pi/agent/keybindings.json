@@ -1,0 +1,9 @@
+{
+  "tui.select.up": ["up", "ctrl+p"],
+  "tui.select.down": ["down", "ctrl+n"],
+  "tui.select.confirm": ["enter", "ctrl+y"],
+  "app.model.cycleForward": "alt+p",
+  "app.model.cycleBackward": "alt+o",
+  "app.session.togglePath": "alt+shift+o",
+  "app.session.toggleNamedFilter": "alt+n"
+}
