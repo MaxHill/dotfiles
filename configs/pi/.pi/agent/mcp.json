@@ -1,27 +1,39 @@
 {
-  "mcp": {
-    "startup": "eager",
+  "mcpServers": {
     "chrome": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "chrome-local-mcp"
-      ],
-      "enabled": true,
-      "timeout": 30000
+      "command": "npx",
+      "args": ["-y", "chrome-local-mcp"],
+      "timeout": 30,
+      "description": "Control a local Chrome browser"
     },
     "playwright": {
-      "type": "local",
-      "command": [
-        "npx",
+      "command": "npx",
+      "args": [
         "-y",
         "@playwright/mcp@0.0.79",
         "--executable-path",
         "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
       ],
-      "enabled": true,
-      "timeout": 30000
+      "timeout": 30,
+      "description": "Automate and inspect web pages with Playwright"
+    },
+    "jira": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "--env-file",
+        "/Users/8717/.pi/agent/mcp-atlassian.env",
+        "ghcr.io/sooperset/mcp-atlassian:latest"
+      ],
+      "timeout": 30,
+      "description": "Search and read Jira issues, boards, and sprints"
+    },
+    "figma": {
+      "command": "/Users/8717/.pi/agent/bin/figma-mcp",
+      "timeout": 30,
+      "description": "Read Figma designs and download assets"
     }
   }
 }

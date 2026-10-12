@@ -4,9 +4,9 @@
   "defaultProvider": "github-copilot",
   "defaultModel": "mai-code-1.1-flash",
   "defaultThinkingLevel": "medium",
+  "defaultTools": ["+codemode"],
   "packages": [
     "git:github.com/MaxHill/pi-web-tools",
-    "git:github.com/MaxHill/pi-mcp",
     "npm:@plannotator/pi-extension"
   ],
   "hideThinkingBlock": true

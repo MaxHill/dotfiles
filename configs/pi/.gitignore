@@ -1,5 +1,7 @@
 # Pi credentials and machine-local state
 .pi/agent/auth.json
+.pi/agent/mcp-auth.json
+.pi/agent/mcp.log*
 .pi/agent/trust.json
 .pi/agent/models-store.json
 .pi/agent/sessions/
